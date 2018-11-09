@@ -10,6 +10,7 @@ const Grid = styled.ul`
   row-gap: 1rem;
   column-gap: 1rem;
   padding: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 `;
 
 const CurrentWord = styled.h2`
@@ -51,17 +52,29 @@ export default class WordGrid extends Component {
     return letters.join("");
   }
   render() {
+    const directions = [
+      "top",
+      "topright",
+      "right",
+      "bottomright",
+      "bottom",
+      "bottomleft",
+      "left",
+      "topleft"
+    ];
     return (
       <div>
         <Grid>
           {this.props.letters.map((letter, index) => (
             <Tile
               letter={letter}
-              onMouseDown={this.handleMouseDown.bind(this, index)}
-              onMouseUp={this.handleMouseUp.bind(this, index)}
-              onMouseEnter={this.handleMouseEnter.bind(this, index)}
-              onMouseLeave={this.handleMouseLeave.bind(this)}
+              onPointerDown={this.handleMouseDown.bind(this, index)}
+              onPointerUp={this.handleMouseUp.bind(this, index)}
+              onPointerEnter={this.handleMouseEnter.bind(this, index)}
+              onPointerLeave={this.handleMouseLeave.bind(this)}
+              touch-action="none"
               key={index}
+              arrow={directions[index % directions.length]}
             />
           ))}
         </Grid>
