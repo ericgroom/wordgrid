@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import _ from "lodash";
 import styled from "styled-components";
 import Tile from "./Tile";
+import MouseListener from "./MouseListener";
 
 const Grid = styled.ul`
   display: grid;
@@ -18,18 +20,16 @@ const CurrentWord = styled.h2`
 `;
 
 export default class WordGrid extends Component {
+  static propTypes = {
+    letters: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onWord: PropTypes.func
+  };
   state = {
     currentIndex: null,
     currentPath: null
   };
   handleMouseDown(index) {
-    console.log(`mouseDown ${index}`);
     this.setState({ currentPath: [index] });
-  }
-  handleMouseUp(index) {
-    console.log(`mouseUp ${index}`);
-    console.log(this.state.currentPath);
-    this.setState({ currentPath: null });
   }
   handleMouseEnter(index) {
     if (this.state.currentPath) {
@@ -51,6 +51,10 @@ export default class WordGrid extends Component {
     const letters = this.state.currentPath.map(i => this.props.letters[i]);
     return letters.join("");
   }
+  endPath() {
+    this.props.onWord(this.state.currentPath);
+    this.setState({ currentPath: null });
+  }
   render() {
     const directions = [
       "top",
@@ -64,20 +68,20 @@ export default class WordGrid extends Component {
     ];
     return (
       <div>
-        <Grid>
-          {this.props.letters.map((letter, index) => (
-            <Tile
-              letter={letter}
-              onPointerDown={this.handleMouseDown.bind(this, index)}
-              onPointerUp={this.handleMouseUp.bind(this, index)}
-              onPointerEnter={this.handleMouseEnter.bind(this, index)}
-              onPointerLeave={this.handleMouseLeave.bind(this)}
-              touch-action="none"
-              key={index}
-              arrow={directions[index % directions.length]}
-            />
-          ))}
-        </Grid>
+        <MouseListener onMouseUp={this.endPath.bind(this)}>
+          <Grid>
+            {this.props.letters.map((letter, index) => (
+              <Tile
+                letter={letter}
+                onMouseDown={this.handleMouseDown.bind(this, index)}
+                onMouseEnter={this.handleMouseEnter.bind(this, index)}
+                onMouseLeave={this.handleMouseLeave.bind(this)}
+                key={index}
+                arrow={directions[index % directions.length]}
+              />
+            ))}
+          </Grid>
+        </MouseListener>
         <CurrentWord>{this.currentWord()}</CurrentWord>
       </div>
     );

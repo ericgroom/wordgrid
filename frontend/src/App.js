@@ -40,7 +40,10 @@ class App extends Component {
     return (
       <div className="App">
         <Container>
-          <WordGrid letters={this.state.grid} />
+          <WordGrid
+            letters={this.state.grid}
+            onWord={word => console.log(`<App /> onWord: ${word}`)}
+          />
         </Container>
       </div>
     );
