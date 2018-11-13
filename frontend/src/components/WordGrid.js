@@ -4,6 +4,7 @@ import _ from "lodash";
 import styled from "styled-components";
 import Tile from "./Tile";
 import MouseListener from "./MouseListener";
+import TouchListener from "./TouchListener";
 
 const Grid = styled.ul`
   display: grid;
@@ -28,10 +29,13 @@ export default class WordGrid extends Component {
     currentIndex: null,
     currentPath: null
   };
-  handleMouseDown(index) {
+  gridRef = React.createRef();
+  handleMouseDown(index, e) {
+    e.preventDefault();
     this.setState({ currentPath: [index] });
   }
-  handleMouseEnter(index) {
+  handleMouseEnter(index, e) {
+    e.preventDefault();
     if (this.state.currentPath) {
       this.setState(({ currentPath }) => ({
         currentIndex: index,
@@ -41,7 +45,8 @@ export default class WordGrid extends Component {
       this.setState({ currentIndex: index });
     }
   }
-  handleMouseLeave() {
+  handleMouseLeave(e) {
+    e.preventDefault();
     this.setState({ currentIndex: null });
   }
   currentWord() {
@@ -68,20 +73,22 @@ export default class WordGrid extends Component {
     ];
     return (
       <div>
-        <MouseListener onMouseUp={this.endPath.bind(this)}>
-          <Grid>
-            {this.props.letters.map((letter, index) => (
-              <Tile
-                letter={letter}
-                onMouseDown={this.handleMouseDown.bind(this, index)}
-                onMouseEnter={this.handleMouseEnter.bind(this, index)}
-                onMouseLeave={this.handleMouseLeave.bind(this)}
-                key={index}
-                arrow={directions[index % directions.length]}
-              />
-            ))}
-          </Grid>
-        </MouseListener>
+        <TouchListener>
+          <MouseListener onMouseUp={this.endPath.bind(this)}>
+            <Grid ref={this.gridRef}>
+              {this.props.letters.map((letter, index) => (
+                <Tile
+                  letter={letter}
+                  onPointerDown={this.handleMouseDown.bind(this, index)}
+                  onPointerEnter={this.handleMouseEnter.bind(this, index)}
+                  onPointerLeave={this.handleMouseLeave.bind(this)}
+                  key={index}
+                  // arrow={directions[index % directions.length]}
+                />
+              ))}
+            </Grid>
+          </MouseListener>
+        </TouchListener>
         <CurrentWord>{this.currentWord()}</CurrentWord>
       </div>
     );

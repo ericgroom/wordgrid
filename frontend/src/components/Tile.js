@@ -55,6 +55,7 @@ const Background = styled.div`
   justify-content: center;
   border-radius: 0.2rem;
   box-shadow: 0 2px 3px 1px darkgreen;
+  pointer-events: all;
 
   &:hover {
     transform: translate(0px, -5px);
