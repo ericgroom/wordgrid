@@ -5,8 +5,14 @@ import WordGrid from "./components/WordGrid";
 injectGlobal`
   body {
     background-color: #FFF8E7;
+    .mobile-warning {
+      display: none;
+    }
     @media (hover:none) {
-      background-color: red;
+      .mobile-warning {
+        display: block;
+        color: red;
+      }
     }
   }
   /* https://stackoverflow.com/questions/29894997/prevent-ios-bounce-without-disabling-scroll-ability */
@@ -59,6 +65,9 @@ class App extends Component {
   render() {
     return (
       <>
+        <p className="mobile-warning">
+          This website may not work on your mobile device.
+        </p>
         <Container>
           <WordGrid
             letters={this.state.grid}
