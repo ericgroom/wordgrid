@@ -5,12 +5,31 @@ import WordGrid from "./components/WordGrid";
 injectGlobal`
   body {
     background-color: #FFF8E7;
+    @media (hover:none) {
+      background-color: red;
+    }
+  }
+  /* https://stackoverflow.com/questions/29894997/prevent-ios-bounce-without-disabling-scroll-ability */
+  html {
+    position: fixed;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
   }
 `;
 
 const Container = styled.div`
-  margin: 10%;
+  width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   pointer-events: none;
 `;
@@ -39,12 +58,25 @@ class App extends Component {
 
   render() {
     return (
-      <Container>
-        <WordGrid
-          letters={this.state.grid}
-          onWord={word => console.log(`<App /> onWord: ${word}`)}
-        />
-      </Container>
+      <>
+        <Container>
+          <WordGrid
+            letters={this.state.grid}
+            onWord={word => console.log(`<App /> onWord: ${word}`)}
+          />
+        </Container>
+        <p>This should be scrollable content</p>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <p>I hope.</p>
+      </>
     );
   }
 }

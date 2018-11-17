@@ -2,22 +2,28 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import styled from "styled-components";
+import LineTo from "react-lineto";
 import Tile from "./Tile";
-import MouseListener from "./MouseListener";
-import TouchListener from "./TouchListener";
+import PointerListener from "./PointerListener";
 
 const Grid = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 4rem);
   grid-template-rows: repeat(4, 4rem);
-  row-gap: 1rem;
-  column-gap: 1rem;
+  gap: 1rem;
   padding: 0;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  pointer-events: none;
+
+  .tile {
+    z-index: 5;
+  }
 `;
 
 const CurrentWord = styled.h2`
   text-align: center;
+  height: 1rem;
+  visibility: ${({ show }) => (show ? "" : "hidden")};
 `;
 
 export default class WordGrid extends Component {
@@ -29,7 +35,6 @@ export default class WordGrid extends Component {
     currentIndex: null,
     currentPath: null
   };
-  gridRef = React.createRef();
   handleMouseDown(index, e) {
     e.preventDefault();
     this.setState({ currentPath: [index] });
@@ -61,36 +66,38 @@ export default class WordGrid extends Component {
     this.setState({ currentPath: null });
   }
   render() {
-    const directions = [
-      "top",
-      "topright",
-      "right",
-      "bottomright",
-      "bottom",
-      "bottomleft",
-      "left",
-      "topleft"
-    ];
     return (
-      <div>
-        <TouchListener>
-          <MouseListener onMouseUp={this.endPath.bind(this)}>
-            <Grid ref={this.gridRef}>
-              {this.props.letters.map((letter, index) => (
-                <Tile
-                  letter={letter}
-                  onPointerDown={this.handleMouseDown.bind(this, index)}
-                  onPointerEnter={this.handleMouseEnter.bind(this, index)}
-                  onPointerLeave={this.handleMouseLeave.bind(this)}
-                  key={index}
-                  // arrow={directions[index % directions.length]}
+      <>
+        <PointerListener onPointerUp={this.endPath.bind(this)}>
+          <Grid>
+            {this.props.letters.map((letter, index) => (
+              <Tile
+                letter={letter}
+                onPointerDown={this.handleMouseDown.bind(this, index)}
+                onPointerEnter={this.handleMouseEnter.bind(this, index)}
+                onPointerLeave={this.handleMouseLeave.bind(this)}
+                className={`tile tile-${index}`}
+                key={index}
+              />
+            ))}
+          </Grid>
+          {this.state.currentPath &&
+            this.state.currentPath.slice(1).map((node, i) => {
+              const previous = this.state.currentPath[i]; // since we slice, it's not i - 1
+              return (
+                <LineTo
+                  from={`tile-${previous}`}
+                  to={`tile-${node}`}
+                  borderColor="lightgreen"
+                  borderWidth="10px"
                 />
-              ))}
-            </Grid>
-          </MouseListener>
-        </TouchListener>
-        <CurrentWord>{this.currentWord()}</CurrentWord>
-      </div>
+              );
+            })}
+        </PointerListener>
+        <CurrentWord show={!!this.state.currentPath}>
+          {this.currentWord()}
+        </CurrentWord>
+      </>
     );
   }
 }
