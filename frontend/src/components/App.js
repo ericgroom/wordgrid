@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import styled, { injectGlobal } from "styled-components";
-import WordGrid from "./components/WordGrid";
-import Stats from "./components/Stats";
-import Messages from "./components/Messages";
+import WordGrid from "./WordGrid";
+import Stats from "./Stats";
+import Messages from "./Messages";
 
 injectGlobal`
   body {
