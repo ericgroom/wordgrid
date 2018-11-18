@@ -8,9 +8,12 @@ import socketMiddleware from "./socketMiddleware";
 import { composeWithDevTools } from "redux-devtools-extension";
 import * as serviceWorker from "./serviceWorker";
 
+const composeEnhancers = composeWithDevTools({
+  shouldHotReload: false
+});
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(socketMiddleware("localhost:3001")))
+  composeEnhancers(applyMiddleware(socketMiddleware("localhost:3001/chat")))
 );
 
 ReactDOM.render(
