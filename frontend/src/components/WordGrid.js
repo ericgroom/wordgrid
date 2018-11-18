@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import _ from "lodash";
 import styled from "styled-components";
 import LineTo from "react-lineto";
 import Tile from "./Tile";
 import PointerListener from "./PointerListener";
+import { appendOrRevert, bfs, gridNeighbors } from "../utils";
 
 const Grid = styled.ul`
   display: grid;
@@ -42,10 +42,18 @@ export default class WordGrid extends Component {
   handleMouseEnter(index, e) {
     e.preventDefault();
     if (this.state.currentPath) {
-      this.setState(({ currentPath }) => ({
-        currentIndex: index,
-        currentPath: [..._.takeWhile(currentPath, i => i !== index), index]
-      }));
+      this.setState(({ currentPath }) => {
+        // only allows including an index once
+        let simplifiedPath = appendOrRevert(currentPath, index);
+        // make sure the path is walkable and fill in any gaps
+        if (simplifiedPath.length > 1) {
+          const current = simplifiedPath[simplifiedPath.length - 1];
+          const previous = simplifiedPath[simplifiedPath.length - 2];
+          const expandedPath = bfs(previous, current, gridNeighbors(4));
+          simplifiedPath = [...simplifiedPath.slice(0, -2), ...expandedPath];
+        }
+        return { currentIndex: index, currentPath: simplifiedPath };
+      });
     } else {
       this.setState({ currentIndex: index });
     }
@@ -89,7 +97,8 @@ export default class WordGrid extends Component {
                   from={`tile-${previous}`}
                   to={`tile-${node}`}
                   borderColor="lightgreen"
-                  borderWidth="10px"
+                  borderWidth={10}
+                  key={`line-${previous}-${node}`}
                 />
               );
             })}
