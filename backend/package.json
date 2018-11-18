@@ -9,7 +9,6 @@
   "author": "",
   "dependencies": {
     "express": "^4.16.3",
-    "rethinkdb": "^2.3.3",
     "socket.io": "^2.1.1"
   },
   "devDependencies": {
