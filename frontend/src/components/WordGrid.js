@@ -41,8 +41,10 @@ class WordGrid extends Component {
     e.preventDefault();
   }
   endPath() {
-    this.props.onWord(this.props.currentPath);
-    this.props.endPath();
+    if (this.props.currentPath) {
+      this.props.onWord(this.props.currentPath);
+      this.props.endPath();
+    }
   }
   render() {
     return (

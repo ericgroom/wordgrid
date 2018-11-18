@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styled, { injectGlobal } from "styled-components";
 import WordGrid from "./components/WordGrid";
+import Stats from "./components/Stats";
+import Messages from "./components/Messages";
 
 injectGlobal`
   body {
@@ -55,10 +57,10 @@ class App extends Component {
       "j",
       "k",
       "l",
-      "p",
+      "c",
       "o",
       "o",
-      "p"
+      "l"
     ]
   };
 
@@ -74,17 +76,8 @@ class App extends Component {
             onWord={word => console.log(`<App /> onWord: ${word}`)}
           />
         </Container>
-        <p>This should be scrollable content</p>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <p>I hope.</p>
+        <Stats />
+        <Messages />
       </>
     );
   }

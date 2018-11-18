@@ -1,10 +1,29 @@
 import _ from "lodash";
+import { BEGIN_PATH, EXTEND_PATH, END_PATH } from "../actions";
 import { appendOrRevert, bfs, gridNeighbors } from "../utils";
 
 const initialState = {
   path: null,
   gridSize: 4,
-  score: 0
+  score: 0,
+  letters: [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "c",
+    "o",
+    "o",
+    "l"
+  ]
 };
 
 function extendPath(path, index, gridSize) {
@@ -22,19 +41,19 @@ function extendPath(path, index, gridSize) {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case "BEGIN_PATH":
-      return Object.assign({}, state, {
-        path: [action.index]
-      });
-    case "EXTEND_PATH":
-      return Object.assign({}, state, {
+    case BEGIN_PATH:
+      return { ...state, path: [action.index] };
+    case EXTEND_PATH:
+      return {
+        ...state,
         path: extendPath(state.path, action.index, state.gridSize)
-      });
-    case "END_PATH":
-      return Object.assign({}, state, {
+      };
+    case END_PATH:
+      return {
+        ...state,
         path: null,
         score: state.score + _.get(state, "path.length", 0)
-      });
+      };
     default:
       return state;
   }
