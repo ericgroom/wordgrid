@@ -1,20 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
 import Root from "./components/Root";
 import rootReducer from "./reducers";
-import socketMiddleware from "./socketMiddleware";
+import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import * as serviceWorker from "./serviceWorker";
+import rootSaga from "./sagas";
+
+const sagaMiddleware = createSagaMiddleware();
 
 const composeEnhancers = composeWithDevTools({
   shouldHotReload: false
 });
 const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(socketMiddleware("localhost:3001/chat")))
+  composeEnhancers(applyMiddleware(sagaMiddleware))
 );
+
+sagaMiddleware.run(rootSaga("localhost:3001/chat"));
 
 ReactDOM.render(<Root store={store} />, document.getElementById("root"));
 
