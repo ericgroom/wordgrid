@@ -1,37 +1,8 @@
 import React, { Component } from "react";
-import styled, { injectGlobal } from "styled-components";
+import styled from "styled-components";
 import WordGrid from "./WordGrid";
 import Stats from "./Stats";
 import Messages from "./Messages";
-
-injectGlobal`
-  body {
-    background-color: #FFF8E7;
-    .mobile-warning {
-      display: none;
-    }
-    @media (hover:none) {
-      .mobile-warning {
-        display: block;
-        color: red;
-      }
-    }
-  }
-  /* https://stackoverflow.com/questions/29894997/prevent-ios-bounce-without-disabling-scroll-ability */
-  html {
-    position: fixed;
-    height: 100%;
-    overflow: hidden;
-  }
-
-  body {
-    width: 100vw;
-    height: 100vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-  }
-`;
 
 const Container = styled.div`
   width: 100%;
