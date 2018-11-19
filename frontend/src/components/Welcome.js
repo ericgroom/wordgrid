@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import CreateGameButton from "./CreateGameButton";
+import Spinner from "./styles/Spinner";
 
 const Wrapper = styled.div`
   text-align: center;
@@ -9,10 +10,11 @@ const Wrapper = styled.div`
   color: #444;
 `;
 
-const Welcome = () => (
+const Welcome = ({ loading }) => (
   <Wrapper>
     <h1>Welcome to WordGrid!</h1>
-    <CreateGameButton />
+    <CreateGameButton disabled={loading} />
+    {loading && <Spinner />}
   </Wrapper>
 );
 

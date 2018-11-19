@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
+  Link
 } from "react-router-dom";
 import { Provider, connect } from "react-redux";
 import { injectGlobal } from "styled-components";
@@ -19,9 +20,9 @@ const Root = props => (
           exact
           render={() => {
             return props.gameActive ? (
-              <Redirect to={{ pathname: "/game", id: props.gameId }} />
+              <Redirect to={`/game/${props.gameId}`} />
             ) : (
-              <Welcome />
+              <Welcome loading={props.loading} />
             );
           }}
         />
@@ -61,7 +62,8 @@ injectGlobal`
 `;
 
 const mapStateToProps = ({ game }) => ({
-  gameActive: game.created,
+  gameActive: game.created && game.id,
+  loading: game.created && !game.id,
   gameId: game.id
 });
 

@@ -3,8 +3,28 @@ const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const knex = require("knex")(require("../knexfile")[process.env.NODE_ENV]);
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 app.get("/", function(req, res) {
   res.send("<h1>hi</h1>");
+});
+
+app.get("/game/new", async function(req, res) {
+  try {
+    const gameId = await knex("games")
+      .returning("id")
+      .insert({});
+    res.json({ gameId });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
 });
 
 io.of("/chat").on("connection", function(socket) {

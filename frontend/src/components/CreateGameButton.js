@@ -4,7 +4,11 @@ import { createGame } from "../actions";
 import BigButton from "./styles/BigButton";
 
 const CreateGameButton = props => {
-  return <BigButton onClick={props.createGame()}>Create New Game</BigButton>;
+  return (
+    <BigButton disabled={props.disabled} onClick={props.createGame}>
+      Create New Game
+    </BigButton>
+  );
 };
 
 const mapDispatchToProps = dispatch => ({

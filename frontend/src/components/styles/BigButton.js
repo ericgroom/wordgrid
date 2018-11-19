@@ -14,6 +14,11 @@ const BigButton = styled.button`
   &:focus {
     outline: 0;
   }
+  &:disabled {
+    background-color: #999;
+    box-shadow: 4px 4px #222;
+    color: #eee;
+  }
 `;
 
 export default BigButton;

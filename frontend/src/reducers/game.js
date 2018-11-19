@@ -1,4 +1,4 @@
-import { CREATE_GAME } from "../actions";
+import { CREATE_GAME, GAME_STATE_UPDATE } from "../actions";
 
 const initialState = {
   id: null,
@@ -9,8 +9,9 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case CREATE_GAME:
-      // make async call
       return { ...state, created: true };
+    case GAME_STATE_UPDATE:
+      return { ...state, ...action.state };
     default:
       return state;
   }
