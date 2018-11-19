@@ -1,20 +1,27 @@
 import { eventChannel } from "redux-saga";
-import { take, all, call, put } from "redux-saga/effects";
+import { take, all, call, put, fork } from "redux-saga/effects";
 import io from "socket.io-client";
-import { updateGameState, CREATE_GAME, GAME_STATE_UPDATE } from "./actions";
+import {
+  updateGameState,
+  CREATE_GAME,
+  joinGame,
+  JOIN_GAME,
+  LEAVE_GAME
+} from "./actions";
 
 const RECIEVED_MESSAGE = "RECIEVED_MESSAGE";
 const SEND_MESSAGE = "SEND_MESSAGE";
 
 const recievedMessage = message => ({ type: RECIEVED_MESSAGE, message });
 
+/**
+ * Listens to chat socket and emits actions based on socket events
+ * @param {*} socket socket.io socket instance
+ */
 function messageListener(socket) {
   return eventChannel(emit => {
     socket.on("chat message", msg => {
       return emit(recievedMessage(msg));
-    });
-    socket.on("game state", payload => {
-      emit(updateGameState(payload));
     });
     return () => {
       console.log("closing socket");
@@ -23,35 +30,40 @@ function messageListener(socket) {
   });
 }
 
-function* putFrom(socketChannel) {
+/**
+ * Creates socket.io instance and emits actions based on events
+ */
+function* gameSocketListener() {
   while (true) {
-    const action = yield take(socketChannel);
-    yield put(action);
+    const action = yield take(JOIN_GAME);
+    const socket = io.connect("http://localhost:3001/game");
+    socket.emit("join game", { id: action.id });
+    return eventChannel(emit => {
+      socket.on("state", initialState => {
+        emit(updateGameState(initialState));
+      });
+      return () => {
+        socket.close();
+        emit({ type: LEAVE_GAME });
+      };
+    });
   }
 }
 
-function* createGame() {
-  console.log("calling fetch");
-  const res = yield call(fetch, "http://localhost:3001/game/new");
-  console.log("calling json");
-  const { gameId } = yield call([res, "json"]);
-  yield put(updateGameState({ id: gameId, created: true }));
-}
-
-function* actionListener(socket) {
+/**
+ * Listens to non-socket related game actions
+ */
+function* gameActionListener() {
   while (true) {
-    const action = yield take([SEND_MESSAGE, CREATE_GAME]);
+    console.log("starting gameActionListener");
+    const action = yield take(CREATE_GAME);
     switch (action.type) {
-      case SEND_MESSAGE:
-        socket.emit("chat message", action.message);
-        break;
       case CREATE_GAME:
-        console.log("create game");
         yield call(createGame);
         break;
       default:
         throw new Error(
-          `actionListener saga took action but has no handler for: ${
+          `messageActionListener saga took action but has no handler for: ${
             action.type
           }`
         );
@@ -59,11 +71,64 @@ function* actionListener(socket) {
   }
 }
 
+/**
+ * puts all actions emitted by an eventChannel, assuming that channel only emits actions
+ * @param {*} socketChannel eventChannel instance
+ */
+function* putFrom(socketChannel) {
+  while (true) {
+    const action = yield take(socketChannel);
+    yield put(action);
+  }
+}
+
+/**
+ * Flow for creating a game.
+ */
+function* createGame() {
+  const res = yield call(fetch, "http://localhost:3001/game/new");
+  const { gameId } = yield call([res, "json"]);
+  yield put(joinGame(gameId));
+}
+
+/**
+ * Listens for specific actions and handles them. These should be limited to
+ * actions that need to emit to a socket.
+ * @param {*} socket socket.io instance
+ */
+function* messageActionListener(socket) {
+  while (true) {
+    const action = yield take([SEND_MESSAGE]);
+    switch (action.type) {
+      case SEND_MESSAGE:
+        socket.emit("chat message", action.message);
+        break;
+      default:
+        throw new Error(
+          `messageActionListener saga took action but has no handler for: ${
+            action.type
+          }`
+        );
+    }
+  }
+}
+
+/**
+ * root saga:
+ * creates chat socket and eventChannel
+ * listens to actions and socket.io events
+ * @param url url for chat socket
+ */
 export default url =>
   function* socketSaga() {
     while (true) {
       const socket = io.connect(url);
       const socketChannel = yield call(messageListener, socket);
-      yield all([actionListener(socket), putFrom(socketChannel)]);
+      yield all([
+        messageActionListener(socket),
+        putFrom(socketChannel),
+        gameSocketListener(),
+        gameActionListener()
+      ]);
     }
   };

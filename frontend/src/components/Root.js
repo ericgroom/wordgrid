@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { Provider, connect } from "react-redux";
 import { injectGlobal } from "styled-components";
-import App from "./App";
+import Game from "./Game";
 import Welcome from "./Welcome";
 
 const Root = props => (
@@ -26,7 +26,8 @@ const Root = props => (
             );
           }}
         />
-        <Route path="/game/:id" component={App} />
+        <Route path="/game/:id" component={Game} />
+        <Route path="/game" component={Game} />
       </Switch>
     </Router>
   </Provider>

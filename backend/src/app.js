@@ -41,5 +41,20 @@ io.of("/chat").on("connection", function(socket) {
   });
 });
 
+io.of("/game").on("connection", function(socket) {
+  console.log("user connected to /game");
+  socket.on("join game", async ({ id }) => {
+    try {
+      const game = await knex("games")
+        .where("id", parseInt(id))
+        .select("id");
+      console.log(game);
+      socket.join(`${id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  });
+});
+
 const port = 3001;
 http.listen(port, () => console.log(`app listenting on port ${port}`));

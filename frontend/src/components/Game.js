@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
 import WordGrid from "./WordGrid";
 import Stats from "./Stats";
 import Messages from "./Messages";
+import { joinGame } from "../actions";
 
 const Container = styled.div`
   width: 100%;
@@ -13,7 +15,7 @@ const Container = styled.div`
   pointer-events: none;
 `;
 
-class App extends Component {
+class Game extends Component {
   state = {
     grid: [
       "a",
@@ -34,6 +36,14 @@ class App extends Component {
       "l"
     ]
   };
+  componentDidMount() {
+    const id = this.props.match.params.id;
+    if (id) {
+      this.props.joinGame(id);
+    } else {
+      this.props.history.push("/");
+    }
+  }
 
   render() {
     return (
@@ -54,4 +64,11 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = ({ game }) => ({});
+const mapDispatchToProps = dispatch => ({
+  joinGame: id => dispatch(joinGame(id))
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Game);
