@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon src/app.js"
+    "dev": "NODE_ENV=development nodemon src/app.js",
+    "migrate": "knex migrate:latest"
   },
   "keywords": [],
   "author": "",
   "dependencies": {
     "express": "^4.16.3",
+    "knex": "^0.15.2",
+    "pg": "^7.6.1",
     "socket.io": "^2.1.1"
   },
   "devDependencies": {

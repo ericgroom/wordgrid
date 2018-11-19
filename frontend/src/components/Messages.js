@@ -32,7 +32,11 @@ class Messages extends React.Component {
         </form>
 
         <div>
-          {messages ? messages.map(m => <p>{m}</p>) : <p>No messages :(</p>}
+          {messages ? (
+            messages.map(m => <p key={m.id}>{m.message}</p>)
+          ) : (
+            <p>No messages :(</p>
+          )}
         </div>
       </>
     );
