@@ -10,7 +10,6 @@ export default (state = initialState, action) => {
     case RECEIVED_MESSAGE:
       return { ...state, messages: [...state.messages, action.message] };
     case SEND_MESSAGE:
-      console.log(`sending: ${action.message}`);
       return state;
     default:
       return state;
