@@ -16,26 +16,6 @@ const Container = styled.div`
 `;
 
 class Game extends Component {
-  state = {
-    grid: [
-      "a",
-      "b",
-      "c",
-      "d",
-      "e",
-      "f",
-      "g",
-      "h",
-      "i",
-      "j",
-      "k",
-      "l",
-      "c",
-      "o",
-      "o",
-      "l"
-    ]
-  };
   componentDidMount() {
     const id = this.props.match.params.id;
     if (id) {
@@ -46,25 +26,35 @@ class Game extends Component {
   }
 
   render() {
-    return (
-      <>
-        <p className="mobile-warning">
-          This website may not work on your mobile device.
-        </p>
-        <Container>
-          <WordGrid
-            letters={this.state.grid}
-            onWord={word => console.log(`<App /> onWord: ${word}`)}
-          />
-        </Container>
-        <Stats />
-        <Messages />
-      </>
-    );
+    if (this.props.gameExists) {
+      return (
+        <>
+          <p className="mobile-warning">
+            This website may not work on your mobile device.
+          </p>
+          <Container>
+            {this.props.letters && (
+              <WordGrid
+                letters={this.props.letters}
+                onWord={word => console.log(`<App /> onWord: ${word}`)}
+              />
+            )}
+          </Container>
+          <Stats />
+          <Messages />
+        </>
+      );
+    } else {
+      return <h1>This game doesn't exist</h1>;
+    }
   }
 }
 
-const mapStateToProps = ({ game }) => ({});
+const mapStateToProps = ({ game }) => ({
+  letters: game.grid,
+  started: game.started,
+  gameExists: game.exists
+});
 const mapDispatchToProps = dispatch => ({
   joinGame: id => dispatch(joinGame(id))
 });

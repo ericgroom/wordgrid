@@ -5,25 +5,7 @@ import { appendOrRevert, bfs, gridNeighbors } from "../utils";
 const initialState = {
   path: null,
   gridSize: 4,
-  score: 0,
-  letters: [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "c",
-    "o",
-    "o",
-    "l"
-  ]
+  score: 0
 };
 
 function extendPath(path, index, gridSize) {

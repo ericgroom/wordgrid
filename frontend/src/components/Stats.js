@@ -17,9 +17,9 @@ const Stats = props => (
   </Wrapper>
 );
 
-const mapStateToProps = ({ grid: { path, score, letters } }) => {
+const mapStateToProps = ({ grid: { path, score }, game: { grid } }) => {
   return {
-    currentWord: path ? path.map(i => letters[i]).join("") : "",
+    currentWord: path ? path.map(i => grid[i]).join("") : "",
     score
   };
 };

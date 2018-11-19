@@ -2,6 +2,7 @@ const app = require("express")();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const knex = require("knex")(require("../knexfile")[process.env.NODE_ENV]);
+const { generateBoard } = require("./utils");
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -19,7 +20,7 @@ app.get("/game/new", async function(req, res) {
   try {
     const gameId = await knex("games")
       .returning("id")
-      .insert({});
+      .insert({ grid: generateBoard().join("") });
     res.json({ gameId });
   } catch (err) {
     console.log(err);
@@ -47,12 +48,20 @@ io.of("/game").on("connection", function(socket) {
     try {
       const game = await knex("games")
         .where("id", parseInt(id))
-        .select("id");
+        .first()
+        .select(["id", "grid"]);
       console.log(game);
-      socket.join(`${id}`);
+      if (game) {
+        console.log("state exits");
+        socket.emit("state", game);
+      } else {
+        console.log("Whyyy!");
+        socket.emit("not exists");
+      }
     } catch (err) {
       console.log(err);
     }
+    socket.join(`${id}`);
   });
 });
 

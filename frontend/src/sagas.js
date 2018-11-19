@@ -38,15 +38,22 @@ function* gameSocketListener() {
     const action = yield take(JOIN_GAME);
     const socket = io.connect("http://localhost:3001/game");
     socket.emit("join game", { id: action.id });
-    return eventChannel(emit => {
-      socket.on("state", initialState => {
-        emit(updateGameState(initialState));
-      });
-      return () => {
-        socket.close();
-        emit({ type: LEAVE_GAME });
-      };
-    });
+    yield call(
+      putFrom,
+      eventChannel(emit => {
+        socket.on("state", initialState => {
+          const grid = initialState.grid
+            ? initialState.grid.split("")
+            : initialState.grid;
+          emit(updateGameState({ ...initialState, grid }));
+        });
+        socket.on("not exists", () => emit(updateGameState({ exists: false })));
+        return () => {
+          socket.close();
+          emit({ type: LEAVE_GAME });
+        };
+      })
+    );
   }
 }
 

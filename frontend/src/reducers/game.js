@@ -9,7 +9,9 @@ const initialState = {
   id: null,
   created: false,
   started: false,
-  joined: false
+  joined: false,
+  exists: true,
+  grid: null
 };
 
 export default (state = initialState, action) => {
