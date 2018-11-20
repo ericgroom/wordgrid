@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 const Stats = props => (
   <Wrapper>
     <h2>Score: {props.score}</h2>
-    <h2>{props.currentWord}</h2>
+    {/* <h2>{props.currentWord}</h2> */}
   </Wrapper>
 );
 

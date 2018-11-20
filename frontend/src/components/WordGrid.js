@@ -11,7 +11,7 @@ const Grid = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 4rem);
   grid-template-rows: repeat(4, 4rem);
-  gap: 1rem;
+  gap: 1.5rem;
   padding: 0;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   pointer-events: none;
