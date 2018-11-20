@@ -2,7 +2,8 @@ const app = require("express")();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const knex = require("knex")(require("../knexfile")[process.env.NODE_ENV]);
-const { generateBoard, getTrie, wordInTrie } = require("./utils");
+const { generateBoard } = require("./utils");
+const { validateWord, getTrie } = require("./words");
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -11,9 +12,6 @@ app.use((req, res, next) => {
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
-});
-app.get("/", function(req, res) {
-  res.send("<h1>hi</h1>");
 });
 
 app.get("/game/new", async function(req, res) {
@@ -65,10 +63,7 @@ getTrie()
         }
       });
       socket.on("word", ({ word, wordId, gameId }) => {
-        const inTrie = wordInTrie(word, trie);
-        const large = word.length >= 3;
-        const valid = inTrie && large;
-        const score = valid ? word.length * 10 : 0;
+        const { valid, score } = validateWord(word, trie);
         console.log(`${socket.id}: word ${word}, valid ${valid}`);
         // TODO will need to ascociate with user somehow
         io.of("/game")
