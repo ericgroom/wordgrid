@@ -51,13 +51,14 @@ getTrie()
             .where("id", parseInt(id))
             .first()
             .select(["id", "grid"]);
-          console.log(game);
           if (game) {
             socket.emit("state", game);
           } else {
             socket.emit("not exists");
           }
           socket.join(`${id}`);
+          console.log(`${socket.nickname} joining`);
+          socket.broadcast.to(`${id}`).emit("user join", socket.nickname);
         } catch (err) {
           console.log(err);
         }
@@ -69,6 +70,10 @@ getTrie()
         io.of("/game")
           .to(`${gameId}`)
           .emit("word", { valid, id: wordId, score });
+      });
+      socket.on("nickname", nickname => {
+        console.log(`${socket.id} is now ${nickname}`);
+        socket.nickname = nickname;
       });
     });
   })

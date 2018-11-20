@@ -11,7 +11,7 @@ function choose(choices) {
 }
 
 function generateBoard() {
-  const numVowels = randInt(2, 6);
+  const numVowels = randInt(3, 6);
   const vowels = _.times(numVowels, () => choose(c.vowels));
   const numConsonants = 16 - numVowels;
   const consonants = _.times(numConsonants, () => choose(c.consonants));
