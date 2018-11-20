@@ -5,7 +5,9 @@ import {
   JOIN_GAME,
   LEAVE_GAME,
   UPDATE_WORD,
-  WORD_COMPLETED
+  WORD_COMPLETED,
+  SET_NICKNAME,
+  USER_JOIN
 } from "../actions";
 
 const initialState = {
@@ -16,7 +18,9 @@ const initialState = {
   exists: true,
   grid: null,
   words: [],
-  wordId: 0
+  wordId: 0,
+  users: [],
+  nickname: null
 };
 
 export default (state = initialState, action) => {
@@ -45,6 +49,10 @@ export default (state = initialState, action) => {
         wordId: state.wordId + 1,
         words: [...state.words, { word: action.word.word, id: state.wordId }]
       };
+    case SET_NICKNAME:
+      return { ...state, nickname: action.nickname };
+    case USER_JOIN:
+      return { ...state, users: [...state.users, action.nickname] };
     default:
       return state;
   }

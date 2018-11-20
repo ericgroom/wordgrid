@@ -1,5 +1,5 @@
 import { eventChannel } from "redux-saga";
-import { take, all, call, put, select } from "redux-saga/effects";
+import { take, all, call, put, select, fork, cancel } from "redux-saga/effects";
 import io from "socket.io-client";
 import _ from "lodash";
 import {
@@ -9,17 +9,28 @@ import {
   JOIN_GAME,
   LEAVE_GAME,
   updateWord,
-  WORD_COMPLETED
+  WORD_COMPLETED,
+  SET_NICKNAME,
+  userJoined
 } from "../actions";
 import { putFrom } from "./index";
 
 function* gameSocketFlow() {
   while (true) {
-    const action = yield take(JOIN_GAME);
     const socket = io.connect("http://localhost:3001/game");
+    const task = yield fork(listenNickname, socket);
+    const action = yield take(JOIN_GAME);
     socket.emit("join game", { id: action.id });
     const socketChannel = yield call(gameSocketChannel, socket);
     yield all([putFrom(socketChannel), gameActionListener(socket)]);
+    yield cancel(task);
+  }
+}
+
+function* listenNickname(socket) {
+  while (true) {
+    const { nickname } = yield take(SET_NICKNAME);
+    socket.emit("nickname", nickname);
   }
 }
 
@@ -39,6 +50,10 @@ function gameSocketChannel(socket) {
       console.log(word);
       emit(updateWord(word));
     });
+    socket.on("user join", nickname => {
+      console.log(`${nickname} joined`);
+      emit(userJoined(nickname));
+    });
     return () => {
       socket.close();
       emit({ type: LEAVE_GAME });
@@ -48,12 +63,16 @@ function gameSocketChannel(socket) {
 
 function* gameActionListener(socket) {
   while (true) {
-    const action = yield take(WORD_COMPLETED);
-    const { word, path } = action.word;
-    const words = yield select(state => state.game.words);
-    const wordId = _.find(words, { word }).id;
-    const gameId = yield select(state => state.game.id);
-    socket.emit("word", { word, wordId, gameId });
+    const action = yield take([WORD_COMPLETED]);
+    switch (action.type) {
+      case WORD_COMPLETED:
+        const { word, path } = action.word;
+        const words = yield select(state => state.game.words);
+        const wordId = _.find(words, { word }).id;
+        const gameId = yield select(state => state.game.id);
+        socket.emit("word", { word, wordId, gameId });
+        break;
+    }
   }
 }
 

@@ -1,19 +1,32 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { joinGame, completeWord } from "../actions";
 import WordGrid from "./WordGrid";
 import Stats from "./Stats";
 import Messages from "./Messages";
-import { joinGame, completeWord } from "../actions";
+import WordBank from "./WordBank";
 
 const Container = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  pointer-events: none;
 `;
+
+const words = [
+  { word: "apple", id: 0, valid: true },
+  { word: "pinapple", id: 1 },
+  { word: "level", id: 2, valid: true },
+  { word: "asdf", id: 3, valid: false },
+  { word: "apple", id: 0, valid: true },
+  { word: "pinapple", id: 1 },
+  { word: "level", id: 2, valid: true },
+  { word: "apple", id: 0, valid: true },
+  { word: "pinapple", id: 1 },
+  { word: "level", id: 2, valid: true }
+];
 
 class Game extends Component {
   componentDidMount() {
@@ -29,19 +42,20 @@ class Game extends Component {
     if (this.props.gameExists) {
       return (
         <>
-          <p className="mobile-warning">
-            This website may not work on your mobile device.
-          </p>
           <Container>
+            <p className="mobile-warning">
+              This website may not work on your mobile device.
+            </p>
             {this.props.letters && (
               <WordGrid
                 letters={this.props.letters}
                 onWord={this.props.wordCompleted}
               />
             )}
+            <Stats />
+            <WordBank words={this.props.words} />
+            <Messages />
           </Container>
-          <Stats />
-          <Messages />
         </>
       );
     } else {
@@ -53,7 +67,9 @@ class Game extends Component {
 const mapStateToProps = ({ game }) => ({
   letters: game.grid,
   started: game.started,
-  gameExists: game.exists
+  gameExists: game.exists,
+  words: game.words,
+  nickname: game.nickname
 });
 const mapDispatchToProps = dispatch => ({
   joinGame: id => dispatch(joinGame(id)),
@@ -62,4 +78,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Game);
+)(withRouter(Game));
