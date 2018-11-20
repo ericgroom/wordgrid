@@ -33,7 +33,6 @@ class WordGrid extends Component {
   handleMouseEnter(index, e) {
     e.preventDefault();
     if (this.props.currentPath) {
-      console.log(this.props.currentPath);
       this.props.extendPath(index);
     }
   }
@@ -42,7 +41,8 @@ class WordGrid extends Component {
   }
   endPath() {
     if (this.props.currentPath) {
-      this.props.onWord(this.props.currentPath);
+      const { currentWord, currentPath } = this.props;
+      this.props.onWord({ word: currentWord, path: currentPath });
       this.props.endPath();
     }
   }
@@ -81,9 +81,14 @@ class WordGrid extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  currentPath: state.grid.path
-});
+const mapStateToProps = state => {
+  const path = state.grid.path;
+  const letters = state.game.grid;
+  return {
+    currentPath: path,
+    currentWord: path ? path.map(i => letters[i]).join("") : ""
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   extendPath: index => dispatch(extendPath(index)),

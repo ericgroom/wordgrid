@@ -2,7 +2,7 @@ const app = require("express")();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const knex = require("knex")(require("../knexfile")[process.env.NODE_ENV]);
-const { generateBoard } = require("./utils");
+const { generateBoard, getTrie, wordInTrie } = require("./utils");
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -42,28 +42,42 @@ io.of("/chat").on("connection", function(socket) {
   });
 });
 
-io.of("/game").on("connection", function(socket) {
-  console.log("user connected to /game");
-  socket.on("join game", async ({ id }) => {
-    try {
-      const game = await knex("games")
-        .where("id", parseInt(id))
-        .first()
-        .select(["id", "grid"]);
-      console.log(game);
-      if (game) {
-        console.log("state exits");
-        socket.emit("state", game);
-      } else {
-        console.log("Whyyy!");
-        socket.emit("not exists");
-      }
-    } catch (err) {
-      console.log(err);
-    }
-    socket.join(`${id}`);
-  });
-});
+getTrie()
+  .then(trie => {
+    console.log("trie read successfully");
+    io.of("/game").on("connection", function(socket) {
+      console.log("user connected to /game");
+      socket.on("join game", async ({ id }) => {
+        try {
+          const game = await knex("games")
+            .where("id", parseInt(id))
+            .first()
+            .select(["id", "grid"]);
+          console.log(game);
+          if (game) {
+            socket.emit("state", game);
+          } else {
+            socket.emit("not exists");
+          }
+          socket.join(`${id}`);
+        } catch (err) {
+          console.log(err);
+        }
+      });
+      socket.on("word", ({ word, wordId, gameId }) => {
+        const inTrie = wordInTrie(word, trie);
+        const large = word.length >= 3;
+        const valid = inTrie && large;
+        const score = valid ? word.length * 10 : 0;
+        console.log(`${socket.id}: word ${word}, valid ${valid}`);
+        // TODO will need to ascociate with user somehow
+        io.of("/game")
+          .to(`${gameId}`)
+          .emit("word", { valid, id: wordId, score });
+      });
+    });
+  })
+  .catch(err => console.error("unable to create trie", err));
 
 const port = 3001;
 http.listen(port, () => console.log(`app listenting on port ${port}`));

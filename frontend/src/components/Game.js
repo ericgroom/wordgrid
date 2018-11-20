@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import WordGrid from "./WordGrid";
 import Stats from "./Stats";
 import Messages from "./Messages";
-import { joinGame } from "../actions";
+import { joinGame, completeWord } from "../actions";
 
 const Container = styled.div`
   width: 100%;
@@ -36,7 +36,7 @@ class Game extends Component {
             {this.props.letters && (
               <WordGrid
                 letters={this.props.letters}
-                onWord={word => console.log(`<App /> onWord: ${word}`)}
+                onWord={this.props.wordCompleted}
               />
             )}
           </Container>
@@ -56,7 +56,8 @@ const mapStateToProps = ({ game }) => ({
   gameExists: game.exists
 });
 const mapDispatchToProps = dispatch => ({
-  joinGame: id => dispatch(joinGame(id))
+  joinGame: id => dispatch(joinGame(id)),
+  wordCompleted: word => dispatch(completeWord(word))
 });
 export default connect(
   mapStateToProps,

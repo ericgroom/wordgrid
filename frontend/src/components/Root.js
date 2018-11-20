@@ -3,8 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
-  Link
+  Redirect
 } from "react-router-dom";
 import { Provider, connect } from "react-redux";
 import { injectGlobal } from "styled-components";

@@ -18,7 +18,7 @@ const store = createStore(
   composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 
-sagaMiddleware.run(rootSaga("localhost:3001/chat"));
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(<Root store={store} />, document.getElementById("root"));
 
