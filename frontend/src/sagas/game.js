@@ -11,7 +11,8 @@ import {
   updateWord,
   WORD_COMPLETED,
   SET_NICKNAME,
-  userJoined
+  userJoined,
+  sentWord
 } from "../actions";
 import { putFrom } from "./index";
 
@@ -63,15 +64,34 @@ function gameSocketChannel(socket) {
 
 function* gameActionListener(socket) {
   while (true) {
+    console.log("awaiting action");
     const action = yield take([WORD_COMPLETED]);
     switch (action.type) {
       case WORD_COMPLETED:
+        // eslint-disable-next-line
         const { word, path } = action.word;
-        const words = yield select(state => state.game.words);
-        const wordId = _.find(words, { word }).id;
-        const gameId = yield select(state => state.game.id);
-        socket.emit("word", { word, wordId, gameId });
+        // validate word
+        // don't send words less than 3 letters long
+        const tooShort = word.length < 3;
+        // check if word has already been sent
+        const sentWords = yield select(state => state.game.sentWords);
+        const alreadySent = sentWords.some(sentWord => sentWord === word);
+
+        // send the word
+        if (!tooShort && !alreadySent) {
+          const words = yield select(state => state.game.words);
+          const wordId = _.find(words, { word }).id;
+          const gameId = yield select(state => state.game.id);
+          socket.emit("word", { word, wordId, gameId });
+          yield put(sentWord(word));
+        }
         break;
+      default:
+        throw new Error(
+          `messageActionListener saga took action but has no handler for: ${
+            action.type
+          }`
+        );
     }
   }
 }

@@ -7,7 +7,8 @@ import {
   UPDATE_WORD,
   WORD_COMPLETED,
   SET_NICKNAME,
-  USER_JOIN
+  USER_JOIN,
+  WORD_SENT
 } from "../actions";
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
   grid: null,
   words: [],
   wordId: 0,
+  sentWords: [], // words already sent to the backend so that saga can avoid duplicates
   users: [],
   nickname: null
 };
@@ -44,11 +46,21 @@ export default (state = initialState, action) => {
       console.log(updatedWords);
       return { ...state, words: updatedWords };
     case WORD_COMPLETED:
+      // don't add word if the length is less than 3 or already added
+      if (
+        action.word.word.length < 3 ||
+        state.words.some(({ word }) => word === action.word.word)
+      ) {
+        return state;
+      }
       return {
         ...state,
         wordId: state.wordId + 1,
         words: [...state.words, { word: action.word.word, id: state.wordId }]
       };
+    case WORD_SENT:
+      return { ...state, sentWords: [...state.sentWords, action.word] };
+
     case SET_NICKNAME:
       return { ...state, nickname: action.nickname };
     case USER_JOIN:
