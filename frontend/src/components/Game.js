@@ -2,31 +2,27 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { joinGame, completeWord } from "../actions";
+import { joinGame, completeWord, startGame } from "../actions";
 import WordGrid from "./WordGrid";
 import Stats from "./Stats";
 import Messages from "./Messages";
 import WordBank from "./WordBank";
+import PreGame from "./PreGame";
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
   align-items: center;
-  justify-content: center;
-`;
+  justify-items: center;
 
-const words = [
-  { word: "apple", id: 0, valid: true },
-  { word: "pinapple", id: 1 },
-  { word: "level", id: 2, valid: true },
-  { word: "asdf", id: 3, valid: false },
-  { word: "apple", id: 0, valid: true },
-  { word: "pinapple", id: 1 },
-  { word: "level", id: 2, valid: true },
-  { word: "apple", id: 0, valid: true },
-  { word: "pinapple", id: 1 },
-  { word: "level", id: 2, valid: true }
-];
+  .left {
+    grid-column: 2 / 3;
+  }
+  .right {
+    grid-column: 3 / 4;
+  }
+`;
 
 class Game extends Component {
   componentDidMount() {
@@ -40,24 +36,35 @@ class Game extends Component {
 
   render() {
     if (this.props.gameExists) {
-      return (
-        <>
+      if (this.props.gameStarted) {
+        return (
           <Container>
-            <p className="mobile-warning">
-              This website may not work on your mobile device.
-            </p>
-            {this.props.letters && (
-              <WordGrid
-                letters={this.props.letters}
-                onWord={this.props.wordCompleted}
-              />
-            )}
-            <Stats />
-            <WordBank words={this.props.words} />
-            <Messages />
+            <div className="left">
+              <p className="mobile-warning">
+                This website may not work on your mobile device.
+              </p>
+              {this.props.letters && (
+                <WordGrid
+                  letters={this.props.letters}
+                  onWord={this.props.wordCompleted}
+                />
+              )}
+              <Stats />
+            </div>
+            <div className="right">
+              <WordBank words={this.props.words} />
+              <Messages />
+            </div>
           </Container>
-        </>
-      );
+        );
+      } else {
+        return (
+          <PreGame
+            startGame={this.props.startGame}
+            users={this.props.connectedUsers}
+          />
+        );
+      }
     } else {
       return <h1>This game doesn't exist</h1>;
     }
@@ -69,11 +76,14 @@ const mapStateToProps = ({ game }) => ({
   started: game.started,
   gameExists: game.exists,
   words: game.words,
-  nickname: game.nickname
+  nickname: game.nickname,
+  gameStarted: game.started,
+  connectedUsers: game.users
 });
 const mapDispatchToProps = dispatch => ({
   joinGame: id => dispatch(joinGame(id)),
-  wordCompleted: word => dispatch(completeWord(word))
+  wordCompleted: word => dispatch(completeWord(word)),
+  startGame: () => dispatch(startGame())
 });
 export default connect(
   mapStateToProps,

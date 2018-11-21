@@ -4,22 +4,9 @@ import styled from "styled-components";
 import Spinner from "./styles/Spinner";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as FA } from "@fortawesome/react-fontawesome";
+import List from "./styles/List";
 
-const List = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(3, minmax(4rem, 1fr));
-  gap: 1rem;
-  justify-items: center;
-  list-style: none;
-  background-color: #eee;
-  border-radius: 1rem;
-  padding-left: 0;
-  padding: 2rem;
-  font-weight: 600;
-  white-space: nowrap;
-`;
-
-const Word = styled.p`
+const Word = styled.div`
   text-decoration: ${props =>
     props.valid === false ? "line-through" : "none"};
   margin: 0;
@@ -30,8 +17,8 @@ const Word = styled.p`
       props.valid === undefined
         ? "inherit"
         : props.valid
-        ? "lightgreen"
-        : "red"};
+          ? "lightgreen"
+          : "red"};
     margin: 0;
     margin-left: 0.2rem;
   }
@@ -49,18 +36,21 @@ const SmallSpinner = styled(Spinner)`
 
 const WordBank = props => (
   <List>
-    {props.words.map(word => (
-      <li key={word.id}>
-        <Word valid={word.valid}>
-          {word.word}
-          <span>
-            {word.valid === undefined && <SmallSpinner />}
-            {word.valid && <FA icon={faCheck} />}
-            {word.valid === false && <FA icon={faTimes} />}
-          </span>
-        </Word>
-      </li>
-    ))}
+    <h2>Played Words</h2>
+    <ul>
+      {props.words.map(word => (
+        <li key={word.id}>
+          <Word valid={word.valid}>
+            {word.word}
+            <span>
+              {word.valid === undefined && <SmallSpinner />}
+              {word.valid && <FA icon={faCheck} />}
+              {word.valid === false && <FA icon={faTimes} />}
+            </span>
+          </Word>
+        </li>
+      ))}
+    </ul>
   </List>
 );
 

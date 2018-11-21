@@ -8,7 +8,8 @@ import {
   WORD_COMPLETED,
   SET_NICKNAME,
   USER_JOIN,
-  WORD_SENT
+  WORD_SENT,
+  START_GAME
 } from "../actions";
 
 const initialState = {
@@ -60,11 +61,12 @@ export default (state = initialState, action) => {
       };
     case WORD_SENT:
       return { ...state, sentWords: [...state.sentWords, action.word] };
-
     case SET_NICKNAME:
       return { ...state, nickname: action.nickname };
     case USER_JOIN:
       return { ...state, users: [...state.users, action.nickname] };
+    case START_GAME:
+      return { ...state, started: true };
     default:
       return state;
   }
