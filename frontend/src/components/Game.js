@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { joinGame, completeWord, startGame } from "../actions";
+import { joinGame, completeWord, startGame, leaveGame } from "../actions";
 import WordGrid from "./WordGrid";
 import Stats from "./Stats";
 import Messages from "./Messages";
 import WordBank from "./WordBank";
 import PreGame from "./PreGame";
+import Spinner from "./styles/Spinner";
 
 const Container = styled.div`
   display: grid;
@@ -33,8 +34,12 @@ class Game extends Component {
       this.props.history.push("/");
     }
   }
+  componentWillUnmount() {
+    this.props.leaveGame();
+  }
 
   render() {
+    if (this.props.loading) return <Spinner />;
     if (this.props.gameExists) {
       if (this.props.gameStarted) {
         return (
@@ -75,6 +80,7 @@ const mapStateToProps = ({ game }) => ({
   letters: game.grid,
   started: game.started,
   gameExists: game.exists,
+  loading: game.created && !game.id,
   words: game.words,
   nickname: game.nickname,
   gameStarted: game.started,
@@ -83,7 +89,8 @@ const mapStateToProps = ({ game }) => ({
 const mapDispatchToProps = dispatch => ({
   joinGame: id => dispatch(joinGame(id)),
   wordCompleted: word => dispatch(completeWord(word)),
-  startGame: () => dispatch(startGame())
+  startGame: () => dispatch(startGame()),
+  leaveGame: () => dispatch(leaveGame())
 });
 export default connect(
   mapStateToProps,

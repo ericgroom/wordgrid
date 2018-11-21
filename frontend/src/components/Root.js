@@ -1,39 +1,32 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider, connect } from "react-redux";
 import { injectGlobal } from "styled-components";
 import Game from "./Game";
 import Welcome from "./Welcome";
 import SetNickname from "./SetNickname";
+import Nav from "./Nav";
 
 const Root = props => (
   <Provider store={props.store}>
     <Router>
-      <Switch>
-        <Route
-          path="/"
-          exact
-          render={() => {
-            return props.gameActive ? (
-              <Redirect to={`/game/${props.gameId}`} />
-            ) : (
-              <Welcome loading={props.loading} />
-            );
-          }}
-        />
-        <Route
-          path="/game/:id"
-          render={() => {
-            return props.nickname ? <Game /> : <SetNickname />;
-          }}
-        />
-        <Route path="/game" component={Game} />
-      </Switch>
+      <>
+        <Nav />
+        <Switch>
+          <Route
+            path="/"
+            exact
+            render={() => <Welcome loading={props.loading} />}
+          />
+          <Route
+            path="/game/:id"
+            render={() => {
+              return props.nickname ? <Game /> : <SetNickname />;
+            }}
+          />
+          <Route path="/game" component={Game} />
+        </Switch>
+      </>
     </Router>
   </Provider>
 );

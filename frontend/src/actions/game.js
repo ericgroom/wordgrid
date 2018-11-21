@@ -17,6 +17,7 @@ export const setNickname = nickname => ({ type: SET_NICKNAME, nickname });
 export const userJoined = nickname => ({ type: USER_JOIN, nickname });
 export const sentWord = word => ({ type: WORD_SENT, word });
 export const startGame = () => ({ type: START_GAME });
+export const leaveGame = () => ({ type: LEAVE_GAME });
 
 export const updateGameState = payload => ({
   type: GAME_STATE_UPDATE,
