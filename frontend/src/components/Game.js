@@ -29,7 +29,7 @@ class Game extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     if (id) {
-      this.props.joinGame(id);
+      this.props.joinGame(parseInt(id));
     } else {
       this.props.history.push("/");
     }
@@ -76,13 +76,13 @@ class Game extends Component {
   }
 }
 
-const mapStateToProps = ({ game }) => ({
+const mapStateToProps = ({ game, user }) => ({
   letters: game.grid,
   started: game.started,
   gameExists: game.exists,
   loading: game.created && !game.id,
   words: game.words,
-  nickname: game.nickname,
+  nickname: user.nickname,
   gameStarted: game.started,
   connectedUsers: game.users
 });

@@ -11,6 +11,9 @@ const Wrapper = styled.div`
   button {
     margin-bottom: 1rem;
   }
+  .empty {
+    color: rgba(0, 0, 0, 0.7);
+  }
 `;
 
 const PreGame = props => (
@@ -19,11 +22,15 @@ const PreGame = props => (
     <BigButton onClick={props.startGame}>Start Game</BigButton>
     <List>
       <h2>Connected Users</h2>
-      <ul>
-        {props.users.map(user => (
-          <li>{user}</li>
-        ))}
-      </ul>
+      {props.users.length > 0 ? (
+        <ul>
+          {props.users.map(user => (
+            <li>{user}</li>
+          ))}
+        </ul>
+      ) : (
+        <p className="empty">There's nobody else here yet</p>
+      )}
     </List>
   </Wrapper>
 );

@@ -8,7 +8,7 @@ exports.up = function(knex, Promise) {
 
     knex.schema.createTable("users", table => {
       table.increments("id");
-      table.uuid("session_id");
+      table.string("socket_id");
       table.string("nickname", 30);
       table.timestamps(true, true);
     }),
@@ -35,9 +35,11 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return Promise.all([
-    knex.schema.dropTable("games"),
-    knex.schema.dropTable("users"),
-    knex.schema.dropTable("game_to_user")
-  ]);
+  return knex.transaction(trx => {
+    return Promise.all([
+      trx.schema.dropTable("game_to_user"),
+      trx.schema.dropTable("games"),
+      trx.schema.dropTable("users")
+    ]);
+  });
 };

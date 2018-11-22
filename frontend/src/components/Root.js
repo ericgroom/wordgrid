@@ -62,11 +62,11 @@ injectGlobal`
   }
 `;
 
-const mapStateToProps = ({ game }) => ({
+const mapStateToProps = ({ game, user }) => ({
   gameActive: game.created && game.id,
   loading: game.created && !game.id,
   gameId: game.id,
-  nickname: game.nickname
+  nickname: user.nickname
 });
 
 export default connect(mapStateToProps)(Root);

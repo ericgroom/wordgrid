@@ -1,9 +1,12 @@
+require("dotenv").config();
 const app = require("express")();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
+const jwt = require("jsonwebtoken");
 const knex = require("knex")(require("../knexfile")[process.env.NODE_ENV]);
 const { generateBoard } = require("./utils");
 const { validateWord, getTrie } = require("./words");
+const db = require("./queries");
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -16,10 +19,8 @@ app.use((req, res, next) => {
 
 app.get("/game/new", async function(req, res) {
   try {
-    const gameId = await knex("games")
-      .returning("id")
-      .insert({ grid: generateBoard().join("") });
-    res.json({ gameId });
+    const gameId = await db.createGame(knex, {});
+    res.json({ gameId: gameId[0] });
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
@@ -43,22 +44,25 @@ io.of("/chat").on("connection", function(socket) {
 getTrie()
   .then(trie => {
     console.log("trie read successfully");
-    io.of("/game").on("connection", function(socket) {
+    io.of("/game").on("connection", async function(socket) {
       console.log("user connected to /game");
       socket.on("join game", async ({ id }) => {
         try {
-          const game = await knex("games")
-            .where("id", parseInt(id))
-            .first()
-            .select(["id", "grid"]);
+          const game = await db.getGame(knex, id);
+          console.log(game);
           if (game) {
             socket.emit("state", game);
           } else {
             socket.emit("not exists");
           }
           socket.join(`${id}`);
-          console.log(`${socket.nickname} joining`);
-          socket.broadcast.to(`${id}`).emit("user join", socket.nickname);
+          const user = await db.getUser(knex, {
+            where: { socket_id: socket.id },
+            select: "nickname"
+          });
+          const nickname = user[0].nickname;
+          console.log(`${nickname} joining`);
+          socket.broadcast.to(`${id}`).emit("user join", nickname);
         } catch (err) {
           console.log(err);
         }
@@ -71,9 +75,35 @@ getTrie()
           .to(`${gameId}`)
           .emit("word", { valid, id: wordId, score });
       });
-      socket.on("nickname", nickname => {
+      socket.on("nickname", async nickname => {
         console.log(`${socket.id} is now ${nickname}`);
-        socket.nickname = nickname;
+        await db.updateUser(knex, {
+          where: { socket_id: socket.id },
+          update: { nickname }
+        });
+        socket.emit("nickname", nickname);
+      });
+      socket.on("auth", async token => {
+        const { userId } = jwt.verify(token, process.env.APP_SECRET);
+        const userObj = await db.updateUser(knex, {
+          where: { id: userId },
+          update: { socket_id: socket.id },
+          returning: "nickname"
+        });
+        socket.emit("nickname", userObj[0]);
+      });
+      socket.on("new auth", async () => {
+        try {
+          const userObj = await db.createUser(knex, {
+            insert: { socket_id: socket.id },
+            returning: "id"
+          });
+          const userId = userObj[0];
+          const token = await jwt.sign({ userId }, process.env.APP_SECRET);
+          socket.emit("token", token);
+        } catch (e) {
+          console.error(e);
+        }
       });
     });
   })

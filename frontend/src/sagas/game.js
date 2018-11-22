@@ -1,6 +1,5 @@
 import { eventChannel } from "redux-saga";
-import { take, all, call, put, select, fork, cancel } from "redux-saga/effects";
-import io from "socket.io-client";
+import { take, all, call, put, select } from "redux-saga/effects";
 import _ from "lodash";
 import {
   updateGameState,
@@ -10,28 +9,22 @@ import {
   LEAVE_GAME,
   updateWord,
   WORD_COMPLETED,
-  SET_NICKNAME,
   userJoined,
   sentWord
 } from "../actions";
 import { putFrom } from "./index";
 
-function* gameSocketFlow() {
+function* gameSocketFlow(socket) {
   while (true) {
-    const socket = io.connect("http://localhost:3001/game");
-    const task = yield fork(listenNickname, socket);
-    const action = yield take(JOIN_GAME);
-    socket.emit("join game", { id: action.id });
-    const socketChannel = yield call(gameSocketChannel, socket);
-    yield all([putFrom(socketChannel), gameActionListener(socket)]);
-    yield cancel(task);
-  }
-}
-
-function* listenNickname(socket) {
-  while (true) {
-    const { nickname } = yield take(SET_NICKNAME);
-    socket.emit("nickname", nickname);
+    try {
+      const action = yield take(JOIN_GAME);
+      socket.emit("join game", { id: action.id });
+      const socketChannel = yield call(gameSocketChannel, socket);
+      yield all([putFrom(socketChannel), gameActionListener(socket)]);
+    } catch (e) {
+      console.log(socket);
+      console.error(e);
+    }
   }
 }
 
@@ -56,7 +49,7 @@ function gameSocketChannel(socket) {
       emit(userJoined(nickname));
     });
     return () => {
-      socket.close();
+      console.log("leaving");
       emit({ type: LEAVE_GAME });
     };
   });
@@ -106,7 +99,7 @@ function* gameCreateListener() {
     switch (action.type) {
       case CREATE_GAME:
         yield call(createGame);
-        break;
+        continue;
       default:
         throw new Error(
           `messageActionListener saga took action but has no handler for: ${
@@ -121,13 +114,14 @@ function* gameCreateListener() {
  * Flow for creating a game.
  */
 function* createGame() {
+  console.log("here");
   const res = yield call(fetch, "http://localhost:3001/game/new");
   const { gameId } = yield call([res, "json"]);
   yield put(joinGame(gameId));
 }
 
-export default function* gameFlow() {
+export default function* gameFlow(socket) {
   while (true) {
-    yield all([gameSocketFlow(), gameCreateListener()]);
+    yield all([gameSocketFlow(socket), gameCreateListener()]);
   }
 }

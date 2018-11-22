@@ -6,7 +6,6 @@ import {
   LEAVE_GAME,
   UPDATE_WORD,
   WORD_COMPLETED,
-  SET_NICKNAME,
   USER_JOIN,
   WORD_SENT,
   START_GAME
@@ -61,8 +60,6 @@ export default (state = initialState, action) => {
       };
     case WORD_SENT:
       return { ...state, sentWords: [...state.sentWords, action.word] };
-    case SET_NICKNAME:
-      return { ...state, nickname: action.nickname };
     case USER_JOIN:
       return { ...state, users: [...state.users, action.nickname] };
     case START_GAME:

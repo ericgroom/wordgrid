@@ -1,8 +1,14 @@
-import io from "socket.io-client";
 import { eventChannel } from "redux-saga";
 import { take, call, all } from "redux-saga/effects";
 import { SEND_MESSAGE, recievedMessage } from "../actions";
 import { putFrom } from "./index";
+
+export default function* messagesFlow(socket) {
+  while (true) {
+    const socketChannel = yield call(messageListener, socket);
+    yield all([putFrom(socketChannel), messageActionListener(socket)]);
+  }
+}
 
 /**
  * Listens for specific actions and handles them. These should be limited to
@@ -40,12 +46,4 @@ function messageListener(socket) {
       socket.close();
     };
   });
-}
-
-export default function* messagesFlow() {
-  while (true) {
-    const socket = io.connect("http://localhost:3001/chat");
-    const socketChannel = yield call(messageListener, socket);
-    yield all([putFrom(socketChannel), messageActionListener(socket)]);
-  }
 }
