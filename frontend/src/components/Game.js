@@ -29,7 +29,7 @@ class Game extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     if (id) {
-      this.props.joinGame(parseInt(id));
+      this.props.joinGame(id);
     } else {
       this.props.history.push("/");
     }
