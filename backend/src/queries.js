@@ -3,6 +3,8 @@ const r = require("rethinkdb");
 const DB_NAME = "wordgrid";
 const GAMES_TABLE = "games";
 const USERS_TABLE = "users";
+const MESSAGES_TABLE = "messages";
+const TABLES = [GAMES_TABLE, MESSAGES_TABLE, USERS_TABLE];
 
 const connect = async () => {
   return await r.connect({ db: DB_NAME });
@@ -18,27 +20,18 @@ exports.setup = async () => {
         console.log("database successfully created");
       })
       .catch(() => console.log("database already exists"));
-    await r
-      .db(DB_NAME)
-      .tableCreate(GAMES_TABLE)
-      .run(conn)
-      .then(() => {
-        console.log("created table:", GAMES_TABLE);
-      })
-      .catch(() => {
-        console.log("table already exists", GAMES_TABLE);
-      });
-
-    await r
-      .db(DB_NAME)
-      .tableCreate(USERS_TABLE)
-      .run(conn)
-      .then(() => {
-        console.log("created table:", USERS_TABLE);
-      })
-      .catch(() => {
-        console.log("table already exists", USERS_TABLE);
-      });
+    await TABLES.forEach(async table => {
+      await r
+        .db(DB_NAME)
+        .tableCreate(table)
+        .run(conn)
+        .then(() => {
+          console.log("created table:", table);
+        })
+        .catch(() => {
+          console.log("table already exists", table);
+        });
+    });
   } catch (e) {
     throw e;
   }
@@ -58,10 +51,31 @@ exports.getGame = async id => {
 
 exports.createGame = async game => {
   try {
+    const gameInit = {
+      board: [],
+      users: [],
+      started: false,
+      countdown: false,
+      scores: {},
+      words_by_user: {}
+    };
     const conn = await connect();
     return await r
       .table(GAMES_TABLE)
-      .insert({})
+      .insert({ ...gameInit, ...game })
+      .run(conn);
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.updateGame = async (id, game) => {
+  try {
+    const conn = await connection();
+    return await r
+      .table(GAMES_TABLE)
+      .get(id)
+      .update(game)
       .run(conn);
   } catch (e) {
     throw e;
@@ -133,6 +147,18 @@ exports.filterUsers = async filter => {
     return await r
       .table(USERS_TABLE)
       .filter(filter)
+      .run(conn);
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.createMessage = async message => {
+  try {
+    const conn = await connect();
+    return await r
+      .table(MESSAGES_TABLE)
+      .insert(message)
       .run(conn);
   } catch (e) {
     throw e;

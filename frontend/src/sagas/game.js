@@ -34,10 +34,7 @@ function* gameSocketFlow(socket) {
 function gameSocketChannel(socket) {
   return eventChannel(emit => {
     socket.on("state", initialState => {
-      const grid = initialState.grid
-        ? initialState.grid.split("")
-        : initialState.grid;
-      emit(updateGameState({ ...initialState, grid }));
+      emit(updateGameState(initialState));
     });
     socket.on("not exists", () => emit(updateGameState({ exists: false })));
     socket.on("word", word => {
