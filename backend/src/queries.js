@@ -32,6 +32,7 @@ exports.setup = async () => {
           console.log("table already exists", table);
         });
     });
+    await conn.close();
   } catch (e) {
     throw e;
   }
@@ -40,10 +41,41 @@ exports.setup = async () => {
 exports.getGame = async id => {
   try {
     const conn = await connect();
-    return await r
+    const game = await r
       .table(GAMES_TABLE)
       .get(id)
+      .merge(game => ({
+        users: game("users")
+          .eqJoin("id", r.table(USERS_TABLE))
+          .zip()
+          .without("socket_id")
+      }))
       .run(conn);
+    await conn.close();
+    return game;
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.getGameChanges = async (
+  id,
+  callback,
+  squash = true,
+  includeInitial = true
+) => {
+  try {
+    const conn = await connect();
+    r.table(GAMES_TABLE)
+      .get(id)
+      .changes({ squash, includeInitial })("new_val")
+      .merge(game => ({
+        users: game("users")
+          .eqJoin("id", r.table(USERS_TABLE))
+          .zip()
+          .without("socket_id")
+      }))
+      .run(conn, callback);
   } catch (e) {
     throw e;
   }
@@ -52,18 +84,19 @@ exports.getGame = async id => {
 exports.createGame = async game => {
   try {
     const gameInit = {
-      board: [],
+      grid: [],
       users: [],
       started: false,
-      countdown: false,
-      scores: {},
-      words_by_user: {}
+      ended: false,
+      countdown: false
     };
     const conn = await connect();
-    return await r
+    const gameObj = await r
       .table(GAMES_TABLE)
       .insert({ ...gameInit, ...game })
       .run(conn);
+    await conn.close();
+    return gameObj;
   } catch (e) {
     throw e;
   }
@@ -71,46 +104,33 @@ exports.createGame = async game => {
 
 exports.updateGame = async (id, game) => {
   try {
-    const conn = await connection();
-    return await r
+    const conn = await connect();
+    const gameObj = await r
       .table(GAMES_TABLE)
       .get(id)
       .update(game)
       .run(conn);
+    await conn.close();
+    return gameObj;
   } catch (e) {
     throw e;
   }
 };
 
-// exports.createUserIfNotExists = async (
-//   knex,
-//   { where, select, insert, returning }
-// ) => {
-//   try {
-//     const user = await knex(USERS_TABLE)
-//       .where(where)
-//       .first()
-//       .select(select);
-//     if (user) {
-//       return { created: false, data: user };
-//     } else {
-//       const user = await knex(USERS_TABLE)
-//         .insert(insert)
-//         .returning(returning);
-//       return { created: true, data: user };
-//     }
-//   } catch (e) {
-//     throw e;
-//   }
-// };
+exports.gameQuery = async () => {
+  const conn = await connect();
+  return { conn, query: r.table(GAMES_TABLE) };
+};
 
 exports.createUser = async user => {
   try {
     const conn = await connect();
-    return await r
+    const userObj = await r
       .table(USERS_TABLE)
       .insert(user)
       .run(conn);
+    await conn.close();
+    return userObj;
   } catch (e) {
     throw e;
   }
@@ -119,11 +139,13 @@ exports.createUser = async user => {
 exports.updateUser = async (id, user) => {
   try {
     const conn = await connect();
-    return await r
+    const userObj = await r
       .table(USERS_TABLE)
       .get(id)
       .update(user)
       .run(conn);
+    await conn.close();
+    return userObj;
   } catch (e) {
     throw e;
   }
@@ -132,10 +154,28 @@ exports.updateUser = async (id, user) => {
 exports.getUser = async id => {
   try {
     const conn = await connect();
-    return await r
+    const user = await r
       .table(USERS_TABLE)
       .get(id)
       .run(conn);
+    await conn.close();
+    return user;
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.getCurrentUser = async socket => {
+  try {
+    const conn = await connect();
+    const cursor = await r
+      .table(USERS_TABLE)
+      .filter({ socket_id: socket.id })
+      .run(conn);
+    const user = await cursor.next();
+    await cursor.close();
+    await conn.close();
+    return user;
   } catch (e) {
     throw e;
   }
@@ -144,10 +184,12 @@ exports.getUser = async id => {
 exports.filterUsers = async filter => {
   try {
     const conn = await connect();
-    return await r
+    const users = await r
       .table(USERS_TABLE)
       .filter(filter)
       .run(conn);
+    await conn.close();
+    return users;
   } catch (e) {
     throw e;
   }
@@ -156,10 +198,12 @@ exports.filterUsers = async filter => {
 exports.createMessage = async message => {
   try {
     const conn = await connect();
-    return await r
+    const message = await r
       .table(MESSAGES_TABLE)
       .insert(message)
       .run(conn);
+    await conn.close();
+    return message;
   } catch (e) {
     throw e;
   }

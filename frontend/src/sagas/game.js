@@ -10,7 +10,8 @@ import {
   updateWord,
   WORD_COMPLETED,
   userJoined,
-  sentWord
+  sentWord,
+  REQUEST_START_GAME
 } from "../actions";
 import { putFrom } from "./index";
 
@@ -22,7 +23,6 @@ function* gameSocketFlow(socket) {
       const socketChannel = yield call(gameSocketChannel, socket);
       yield all([putFrom(socketChannel), gameActionListener(socket)]);
     } catch (e) {
-      console.log(socket);
       console.error(e);
     }
   }
@@ -45,6 +45,9 @@ function gameSocketChannel(socket) {
       console.log(`${nickname} joined`);
       emit(userJoined(nickname));
     });
+    socket.on("start game", gameState => {
+      emit(updateGameState(gameState));
+    });
     return () => {
       console.log("leaving");
       emit({ type: LEAVE_GAME });
@@ -55,7 +58,7 @@ function gameSocketChannel(socket) {
 function* gameActionListener(socket) {
   while (true) {
     console.log("awaiting action");
-    const action = yield take([WORD_COMPLETED]);
+    const action = yield take([WORD_COMPLETED, REQUEST_START_GAME]);
     switch (action.type) {
       case WORD_COMPLETED:
         // eslint-disable-next-line
@@ -75,6 +78,11 @@ function* gameActionListener(socket) {
           socket.emit("word", { word, wordId, gameId });
           yield put(sentWord(word));
         }
+        break;
+      case REQUEST_START_GAME:
+        const gameId = yield select(state => state.game.id);
+        console.log(`starting game: ${gameId}`);
+        socket.emit("game start", { id: gameId });
         break;
       default:
         throw new Error(

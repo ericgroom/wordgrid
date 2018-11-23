@@ -43,10 +43,11 @@ getTrie()
         await handlers.onGameJoin(socket, id);
       });
       socket.on("word", async ({ word, wordId, gameId }) => {
-        console.log(`${socket.id} plays word: #{word} in game: ${gameId}`);
+        console.log(`${socket.id} plays word: ${word} in game: ${gameId}`);
         await handlers.onWordSubmitted(
           io,
           socket,
+          trie,
           { word, id: wordId },
           gameId
         );

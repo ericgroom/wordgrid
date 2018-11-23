@@ -25,7 +25,7 @@ const PreGame = props => (
       {props.users.length > 0 ? (
         <ul>
           {props.users.map(user => (
-            <li>{user}</li>
+            <li>{user.nickname}</li>
           ))}
         </ul>
       ) : (
@@ -37,7 +37,12 @@ const PreGame = props => (
 
 PreGame.propTypes = {
   startGame: PropTypes.func.isRequired,
-  users: PropTypes.arrayOf(PropTypes.string).isRequired
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      nickname: PropTypes.string
+    })
+  ).isRequired
 };
 
 export default PreGame;
