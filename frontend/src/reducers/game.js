@@ -1,6 +1,7 @@
 import _ from "lodash";
 import {
-  CREATE_GAME,
+  REQUEST_CREATE_GAME,
+  GAME_CREATED,
   GAME_STATE_UPDATE,
   JOIN_GAME,
   LEAVE_GAME,
@@ -21,14 +22,15 @@ const initialState = {
   words: [],
   wordId: 0,
   sentWords: [], // words already sent to the backend so that saga can avoid duplicates
-  users: [],
-  nickname: null
+  users: []
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case CREATE_GAME:
+    case REQUEST_CREATE_GAME:
       return { ...state, created: true };
+    case GAME_CREATED:
+      return { ...state, id: action.id };
     case GAME_STATE_UPDATE:
       return { ...state, ...action.state };
     case JOIN_GAME:
@@ -40,10 +42,8 @@ export default (state = initialState, action) => {
       const wordIndex = _.findIndex(words, word => word.id === action.word.id);
       const word = words[wordIndex];
       const updatedWord = { ...word, ...action.word };
-      console.log(word, updatedWord);
       let updatedWords = [...words];
       updatedWords[wordIndex] = updatedWord;
-      console.log(updatedWords);
       return { ...state, words: updatedWords };
     case WORD_COMPLETED:
       // don't add word if the length is less than 3 or already added

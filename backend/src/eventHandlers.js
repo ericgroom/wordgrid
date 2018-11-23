@@ -4,7 +4,7 @@ const db = require("./queries");
 const { generateBoard } = require("./utils");
 const { validateWord } = require("./words");
 
-exports.onGameJoin = async (socket, gameId) => {
+exports.onGameJoin = async (io, socket, gameId) => {
   try {
     const game = await db.getGame(gameId);
     if (game) {
@@ -15,7 +15,6 @@ exports.onGameJoin = async (socket, gameId) => {
     // TODO leave room
     socket.join(`${gameId}`);
     const { id: userId, nickname } = await db.getCurrentUser(socket);
-    console.log("updating game");
     await db.updateGame(gameId, game => ({
       users: r.branch(
         game("users").contains(user => user("id").eq(userId)),
@@ -23,9 +22,10 @@ exports.onGameJoin = async (socket, gameId) => {
         game("users").append({ id: userId, words: [], score: 0 })
       )
     }));
-    socket.broadcast.to(`${gameId}`).emit("user join", nickname);
-    const gameState = await db.getGame(gameId);
-    socket.broadcast.to(`${gameId}`).emit("state", gameState);
+    const gameState = await db.getGame(gameId, ["words", "socket_id"]);
+    io.of("/game")
+      .to(`${gameId}`)
+      .emit("state", gameState);
   } catch (err) {
     console.error(err);
   }
@@ -63,7 +63,7 @@ exports.onWordSubmitted = async (io, socket, trie, word, gameId) => {
 exports.onGameStart = async (io, socket, gameId) => {
   const grid = generateBoard();
   await db.updateGame(gameId, { grid, countdown: true, started: true });
-  const game = await db.getGame(gameId);
+  const game = await db.getGame(gameId, ["words", "socket_id"]);
   socket.emit("start game", game);
   setTimeout(async () => {
     console.log(`ending game: ${gameId}`);
@@ -91,10 +91,6 @@ exports.onGameStart = async (io, socket, gameId) => {
     },
     1.0
   );
-  // const game = db.getGame(gameId);
-  // io.of("/game")
-  //   .in(`${gameId}`)
-  //   .emit("state", game);
 };
 
 exports.onNicknameChange = async (socket, nickname) => {

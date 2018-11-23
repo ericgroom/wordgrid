@@ -1,10 +1,10 @@
 import { eventChannel } from "redux-saga";
-import { take, all, call, put, select } from "redux-saga/effects";
+import { take, race, all, call, put, select } from "redux-saga/effects";
 import _ from "lodash";
 import {
   updateGameState,
-  CREATE_GAME,
-  joinGame,
+  REQUEST_CREATE_GAME,
+  gameCreated,
   JOIN_GAME,
   LEAVE_GAME,
   updateWord,
@@ -21,7 +21,7 @@ function* gameSocketFlow(socket) {
       const action = yield take(JOIN_GAME);
       socket.emit("join game", { id: action.id });
       const socketChannel = yield call(gameSocketChannel, socket);
-      yield all([putFrom(socketChannel), gameActionListener(socket)]);
+      yield race([putFrom(socketChannel), gameActionListener(socket)]);
     } catch (e) {
       console.error(e);
     }
@@ -56,9 +56,9 @@ function gameSocketChannel(socket) {
 }
 
 function* gameActionListener(socket) {
-  while (true) {
+  loop: while (true) {
     console.log("awaiting action");
-    const action = yield take([WORD_COMPLETED, REQUEST_START_GAME]);
+    const action = yield take([WORD_COMPLETED, REQUEST_START_GAME, LEAVE_GAME]);
     switch (action.type) {
       case WORD_COMPLETED:
         // eslint-disable-next-line
@@ -84,6 +84,8 @@ function* gameActionListener(socket) {
         console.log(`starting game: ${gameId}`);
         socket.emit("game start", { id: gameId });
         break;
+      case LEAVE_GAME:
+        break loop;
       default:
         throw new Error(
           `messageActionListener saga took action but has no handler for: ${
@@ -100,9 +102,9 @@ function* gameActionListener(socket) {
 function* gameCreateListener() {
   while (true) {
     console.log("starting gameCreateListener");
-    const action = yield take(CREATE_GAME);
+    const action = yield take(REQUEST_CREATE_GAME);
     switch (action.type) {
-      case CREATE_GAME:
+      case REQUEST_CREATE_GAME:
         yield call(createGame);
         continue;
       default:
@@ -119,10 +121,9 @@ function* gameCreateListener() {
  * Flow for creating a game.
  */
 function* createGame() {
-  console.log("here");
   const res = yield call(fetch, "http://localhost:3001/game/new");
   const { gameId } = yield call([res, "json"]);
-  yield put(joinGame(gameId));
+  yield put(gameCreated(gameId));
 }
 
 export default function* gameFlow(socket) {

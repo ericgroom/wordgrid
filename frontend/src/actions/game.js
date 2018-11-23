@@ -1,4 +1,5 @@
-export const CREATE_GAME = "CREATE_GAME";
+export const REQUEST_CREATE_GAME = "REQUEST_CREATE_GAME";
+export const GAME_CREATED = "GAME_CREATED";
 export const GAME_STATE_UPDATE = "GAME_STATE_UPDATE";
 export const JOIN_GAME = "JOIN_GAME";
 export const LEAVE_GAME = "LEAVE_GAME";
@@ -13,7 +14,8 @@ export const START_GAME = "START_GAME";
 export const SET_TOKEN = "SET_TOKEN";
 export const SENT_AUTH = "SENT_AUTH";
 
-export const createGame = () => ({ type: CREATE_GAME });
+export const createGame = () => ({ type: REQUEST_CREATE_GAME });
+export const gameCreated = id => ({ type: GAME_CREATED, id });
 export const joinGame = id => ({ type: JOIN_GAME, id });
 export const updateWord = word => ({ type: UPDATE_WORD, word });
 export const completeWord = word => ({ type: WORD_COMPLETED, word });

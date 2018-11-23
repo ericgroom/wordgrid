@@ -25,7 +25,7 @@ const PreGame = props => (
       {props.users.length > 0 ? (
         <ul>
           {props.users.map(user => (
-            <li>{user.nickname}</li>
+            <li key={user.id}>{user.nickname}</li>
           ))}
         </ul>
       ) : (
