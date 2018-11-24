@@ -38,7 +38,7 @@ exports.setup = async () => {
   }
 };
 
-exports.getGame = async (id, without = []) => {
+exports.getGame = async id => {
   try {
     const conn = await connect();
     const game = await r
@@ -48,7 +48,7 @@ exports.getGame = async (id, without = []) => {
         users: game("users")
           .eqJoin("id", r.table(USERS_TABLE))
           .zip()
-          .without(...without)
+          .without("socket_id")
       }))
       .run(conn);
     await conn.close();
@@ -62,8 +62,7 @@ exports.getGameChanges = async (
   id,
   callback,
   squash = true,
-  includeInitial = true,
-  without = ["socket_id", "words"]
+  includeInitial = true
 ) => {
   try {
     const conn = await connect();
@@ -74,7 +73,7 @@ exports.getGameChanges = async (
         users: game("users")
           .eqJoin("id", r.table(USERS_TABLE))
           .zip()
-          .without(...without)
+          .without("socket_id")
       }))
       .run(conn, callback);
   } catch (e) {

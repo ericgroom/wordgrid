@@ -1,8 +1,14 @@
 const r = require("rethinkdb");
 const jwt = require("jsonwebtoken");
+const _ = require("lodash");
 const db = require("./queries");
 const { generateBoard } = require("./utils");
 const { validateWord } = require("./words");
+
+function stripWordsFromGame(game) {
+  const users = game.users.map(user => _.omit(user, "words"));
+  return { ...game, users };
+}
 
 exports.onGameJoin = async (io, socket, gameId) => {
   try {
@@ -15,17 +21,23 @@ exports.onGameJoin = async (io, socket, gameId) => {
     // TODO leave room
     socket.join(`${gameId}`);
     const { id: userId, nickname } = await db.getCurrentUser(socket);
+    // add user to game unless they have already been added or the game has ended
     await db.updateGame(gameId, game => ({
       users: r.branch(
-        game("users").contains(user => user("id").eq(userId)),
+        game("ended")
+          .eq(true)
+          .or(game("users").contains(user => user("id").eq(userId))),
         game("users"),
         game("users").append({ id: userId, words: [], score: 0 })
       )
     }));
-    const gameState = await db.getGame(gameId, ["words", "socket_id"]);
+    const gameState = await db.getGame(gameId);
+    const strippedGameState = gameState.ended
+      ? gameState
+      : stripWordsFromGame(gameState);
     io.of("/game")
       .to(`${gameId}`)
-      .emit("state", gameState);
+      .emit("state", strippedGameState);
   } catch (err) {
     console.error(err);
   }
@@ -63,8 +75,12 @@ exports.onWordSubmitted = async (io, socket, trie, word, gameId) => {
 exports.onGameStart = async (io, socket, gameId) => {
   const grid = generateBoard();
   await db.updateGame(gameId, { grid, countdown: true, started: true });
-  const game = await db.getGame(gameId, ["words", "socket_id"]);
-  socket.emit("start game", game);
+  const game = await db.getGame(gameId);
+  const now = new Date();
+  const gameWithStart = { ...game, startTime: now };
+  socket.emit("start game", gameWithStart);
+  await db.updateGame(gameId, gameWithStart);
+  // timeout to end the game
   setTimeout(async () => {
     console.log(`ending game: ${gameId}`);
     await db.updateGame(gameId, { ended: true });
@@ -76,12 +92,15 @@ exports.onGameStart = async (io, socket, gameId) => {
       console.log("cursor created");
       cursor.each((err, row) => {
         if (err) console.error(err);
-        const newState = row;
+        const newState = stripWordsFromGame(row);
         io.of("/game")
           .in(`${gameId}`)
           .emit("state", newState);
         console.log("emitted state");
         if (newState.ended) {
+          io.of("/game")
+            .in(`${gameId}`)
+            .emit("state", row);
           console.log(`closing cursor for game changes: ${gameId}`);
           cursor.close();
           return false; // exit cursor.each
