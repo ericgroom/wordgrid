@@ -8,6 +8,7 @@ import Stats from "./Stats";
 import Messages from "./Messages";
 import WordBank from "./WordBank";
 import PreGame from "./PreGame";
+import PostGame from "./PostGame";
 import Spinner from "./styles/Spinner";
 
 const Container = styled.div`
@@ -25,6 +26,35 @@ const Container = styled.div`
   }
 `;
 
+const mockResults = [
+  {
+    id: "id1",
+    nickname: "user2",
+    score: 20,
+    words: [
+      { id: 1, word: "hello" },
+      { id: 2, word: "adsf" },
+      { id: 3, word: "afsdjlasdj;" },
+      { id: 4, word: "sfda" },
+      { id: 5, word: "jlafsdldsfajl" },
+      { id: 6, word: "afdsjlsacna;sdc" }
+    ]
+  },
+  {
+    id: "id2",
+    nickname: "user1",
+    score: 40,
+    words: [
+      { id: 1, word: "hello" },
+      { id: 2, word: "adsf" },
+      { id: 3, word: "afsdjlasdj;" },
+      { id: 4, word: "sfda" },
+      { id: 5, word: "jlafsdldsfajl" },
+      { id: 6, word: "afdsjlsacna;sdc" }
+    ]
+  }
+];
+
 class Game extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
@@ -41,7 +71,7 @@ class Game extends Component {
   render() {
     if (this.props.loading) return <Spinner />;
     if (this.props.gameExists) {
-      if (this.props.gameStarted) {
+      if (this.props.gameStarted && !this.props.gameEnded) {
         return (
           <Container>
             <div className="left">
@@ -62,6 +92,8 @@ class Game extends Component {
             </div>
           </Container>
         );
+      } else if (this.props.gameEnded) {
+        return <PostGame results={mockResults} />;
       } else {
         return (
           <PreGame
@@ -84,14 +116,17 @@ const mapStateToProps = ({ game, user }) => ({
   words: game.words,
   nickname: user.nickname,
   gameStarted: game.started,
+  gameEnded: game.ended,
   connectedUsers: game.users
 });
+
 const mapDispatchToProps = dispatch => ({
   joinGame: id => dispatch(joinGame(id)),
   wordCompleted: word => dispatch(completeWord(word)),
   startGame: () => dispatch(startGame()),
   leaveGame: () => dispatch(leaveGame())
 });
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
