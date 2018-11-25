@@ -6,6 +6,34 @@ import Game from "./Game";
 import Welcome from "./Welcome";
 import SetNickname from "./SetNickname";
 import Nav from "./Nav";
+import WordGrid from "./WordGrid";
+
+const TestGrid = () => (
+  <>
+    <WordGrid
+      letters={[
+        "a",
+        "b",
+        "c",
+        "d",
+        "a",
+        "b",
+        "c",
+        "a",
+        "b",
+        "c",
+        "a",
+        "b",
+        "c",
+        "a",
+        "b",
+        "c"
+      ]}
+      onWord={word => console.log(word)}
+    />
+    <div style={{ height: "1000px", backgroundColor: "red" }} />
+  </>
+);
 
 const Root = props => (
   <Provider store={props.store}>
@@ -18,6 +46,7 @@ const Root = props => (
             exact
             render={() => <Welcome loading={props.loading} />}
           />
+          <Route path="/test" component={TestGrid} />
           <Route
             path="/game/:id"
             render={() => {
@@ -36,6 +65,7 @@ injectGlobal`
     background-color: #FFF8E7;
     font-family: sans-serif;
     margin: 0;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
     .mobile-warning {
       display: none;
     }

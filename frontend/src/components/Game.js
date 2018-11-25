@@ -14,17 +14,23 @@ import Timer from "./Timer";
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   align-items: center;
   justify-items: center;
   text-align: center;
 
-  .left {
-    grid-column: 2 / 3;
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .right {
-    grid-column: 3 / 4;
+
+  @media (min-width: 800px) {
+    grid-template-columns: minmax(1rem, 1fr) 1fr minmax(200px, 1fr);
+    .left {
+      grid-column: 2 / 3;
+    }
+    .right {
+      grid-column: 3 / 4;
+    }
   }
 `;
 

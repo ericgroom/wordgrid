@@ -12,7 +12,7 @@ const Background = styled.div`
   justify-content: center;
   border-radius: 0.2rem;
   box-shadow: 0 2px 3px 1px darkgreen;
-  pointer-events: all;
+  pointer-events: auto;
 
   &:hover {
     transform: translate(0px, -5px);
@@ -30,6 +30,7 @@ const Background = styled.div`
   .container {
     position: relative;
     text-align: center;
+    pointer-events: none;
   }
 `;
 

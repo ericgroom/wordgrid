@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { extendPath, beginPath, endPath } from "../actions";
 import Tile from "./Tile";
 import PointerListener from "./PointerListener";
+import TouchListener from "./TouchListener";
 
 const Grid = styled.ul`
   display: grid;
@@ -39,6 +40,19 @@ class WordGrid extends Component {
   handleMouseLeave(e) {
     e.preventDefault();
   }
+  handleTouchMove(i, e) {
+    e.preventDefault();
+    const { pageX, pageY } = e.touches[0];
+    const elem = document.elementFromPoint(pageX, pageY);
+    if (elem && elem.classList.contains("tile")) {
+      const index = parseInt(elem.getAttribute("data-tile-index"));
+      if (this.props.currentPath) {
+        this.props.extendPath(index);
+      } else {
+        this.props.beginPath(index);
+      }
+    }
+  }
   endPath() {
     if (this.props.currentPath) {
       const { currentWord, currentPath } = this.props;
@@ -49,33 +63,37 @@ class WordGrid extends Component {
   render() {
     return (
       <>
-        <PointerListener onPointerUp={this.endPath.bind(this)}>
-          <Grid>
-            {this.props.letters.map((letter, index) => (
-              <Tile
-                letter={letter}
-                onPointerDown={this.handleMouseDown.bind(this, index)}
-                onPointerEnter={this.handleMouseEnter.bind(this, index)}
-                onPointerLeave={this.handleMouseLeave.bind(this)}
-                className={`tile tile-${index}`}
-                key={index}
-              />
-            ))}
-          </Grid>
-          {this.props.currentPath &&
-            this.props.currentPath.slice(1).map((node, i) => {
-              const previous = this.props.currentPath[i]; // since we slice, it's not i - 1
-              return (
-                <LineTo
-                  from={`tile-${previous}`}
-                  to={`tile-${node}`}
-                  borderColor="lightgreen"
-                  borderWidth={10}
-                  key={`line-${previous}-${node}`}
+        <TouchListener onTouchEnd={this.endPath.bind(this)}>
+          <PointerListener onPointerUp={this.endPath.bind(this)}>
+            <Grid>
+              {this.props.letters.map((letter, index) => (
+                <Tile
+                  letter={letter}
+                  onPointerDown={this.handleMouseDown.bind(this, index)}
+                  onPointerEnter={this.handleMouseEnter.bind(this, index)}
+                  onPointerLeave={this.handleMouseLeave.bind(this)}
+                  onTouchMove={this.handleTouchMove.bind(this, index)}
+                  className={`tile tile-${index}`}
+                  key={index}
+                  data-tile-index={index}
                 />
-              );
-            })}
-        </PointerListener>
+              ))}
+            </Grid>
+            {this.props.currentPath &&
+              this.props.currentPath.slice(1).map((node, i) => {
+                const previous = this.props.currentPath[i]; // since we slice, it's not i - 1
+                return (
+                  <LineTo
+                    from={`tile-${previous}`}
+                    to={`tile-${node}`}
+                    borderColor="lightgreen"
+                    borderWidth={10}
+                    key={`line-${previous}-${node}`}
+                  />
+                );
+              })}
+          </PointerListener>
+        </TouchListener>
       </>
     );
   }
