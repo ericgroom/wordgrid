@@ -12,7 +12,8 @@ import {
   userJoined,
   sentWord,
   REQUEST_START_GAME,
-  startCountdown
+  startCountdown,
+  endGame
 } from "../actions";
 import { putFrom } from "./index";
 
@@ -51,6 +52,9 @@ function gameSocketChannel(socket) {
     });
     socket.on("countdown", duration => {
       emit(startCountdown(duration));
+    });
+    socket.on("end game", () => {
+      emit(endGame());
     });
     return () => {
       console.log("leaving");

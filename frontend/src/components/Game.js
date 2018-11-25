@@ -10,6 +10,7 @@ import WordBank from "./WordBank";
 import PreGame from "./PreGame";
 import PostGame from "./PostGame";
 import Spinner from "./styles/Spinner";
+import Timer from "./Timer";
 
 const Container = styled.div`
   display: grid;
@@ -17,6 +18,7 @@ const Container = styled.div`
   gap: 1rem;
   align-items: center;
   justify-items: center;
+  text-align: center;
 
   .left {
     grid-column: 2 / 3;
@@ -49,6 +51,9 @@ class Game extends Component {
               <p className="mobile-warning">
                 This website may not work on your mobile device.
               </p>
+              <Timer duration={this.props.gameDuration}>
+                {remaining => <h1>{remaining}</h1>}
+              </Timer>
               {this.props.letters && (
                 <WordGrid
                   letters={this.props.letters}
@@ -92,7 +97,8 @@ const mapStateToProps = ({ game, user }) => ({
   nickname: user.nickname,
   gameStarted: game.started,
   gameEnded: game.ended,
-  connectedUsers: game.users
+  connectedUsers: game.users,
+  gameDuration: game.duration
 });
 
 const mapDispatchToProps = dispatch => ({

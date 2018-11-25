@@ -52,22 +52,23 @@ exports.onWordSubmitted = async (io, socket, trie, word, gameId) => {
   if (game.ended) return;
   // 4. add word to list of words played, update scores
   const { id: userId } = await db.getCurrentUser(socket);
-  console.log("before");
-  const wUpdate = await db.updateGame(gameId, game => {
-    return {
-      users: game("users").map(user => {
-        return r.branch(
-          user("id").eq(userId), // if matches id
-          user.merge({
-            // merge updates into existing row
-            words: user("words").append({ ...word, score, valid }),
-            score: user("score").add(score)
-          }),
-          user // else return unmodified row
-        );
-      })
-    };
-  });
+  if (valid) {
+    const wUpdate = await db.updateGame(gameId, game => {
+      return {
+        users: game("users").map(user => {
+          return r.branch(
+            user("id").eq(userId), // if matches id
+            user.merge({
+              // merge updates into existing row
+              words: user("words").append({ ...word, score, valid }),
+              score: user("score").add(score)
+            }),
+            user // else return unmodified row
+          );
+        })
+      };
+    });
+  }
   // 5. send word back to sender
   socket.emit("word", { valid, id: word.id, score });
 };
@@ -83,7 +84,7 @@ exports.startCountdown = async (io, socket, gameId) => {
 
 exports.onGameStart = async (io, socket, gameId) => {
   const grid = generateBoard();
-  await db.updateGame(gameId, { grid, countdown: true, started: true });
+  await db.updateGame(gameId, { grid, started: true });
   const game = await db.getGame(gameId);
   const now = new Date();
   const gameWithStart = { ...game, startTime: now };
@@ -94,7 +95,10 @@ exports.onGameStart = async (io, socket, gameId) => {
   setTimeout(async () => {
     console.log(`ending game: ${gameId}`);
     await db.updateGame(gameId, { ended: true });
-  }, (game.countdownDuration + game.duration) * 1000);
+    io.of("/game")
+      .in(`${gameId}`)
+      .emit("end game");
+  }, game.duration * 1000);
   await db.updateGame(gameId, gameWithStart);
   await db.getGameChanges(
     gameId,
