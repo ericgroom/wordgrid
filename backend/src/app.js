@@ -53,8 +53,11 @@ getTrie()
         );
       });
       socket.on("game start", async ({ id }) => {
-        console.log(`${socket.id} starts game: ${id}`);
-        handlers.onGameStart(io, socket, id);
+        const countdown = await handlers.startCountdown(io, socket, id);
+        setTimeout(async () => {
+          console.log(`${socket.id} starts game: ${id}`);
+          await handlers.onGameStart(io, socket, id);
+        }, countdown * 1000);
       });
       socket.on("nickname", async nickname => {
         console.log(`${socket.id} changes nickname to: ${nickname}`);

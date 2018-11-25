@@ -72,23 +72,34 @@ exports.onWordSubmitted = async (io, socket, trie, word, gameId) => {
   socket.emit("word", { valid, id: word.id, score });
 };
 
+exports.startCountdown = async (io, socket, gameId) => {
+  await db.updateGame(gameId, { countdown: true });
+  const { countdownDuration } = await db.getGame(gameId);
+  io.of("/game")
+    .in(`${gameId}`)
+    .emit("countdown", countdownDuration);
+  return countdownDuration;
+};
+
 exports.onGameStart = async (io, socket, gameId) => {
   const grid = generateBoard();
   await db.updateGame(gameId, { grid, countdown: true, started: true });
   const game = await db.getGame(gameId);
   const now = new Date();
   const gameWithStart = { ...game, startTime: now };
-  socket.emit("start game", gameWithStart);
-  await db.updateGame(gameId, gameWithStart);
+  io.of("/game")
+    .in(`${gameId}`)
+    .emit("start game", gameWithStart);
   // timeout to end the game
   setTimeout(async () => {
     console.log(`ending game: ${gameId}`);
     await db.updateGame(gameId, { ended: true });
-  }, 20 * 1000);
+  }, (game.countdownDuration + game.duration) * 1000);
+  await db.updateGame(gameId, gameWithStart);
   await db.getGameChanges(
     gameId,
     (err, cursor) => {
-      if (err) console.error(err);
+      if (err) throw err;
       console.log("cursor created");
       cursor.each((err, row) => {
         if (err) console.error(err);

@@ -9,13 +9,16 @@ import {
   WORD_COMPLETED,
   USER_JOIN,
   WORD_SENT,
-  START_GAME
+  START_GAME,
+  START_COUNTDOWN
 } from "../actions";
 
 const initialState = {
   id: null,
   created: false,
   started: false,
+  countdown: false,
+  countdownDuration: 0,
   joined: false,
   exists: true,
   grid: null,
@@ -64,6 +67,8 @@ export default (state = initialState, action) => {
       return { ...state, users: [...state.users, action.nickname] };
     case START_GAME:
       return { ...state, started: true };
+    case START_COUNTDOWN:
+      return { ...state, countdown: true, countdownDuration: action.duration };
     default:
       return state;
   }

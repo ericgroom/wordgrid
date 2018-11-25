@@ -26,35 +26,6 @@ const Container = styled.div`
   }
 `;
 
-const mockResults = [
-  {
-    id: "id1",
-    nickname: "user2",
-    score: 20,
-    words: [
-      { id: 1, word: "hello" },
-      { id: 2, word: "adsf" },
-      { id: 3, word: "afsdjlasdj;" },
-      { id: 4, word: "sfda" },
-      { id: 5, word: "jlafsdldsfajl" },
-      { id: 6, word: "afdsjlsacna;sdc" }
-    ]
-  },
-  {
-    id: "id2",
-    nickname: "user1",
-    score: 40,
-    words: [
-      { id: 1, word: "hello" },
-      { id: 2, word: "adsf" },
-      { id: 3, word: "afsdjlasdj;" },
-      { id: 4, word: "sfda" },
-      { id: 5, word: "jlafsdldsfajl" },
-      { id: 6, word: "afdsjlsacna;sdc" }
-    ]
-  }
-];
-
 class Game extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
@@ -93,12 +64,14 @@ class Game extends Component {
           </Container>
         );
       } else if (this.props.gameEnded) {
-        return <PostGame results={mockResults} />;
+        return <PostGame results={this.props.connectedUsers} />;
       } else {
         return (
           <PreGame
             startGame={this.props.startGame}
             users={this.props.connectedUsers}
+            countdown={this.props.countdown}
+            countdownDuration={this.props.countdownDuration}
           />
         );
       }
@@ -111,6 +84,8 @@ class Game extends Component {
 const mapStateToProps = ({ game, user }) => ({
   letters: game.grid,
   started: game.started,
+  countdown: game.countdown,
+  countdownDuration: game.countdownDuration,
   gameExists: game.exists,
   loading: game.created && !game.id,
   words: game.words,

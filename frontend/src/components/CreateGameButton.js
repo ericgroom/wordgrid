@@ -11,12 +11,13 @@ class CreateGameButton extends React.Component {
     this.setState({ clicked: true });
   };
   render() {
-    const { disabled, redirect, gameId } = this.props;
+    const { loading, redirect, gameId } = this.props;
     if (this.state.clicked && redirect)
       return <Redirect to={`/game/${gameId}`} />;
     return (
-      <BigButton disabled={disabled} onClick={this.createGame}>
-        Create New Game
+      <BigButton disabled={loading} onClick={this.createGame}>
+        Creat
+        {loading ? "ing" : "e"} New Game
       </BigButton>
     );
   }

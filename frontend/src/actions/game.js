@@ -11,6 +11,7 @@ export const SET_NICKNAME = "SET_NICKNAME";
 export const USER_JOIN = "USER_JOIN";
 export const REQUEST_START_GAME = "REQUEST_START_GAME";
 export const START_GAME = "START_GAME";
+export const START_COUNTDOWN = "START_COUNTDOWN";
 export const SET_TOKEN = "SET_TOKEN";
 export const SENT_AUTH = "SENT_AUTH";
 
@@ -26,6 +27,7 @@ export const setNickname = nickname => ({
 export const userJoined = nickname => ({ type: USER_JOIN, nickname });
 export const sentWord = word => ({ type: WORD_SENT, word });
 export const startGame = () => ({ type: REQUEST_START_GAME });
+export const startCountdown = duration => ({ type: START_COUNTDOWN, duration });
 export const leaveGame = () => ({ type: LEAVE_GAME });
 
 export const updateGameState = payload => ({

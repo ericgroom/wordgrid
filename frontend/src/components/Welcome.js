@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 const Welcome = ({ loading }) => (
   <Wrapper>
     <h1>Welcome to WordGrid!</h1>
-    <CreateGameButton disabled={loading} />
+    <CreateGameButton loading={loading} />
     {loading && <Spinner />}
   </Wrapper>
 );

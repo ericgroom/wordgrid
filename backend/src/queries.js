@@ -88,7 +88,9 @@ exports.createGame = async game => {
       users: [],
       started: false,
       ended: false,
-      countdown: false
+      countdown: false,
+      countdownDuration: 3,
+      duration: 60
     };
     const conn = await connect();
     const gameObj = await r
