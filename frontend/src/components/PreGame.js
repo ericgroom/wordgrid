@@ -29,7 +29,10 @@ class PreGame extends React.Component {
     return (
       <Wrapper>
         <p>Pas encore commencée</p>
-        <BigButton onClick={this.handleButtonClick}>
+        <BigButton
+          onClick={this.handleButtonClick}
+          disabled={this.state.clicked}
+        >
           {this.props.countdown ? (
             <Timer duration={this.props.countdownDuration}>
               {remaining => `Starting Game in ${remaining}...`}
