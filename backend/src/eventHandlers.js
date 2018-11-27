@@ -1,4 +1,3 @@
-const r = require("rethinkdb");
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const db = require("./queries");

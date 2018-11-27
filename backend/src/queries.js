@@ -1,42 +1,14 @@
-const r = require("rethinkdb");
+const Knex = require("knex");
+const { Model } = require("objection");
+const Game = require("../models/Game.js");
 
 const DB_NAME = "wordgrid";
 const GAMES_TABLE = "games";
 const USERS_TABLE = "users";
-const MESSAGES_TABLE = "messages";
-const TABLES = [GAMES_TABLE, MESSAGES_TABLE, USERS_TABLE];
+const TABLES = [GAMES_TABLE, USERS_TABLE];
 
-const connect = async () => {
-  return await r.connect({ db: DB_NAME });
-};
-
-exports.setup = async () => {
-  try {
-    const conn = await r.connect();
-    await r
-      .dbCreate(DB_NAME)
-      .run(conn)
-      .then(() => {
-        console.log("database successfully created");
-      })
-      .catch(() => console.log("database already exists"));
-    await TABLES.forEach(async table => {
-      await r
-        .db(DB_NAME)
-        .tableCreate(table)
-        .run(conn)
-        .then(() => {
-          console.log("created table:", table);
-        })
-        .catch(() => {
-          console.log("table already exists", table);
-        });
-    });
-    await conn.close();
-  } catch (e) {
-    throw e;
-  }
-};
+const knex = Knex(require("../knexfile.js")[process.env.NODE_ENV]);
+Model.knex(knex);
 
 exports.getGame = async id => {
   try {
@@ -92,12 +64,8 @@ exports.createGame = async game => {
       countdownDuration: 3,
       duration: 60
     };
-    const conn = await connect();
-    const gameObj = await r
-      .table(GAMES_TABLE)
-      .insert({ ...gameInit, ...game })
-      .run(conn);
-    await conn.close();
+    const gameObj = await Game.query().insert(game);
+    console.log(gameObj);
     return gameObj;
   } catch (e) {
     throw e;
