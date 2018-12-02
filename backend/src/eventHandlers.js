@@ -19,7 +19,11 @@ exports.onGameJoin = async (io, socket, gameId) => {
     socket.join(`${gameId}`);
     const { id: userId, nickname } = await db.getCurrentUser(socket);
     // add user to game unless they have already been added or the game has ended
-    await db.joinGame(userId, gameId);
+    try {
+      await db.joinGame(userId, gameId);
+    } catch (e) {
+      console.log(`${userId} already a member of game: ${gameId}`);
+    }
     const gameState = await db.getGame(gameId);
     console.log("state: ", gameState);
     // const strippedGameState = gameState.ended
