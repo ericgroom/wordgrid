@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import Table from "./styles/Table";
 import ListContainer from "./styles/ListContainer";
 import Container from "./styles/Container";
 

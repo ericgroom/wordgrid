@@ -16,7 +16,8 @@ class Game extends Model {
           from: "games.id",
           through: {
             from: "game_user_relation.game_id",
-            to: "game_user_relation.user_id"
+            to: "game_user_relation.user_id",
+            extra: ["score"]
           },
           to: "users.id"
         }
@@ -26,7 +27,7 @@ class Game extends Model {
         modelClass: Word,
         join: {
           from: "games.id",
-          to: "words.id"
+          to: "words.game_id"
         }
       }
     };

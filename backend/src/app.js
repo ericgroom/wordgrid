@@ -13,7 +13,7 @@ app.use(corsMiddleware);
 
 app.get("/game/new", async function(req, res) {
   try {
-    const gameId = await db.createGame({});
+    const { id: gameId } = await db.createGame({});
     res.json({ gameId: gameId });
   } catch (err) {
     console.log(err);
