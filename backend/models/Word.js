@@ -6,8 +6,8 @@ class Word extends Model {
   }
 
   static get relationMappings() {
-    const Game = require("./game");
-    const User = require("./user");
+    const Game = require("./Game");
+    const User = require("./User");
 
     return {
       game: {
