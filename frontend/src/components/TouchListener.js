@@ -11,7 +11,7 @@ class TouchListener extends React.Component {
     });
   }
   componentWillUnmount() {
-    this.childRef.current.document.removeEventListener(
+    this.childRef.current.removeEventListener(
       "touchmove",
       this.handleTouchMove,
       {

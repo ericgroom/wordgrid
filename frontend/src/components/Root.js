@@ -76,19 +76,11 @@ injectGlobal`
       }
     }
   }
-  /* https://stackoverflow.com/questions/29894997/prevent-ios-bounce-without-disabling-scroll-ability */
-  /* html {
-    position: fixed;
-    height: 100%;
-    overflow: hidden;
-  } */
+
 
   body {
     width: 100vw;
     height: 100vh;
-    /* overflow-y: scroll;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch; */
   }
 `;
 

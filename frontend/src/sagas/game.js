@@ -35,8 +35,10 @@ function* gameSocketFlow(socket) {
  */
 function gameSocketChannel(socket) {
   return eventChannel(emit => {
-    socket.on("state", initialState => {
-      emit(updateGameState(initialState));
+    socket.on("state", updatedState => {
+      let state = { ...updatedState };
+      if (state.grid) state.grid = state.grid.split("");
+      emit(updateGameState(state));
     });
     socket.on("not exists", () => emit(updateGameState({ exists: false })));
     socket.on("word", word => {
@@ -46,9 +48,6 @@ function gameSocketChannel(socket) {
     socket.on("user join", nickname => {
       console.log(`${nickname} joined`);
       emit(userJoined(nickname));
-    });
-    socket.on("start game", gameState => {
-      emit(updateGameState(gameState));
     });
     socket.on("countdown", duration => {
       emit(startCountdown(duration));

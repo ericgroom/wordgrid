@@ -66,7 +66,7 @@ class Game extends Component {
                   onWord={this.props.wordCompleted}
                 />
               )}
-              <Stats />
+              <Stats score={this.props.score} />
             </div>
             <div className="right">
               <WordBank words={this.props.words} />
@@ -92,7 +92,7 @@ class Game extends Component {
   }
 }
 
-const mapStateToProps = ({ game, user }) => ({
+const mapStateToProps = ({ game, user: { userId, nickname } }) => ({
   letters: game.grid,
   started: game.started,
   countdown: game.countdown,
@@ -100,11 +100,15 @@ const mapStateToProps = ({ game, user }) => ({
   gameExists: game.exists,
   loading: game.created && !game.id,
   words: game.words,
-  nickname: user.nickname,
+  nickname: nickname,
   gameStarted: game.started,
   gameEnded: game.ended,
   connectedUsers: game.users,
-  gameDuration: game.duration
+  gameDuration: game.duration,
+  score:
+    game.users.length > 0
+      ? game.users.find(user => user.id === userId).score
+      : 0
 });
 
 const mapDispatchToProps = dispatch => ({

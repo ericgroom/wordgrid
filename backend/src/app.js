@@ -9,16 +9,11 @@ const { validateWord, getTrie } = require("./words");
 const db = require("./queries");
 const handlers = require("./eventHandlers");
 
-db.setup().then(() => {
-  console.log("Database setup complete");
-});
-
 app.use(corsMiddleware);
 
 app.get("/game/new", async function(req, res) {
   try {
-    const result = await db.createGame({});
-    const gameId = result.generated_keys[0];
+    const { id: gameId } = await db.createGame({});
     res.json({ gameId: gameId });
   } catch (err) {
     console.log(err);

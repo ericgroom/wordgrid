@@ -31,7 +31,7 @@ class Timer extends React.Component {
     this.setup();
   }
   componentWillUnmount() {
-    clearInterval(this.intervalId);
+    clearInterval(this.state.intervalId);
   }
   render() {
     return this.props.children(this.state.remaining);

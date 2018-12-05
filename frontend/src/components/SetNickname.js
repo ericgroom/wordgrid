@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { setNickname } from "../actions";
+import Spinner from "./styles/Spinner";
 
 const Page = styled.div`
   text-align: center;
@@ -19,6 +20,7 @@ class SetNickname extends React.Component {
     this.props.setNickname(this.state.nickname);
   };
   render() {
+    if (this.props.pendingAuth) return <Spinner />;
     return (
       <Page>
         <h1>To join please enter a nickname</h1>
@@ -40,11 +42,15 @@ class SetNickname extends React.Component {
   }
 }
 
+const mapStateToProps = ({ user }) => ({
+  pendingAuth: user.userId !== null
+});
+
 const mapDispatchToProps = dispatch => ({
   setNickname: nickname => dispatch(setNickname(nickname))
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SetNickname);
