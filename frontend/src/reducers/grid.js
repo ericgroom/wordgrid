@@ -4,8 +4,7 @@ import { appendOrRevert, bfs, gridNeighbors } from "../utils";
 
 const initialState = {
   path: null,
-  gridSize: 4,
-  score: 0
+  gridSize: 4
 };
 
 function extendPath(path, index, gridSize) {
@@ -33,8 +32,7 @@ export default (state = initialState, action) => {
     case END_PATH:
       return {
         ...state,
-        path: null,
-        score: state.score + _.get(state, "path.length", 0)
+        path: null
       };
     default:
       return state;
