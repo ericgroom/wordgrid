@@ -44,7 +44,7 @@ class Game extends Component {
     }
   }
   componentWillUnmount() {
-    this.props.leaveGame();
+    this.props.leaveGame(this.props.gameId);
   }
 
   render() {
@@ -94,6 +94,7 @@ class Game extends Component {
 
 const mapStateToProps = ({ game, user: { userId, nickname } }) => ({
   letters: game.grid,
+  gameId: game.id,
   started: game.started,
   countdown: game.countdown,
   countdownDuration: game.countdownDuration,
@@ -115,7 +116,7 @@ const mapDispatchToProps = dispatch => ({
   joinGame: id => dispatch(joinGame(id)),
   wordCompleted: word => dispatch(completeWord(word)),
   startGame: () => dispatch(startGame()),
-  leaveGame: () => dispatch(leaveGame())
+  leaveGame: id => dispatch(leaveGame(id))
 });
 
 export default connect(

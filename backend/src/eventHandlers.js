@@ -15,7 +15,6 @@ exports.onGameJoin = async (io, socket, gameId) => {
     if (!game) {
       socket.emit("not exists");
     }
-    // TODO leave room
     socket.join(`${gameId}`);
     const { id: userId, nickname } = await db.getCurrentUser(socket);
     // add user to game unless they have already been added or the game has ended

@@ -22,7 +22,7 @@ export const userJoined = nickname => ({ type: USER_JOIN, nickname });
 export const sentWord = word => ({ type: WORD_SENT, word });
 export const startGame = () => ({ type: REQUEST_START_GAME });
 export const startCountdown = duration => ({ type: START_COUNTDOWN, duration });
-export const leaveGame = () => ({ type: LEAVE_GAME });
+export const leaveGame = id => ({ type: LEAVE_GAME, id });
 export const endGame = () => ({ type: END_GAME });
 
 export const updateGameState = payload => ({
