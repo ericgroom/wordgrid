@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { BEGIN_PATH, EXTEND_PATH, END_PATH } from "../actions";
 import { appendOrRevert, bfs, gridNeighbors } from "../utils";
 

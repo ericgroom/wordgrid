@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import _ from "lodash";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { joinGame, completeWord, startGame, leaveGame } from "../actions";
