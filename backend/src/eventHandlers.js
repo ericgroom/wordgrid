@@ -71,6 +71,7 @@ exports.onGameStart = async (io, socket, gameId) => {
   io.of("/game")
     .in(`${gameId}`)
     .emit("state", gameWithStart);
+  const { duration = 60 } = gameWithStart;
   // timeout to end the game
   setTimeout(async () => {
     console.log(`ending game: ${gameId}`);
@@ -78,7 +79,7 @@ exports.onGameStart = async (io, socket, gameId) => {
     io.of("/game")
       .in(`${gameId}`)
       .emit("end game");
-  }, 10 * 1000);
+  }, duration * 1000);
   await db.getGameChanges(
     gameId,
     (err, game) => {
@@ -87,13 +88,11 @@ exports.onGameStart = async (io, socket, gameId) => {
       io.of("/game")
         .in(`${gameId}`)
         .emit("state", game);
-      console.log("emitted state");
       if (game.ended) {
         console.log("ending");
         return false; // exit callback loop
       }
       return true;
-      console.log("next iteration");
     },
     1.0 * 1000
   );
