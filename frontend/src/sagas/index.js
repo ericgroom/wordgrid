@@ -24,8 +24,8 @@ export function* putFrom(socketChannel) {
  */
 export default function* socketSaga() {
   while (true) {
-    const gameSocket = io("localhost:3001/game");
-    const chatSocket = io("localhost:3001/chat");
+    const gameSocket = io(`${process.env.REACT_APP_BACKEND_URL}/game`);
+    const chatSocket = io(`${process.env.REACT_APP_BACKEND_URL}/chat`);
     yield all([
       messagesFlow(chatSocket),
       gameFlow(gameSocket),

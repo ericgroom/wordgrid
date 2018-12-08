@@ -128,9 +128,15 @@ function* gameCreateListener() {
  * Flow for creating a game.
  */
 function* createGame() {
-  const res = yield call(fetch, "http://localhost:3001/game/new");
-  const { gameId } = yield call([res, "json"]);
-  yield put(gameCreated(gameId));
+  try {
+    const url = `${process.env.REACT_APP_BACKEND_URL}/game/new`;
+    console.log(url);
+    const res = yield call(fetch, url);
+    const { gameId } = yield call([res, "json"]);
+    yield put(gameCreated(gameId));
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 export default function* gameFlow(socket) {
