@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=development nodemon src/app.js",
-    "migrate": "knex migrate:latest"
+    "migrate": "knex migrate:latest",
+    "start": "node src/app.js"
   },
   "keywords": [],
   "author": "",
