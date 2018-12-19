@@ -56,7 +56,6 @@ function gameSocketChannel(socket) {
       emit(endGame());
     });
     return () => {
-      console.log("leaving");
       emit({ type: LEAVE_GAME });
     };
   });
@@ -66,6 +65,7 @@ function* gameActionListener(socket) {
   loop: while (true) {
     console.log("awaiting action");
     const action = yield take([WORD_COMPLETED, REQUEST_START_GAME, LEAVE_GAME]);
+    const gameId = yield select(state => state.game.id);
     switch (action.type) {
       case WORD_COMPLETED:
         // eslint-disable-next-line
@@ -87,11 +87,11 @@ function* gameActionListener(socket) {
         }
         break;
       case REQUEST_START_GAME:
-        const gameId = yield select(state => state.game.id);
         console.log(`starting game: ${gameId}`);
         socket.emit("game start", { id: gameId });
         break;
       case LEAVE_GAME:
+        socket.emit("leave game", action.id);
         break loop;
       default:
         throw new Error(
@@ -128,9 +128,15 @@ function* gameCreateListener() {
  * Flow for creating a game.
  */
 function* createGame() {
-  const res = yield call(fetch, "http://localhost:3001/game/new");
-  const { gameId } = yield call([res, "json"]);
-  yield put(gameCreated(gameId));
+  try {
+    const url = `${process.env.REACT_APP_BACKEND_URL}/game/new`;
+    console.log(url);
+    const res = yield call(fetch, url);
+    const { gameId } = yield call([res, "json"]);
+    yield put(gameCreated(gameId));
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 export default function* gameFlow(socket) {

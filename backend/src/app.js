@@ -66,6 +66,10 @@ getTrie()
         console.log(`${socket.id} authenticates: new anonymous user`);
         await handlers.onAuthenticateAnonymous(socket);
       });
+      socket.on("leave game", gameId => {
+        console.log(`socket ${socket.id} leaves game: ${gameId}`);
+        socket.leave(gameId);
+      });
     });
   })
   .catch(err => console.error("unable to create trie", err));
