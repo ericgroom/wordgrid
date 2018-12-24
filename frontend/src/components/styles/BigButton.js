@@ -4,7 +4,7 @@ const BigButton = styled.button`
   font-size: 2rem;
   border: none;
   padding: 1rem;
-  background-color: #2756c3;
+  background-color: ${props => props.theme.darkBlue};
   color: white;
   border-radius: 0.2rem;
   box-shadow: 4px 4px #0a2e82;

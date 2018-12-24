@@ -19,12 +19,13 @@ const Container = styled.div`
   align-items: center;
   justify-items: center;
   text-align: center;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
 
-  @media (min-width: 600px) {
+  /* @media (min-width: 600px) {
     grid-template-columns: repeat(2, 1fr);
-  }
+  } */
 
-  @media (min-width: 800px) {
+  /* @media (min-width: 900px) {
     grid-template-columns: minmax(1rem, 1fr) 1fr minmax(200px, 1fr);
     .left {
       grid-column: 2 / 3;
@@ -32,7 +33,7 @@ const Container = styled.div`
     .right {
       grid-column: 3 / 4;
     }
-  }
+  } */
 `;
 
 class Game extends Component {

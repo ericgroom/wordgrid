@@ -4,11 +4,14 @@ import PropTypes from "prop-types";
 import BigButton from "./styles/BigButton";
 import List from "./styles/List";
 import Timer from "./Timer";
+import CopyableLink from "../CopyableLink";
 
 const Wrapper = styled.div`
   text-align: center;
   max-width: 600px;
-  margin: 0 auto;
+  margin: 1rem auto;
+  padding: 1rem;
+
   button {
     margin-bottom: 1rem;
   }
@@ -28,7 +31,10 @@ class PreGame extends React.Component {
   render() {
     return (
       <Wrapper>
-        <p>Pas encore commencée</p>
+        <h3>
+          Game isn't started yet, invite some friends with the link below!
+        </h3>
+        <CopyableLink url={window.location.toString()} />
         <BigButton
           onClick={this.handleButtonClick}
           disabled={this.state.clicked}
