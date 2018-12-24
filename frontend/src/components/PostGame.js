@@ -53,11 +53,14 @@ class PostGame extends React.Component {
           <h2>Game Over</h2>
           {results.length > 0 ? (
             <ListGrid>
-              {results.map(user => (
+              {results.map((user, index) => (
                 <List
                   key={user.id}
                   user-id={user.id}
-                  showDetail={this.state.detailId === user.id}
+                  showDetail={
+                    this.state.detailId === user.id ||
+                    (this.state.detailId === null && index === 0)
+                  }
                   onClick={this.handleMainClick.bind(this, user.id)}
                 >
                   <h3 className="main">
