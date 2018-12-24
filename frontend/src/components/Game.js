@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import _ from "lodash";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { joinGame, completeWord, startGame, leaveGame } from "../actions";
@@ -108,7 +109,9 @@ const mapStateToProps = ({ game, user: { userId, nickname } }) => ({
   gameDuration: game.duration,
   score:
     game.users.length > 0
-      ? game.users.find(user => user.id === userId).score
+      ? game.users
+        ? _.get(game.users.find(user => user.id === userId), "score", 0)
+        : 0
       : 0
 });
 
