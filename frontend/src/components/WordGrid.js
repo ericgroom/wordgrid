@@ -16,6 +16,7 @@ const Grid = styled.ul`
   padding: 0;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   pointer-events: none;
+  justify-content: center;
 
   .tile {
     z-index: 5;
