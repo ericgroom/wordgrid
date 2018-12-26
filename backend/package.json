@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon src/app.js",
     "migrate": "knex migrate:latest",
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
     "socket.io": "^2.1.1"
   },
   "devDependencies": {
+    "jest": "^23.6.0",
     "nodemon": "^1.18.6"
   }
 }

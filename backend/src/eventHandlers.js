@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const db = require("./queries");
-const { generateBoard } = require("./utils");
+const { generateBoardFrequencies } = require("./utils");
 const { validateWord } = require("./words");
 
 function stripWordsFromGame(game) {
@@ -64,7 +64,7 @@ exports.startCountdown = async (io, socket, gameId) => {
 };
 
 exports.onGameStart = async (io, socket, gameId) => {
-  const grid = generateBoard();
+  const grid = generateBoardFrequencies();
   await db.updateGame(gameId, { grid: grid.join(""), started: true });
   const gameWithStart = await db.startGame(gameId);
   io.of("/game")
