@@ -4,6 +4,7 @@ const Game = require("../models/Game");
 const User = require("../models/User");
 const Word = require("../models/Word");
 const GameUserRelation = require("../models/GameUserRelation");
+const { timedLoop } = require("./utils");
 
 const DB_NAME = "wordgrid";
 const GAMES_TABLE = "games";
@@ -29,21 +30,14 @@ exports.getGame = async (id, join = true) => {
 };
 
 exports.getGameChanges = async (id, callback, timeout) => {
-  var loop = async function() {
-    try {
-      const game = await Game.query()
-        .eager("[users.[words]]")
-        .modifyEager("users.words", builder => builder.where("game_id", id))
-        .findById(id);
-      const result = callback(null, game);
-      if (result === true) {
-        setTimeout(loop, timeout);
-      }
-    } catch (e) {
-      callback(e, null);
-    }
-  };
-  await loop();
+  const getGame = async () =>
+    await Game.query()
+      .eager("[users.[words]]")
+      .modifyEager("users.words", builder => builder.where("game_id", id))
+      .findById(id);
+  const callbackPredicate = (prev, next) =>
+    JSON.stringify(prev) !== JSON.stringify(next);
+  await timedLoop(getGame, callback, callbackPredicate, timeout);
 };
 
 exports.createGame = async game => {
