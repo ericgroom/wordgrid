@@ -12,6 +12,7 @@ import PreGame from "./PreGame";
 import PostGame from "./PostGame";
 import Spinner from "./styles/Spinner";
 import Timer from "./Timer";
+import Scoreboard from "./Scoreboard";
 
 const Container = styled.div`
   display: grid;
@@ -19,7 +20,23 @@ const Container = styled.div`
   align-items: center;
   justify-items: center;
   text-align: center;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+
+  @media (min-width: 800px) {
+    grid-template-columns: repeat(2, minmax(400px, 1fr));
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(3, minmax(400px, 1fr));
+    .scoreboard {
+      order: 0;
+    }
+    .main {
+      order: 1;
+    }
+    .wordbank {
+      order: 2;
+    }
+  }
 
   /* @media (min-width: 600px) {
     grid-template-columns: repeat(2, 1fr);
@@ -55,7 +72,7 @@ class Game extends Component {
       if (this.props.gameStarted && !this.props.gameEnded) {
         return (
           <Container>
-            <div className="left">
+            <div className="main">
               <p className="mobile-warning">
                 This website may not work on your mobile device.
               </p>
@@ -70,10 +87,14 @@ class Game extends Component {
               )}
               <Stats score={this.props.score} />
             </div>
-            <div className="right">
+            <Scoreboard
+              users={this.props.connectedUsers}
+              className="scoreboard"
+            />
+            <aside className="wordbank">
               <WordBank words={this.props.words} />
               <Messages />
-            </div>
+            </aside>
           </Container>
         );
       } else if (this.props.gameEnded) {

@@ -34,6 +34,7 @@ exports.getGameChanges = async (id, callback, timeout) => {
     await Game.query()
       .eager("[users.[words]]")
       .modifyEager("users.words", builder => builder.where("game_id", id))
+      .modifyEager("users", builder => builder.orderBy("score", "DESC"))
       .findById(id);
   const callbackPredicate = (prev, next) =>
     JSON.stringify(prev) !== JSON.stringify(next);
