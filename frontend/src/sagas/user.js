@@ -1,34 +1,47 @@
 import jwt_decode from "jwt-decode";
 import { eventChannel } from "redux-saga";
-import { call, put, all, take } from "redux-saga/effects";
+import { call, put, all, take, actionChannel } from "redux-saga/effects";
 import { putFrom } from "./index";
 import {
   SENT_AUTH,
   SET_NICKNAME,
   REQUEST_SET_NICKNAME,
   SET_TOKEN,
-  setUserId
+  setUserId,
+  confirmAuth,
+  CONFIRM_AUTH
 } from "../actions";
 
 function* userFlow(socket) {
-  yield call(auth, socket);
   const authChannel = yield call(authSocketChannel, socket);
-  yield all([putFrom(authChannel), listenNickname(socket)]);
-}
-
-function* auth(socket) {
-  if (localStorage.authToken) {
-    socket.emit("auth", localStorage.authToken);
-    yield put({ type: SENT_AUTH, new: false });
-    const { userId } = jwt_decode(localStorage.authToken);
-    yield put(setUserId(userId));
-  } else {
-    socket.emit("new auth");
-    yield put({ type: SENT_AUTH, new: true });
-  }
+  const userChannel = yield call(userSocketChannel, socket);
+  yield all([
+    putFrom(userChannel),
+    putFrom(authChannel),
+    userActionListener(socket)
+  ]);
 }
 
 function authSocketChannel(socket) {
+  return eventChannel(emitter => {
+    if (localStorage.authToken) {
+      const { userId } = jwt_decode(localStorage.authToken);
+      emitter(setUserId(userId));
+      socket.emit("auth", localStorage.authToken, success => {
+        emitter(confirmAuth(success));
+      });
+      emitter({ type: SENT_AUTH, new: false });
+    } else {
+      socket.emit("new auth", success => {
+        emitter(confirmAuth(success));
+      });
+      emitter({ type: SENT_AUTH, new: true });
+    }
+    return () => {};
+  });
+}
+
+function userSocketChannel(socket) {
   return eventChannel(emit => {
     socket.on("token", token => {
       localStorage.authToken = token;
@@ -43,11 +56,26 @@ function authSocketChannel(socket) {
   });
 }
 
-function* listenNickname(socket) {
+function* userActionListener(socket) {
   while (true) {
-    const { nickname } = yield take(REQUEST_SET_NICKNAME);
-    console.log("setting!");
-    socket.emit("nickname", nickname);
+    console.log("userActionListener waiting...");
+    const action = yield take(REQUEST_SET_NICKNAME, CONFIRM_AUTH);
+    console.log("userActionListener taking action", action.type);
+    switch (action.type) {
+      case REQUEST_SET_NICKNAME:
+        console.log("setting!");
+        socket.emit("nickname", action.nickname);
+        break;
+      case CONFIRM_AUTH:
+        console.log(`confirmed auth. success? ${action.success}`);
+        break;
+      default:
+        throw new Error(
+          `userActionListener saga took action but has no handler for: ${
+            action.type
+          }`
+        );
+    }
   }
 }
 

@@ -128,7 +128,9 @@ const mapStateToProps = ({ game, user: { userId, nickname } }) => ({
   gameStarted: game.started,
   gameEnded: game.ended,
   connectedUsers: game.users,
-  gameDuration: game.duration,
+  gameDuration: game.remainingDurationOnJoin
+    ? game.remainingDurationOnJoin
+    : game.duration,
   score:
     game.users.length > 0
       ? game.users

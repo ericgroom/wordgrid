@@ -11,7 +11,8 @@ import rootSaga from "./sagas";
 const sagaMiddleware = createSagaMiddleware();
 
 const composeEnhancers = composeWithDevTools({
-  shouldHotReload: true
+  shouldHotReload: true,
+  trace: true
 });
 const store = createStore(
   rootReducer,

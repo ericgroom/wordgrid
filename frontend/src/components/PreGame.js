@@ -37,7 +37,7 @@ class PreGame extends React.Component {
         <CopyableLink url={window.location.toString()} />
         <BigButton
           onClick={this.handleButtonClick}
-          disabled={this.state.clicked}
+          disabled={this.state.clicked || this.props.countdown}
         >
           {this.props.countdown ? (
             <Timer duration={this.props.countdownDuration}>

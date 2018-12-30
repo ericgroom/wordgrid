@@ -13,6 +13,7 @@ import {
   sentWord,
   REQUEST_START_GAME,
   startCountdown,
+  rejoined,
   endGame
 } from "../actions";
 import { putFrom } from "./index";
@@ -54,6 +55,9 @@ function gameSocketChannel(socket) {
     });
     socket.on("end game", () => {
       emit(endGame());
+    });
+    socket.on("remaining time", durationRemaining => {
+      emit(rejoined(durationRemaining));
     });
     return () => {
       emit({ type: LEAVE_GAME });

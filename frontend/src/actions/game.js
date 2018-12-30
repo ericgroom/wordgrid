@@ -11,6 +11,7 @@ export const REQUEST_START_GAME = "REQUEST_START_GAME";
 export const START_GAME = "START_GAME";
 export const END_GAME = "END_GAME";
 export const START_COUNTDOWN = "START_COUNTDOWN";
+export const REJOINED = "REJOINED";
 
 export const createGame = () => ({ type: REQUEST_CREATE_GAME });
 export const gameCreated = id => ({ type: GAME_CREATED, id });
@@ -24,6 +25,10 @@ export const startGame = () => ({ type: REQUEST_START_GAME });
 export const startCountdown = duration => ({ type: START_COUNTDOWN, duration });
 export const leaveGame = id => ({ type: LEAVE_GAME, id });
 export const endGame = () => ({ type: END_GAME });
+export const rejoined = durationRemaining => ({
+  type: REJOINED,
+  durationRemaining
+});
 
 export const updateGameState = payload => ({
   type: GAME_STATE_UPDATE,

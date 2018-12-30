@@ -58,13 +58,15 @@ getTrie()
         console.log(`${socket.id} changes nickname to: ${nickname}`);
         await handlers.onNicknameChange(socket, nickname);
       });
-      socket.on("auth", async token => {
+      socket.on("auth", async (token, fn) => {
         console.log(`${socket.id} authenticates: existing user`);
-        await handlers.onAuthentication(socket, token);
+        const success = await handlers.onAuthentication(socket, token);
+        fn(success);
       });
-      socket.on("new auth", async () => {
+      socket.on("new auth", async fn => {
         console.log(`${socket.id} authenticates: new anonymous user`);
-        await handlers.onAuthenticateAnonymous(socket);
+        const success = await handlers.onAuthenticateAnonymous(socket);
+        fn(success);
       });
       socket.on("leave game", gameId => {
         console.log(`socket ${socket.id} leaves game: ${gameId}`);

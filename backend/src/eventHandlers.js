@@ -11,26 +11,49 @@ function stripWordsFromGame(game) {
 
 exports.onGameJoin = async (io, socket, gameId) => {
   try {
+    // 1. check if game exists
     const game = await db.getGame(gameId);
     if (!game) {
       socket.emit("not exists");
     }
     socket.join(`${gameId}`);
-    const { id: userId, nickname } = await db.getCurrentUser(socket);
-    // add user to game unless they have already been added or the game has ended
-    try {
-      await db.joinGame(userId, gameId);
-    } catch (e) {
-      console.log(`${userId} already a member of game: ${gameId}`);
+    const user = await db.getCurrentUser(socket);
+    if (!user) {
+      console.log(`cannot find user for socket id ${socket.id}`);
+      return;
     }
+    const { id: userId, nickname } = user;
+    // 2. check if game is ended
+    const { ended, secondsRemaining } = await (async () => {
+      let ended = game.ended;
+      const now = new Date();
+      if (game.ended_at === null) {
+        return { ended, secondsRemaining: null };
+      }
+      const secondsRemaining = Math.floor((game.ended_at - now) / 1000);
+      if (secondsRemaining < 0 && !ended) {
+        await db.updateGame(gameId, { ended: true });
+        ended = true;
+      }
+      return { ended, secondsRemaining };
+    })();
+    // 3. join game if not ended
+    if (!ended) {
+      try {
+        await db.joinGame(userId, gameId);
+      } catch (e) {
+        console.log(`${userId} already a member of game: ${gameId}`);
+      }
+    }
+    // 4. send current state
     const gameState = await db.getGame(gameId);
-    console.log("state: ", gameState);
-    // const strippedGameState = gameState.ended
-    //   ? gameState
-    //   : stripWordsFromGame(gameState);
     io.of("/game")
       .to(`${gameId}`)
       .emit("state", gameState);
+    // 5. send remaining time
+    if (secondsRemaining) {
+      socket.emit("remaining time", secondsRemaining);
+    }
   } catch (err) {
     console.error(err);
   }
@@ -108,10 +131,13 @@ exports.onAuthentication = async (socket, token) => {
   try {
     const { userId } = await jwt.verify(token, process.env.APP_SECRET);
     await db.updateUser(userId, { socket_id: socket.id });
+    console.log(`user ${userId} is now associated with socket ${socket.id}`);
     const userObj = await db.getUser(userId);
     socket.emit("nickname", userObj.nickname);
+    return true;
   } catch (e) {
     console.error(e);
+    return false;
   }
 };
 
@@ -120,8 +146,10 @@ exports.onAuthenticateAnonymous = async socket => {
     const { id: userId } = await db.createUser({ socket_id: socket.id });
     const token = await jwt.sign({ userId }, process.env.APP_SECRET);
     socket.emit("token", token);
+    return true;
   } catch (e) {
     console.error(e);
+    return false;
   }
 };
 

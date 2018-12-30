@@ -105,12 +105,25 @@ exports.addWord = async (word, userId, gameId) => {
   }
 };
 
-exports.startGame = async gameId => {
+exports.startGame = async (gameId, duration = 60) => {
   // TODO consider adding start and end timestamps
+  const startTime = new Date();
+  const endTime = (() => {
+    let t = new Date(startTime.getTime());
+    t.setSeconds(t.getSeconds() + duration);
+    console.log("t", t);
+    return t;
+  })();
+  console.log(startTime, endTime);
   return await Game.query()
     .findById(gameId)
     .returning("*")
-    .patch({ started: true });
+    .patch({
+      started: true,
+      started_at: startTime,
+      ended_at: endTime,
+      duration
+    });
 };
 
 // exports.gameQuery = async () => {

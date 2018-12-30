@@ -11,6 +11,7 @@ import {
   WORD_SENT,
   START_GAME,
   START_COUNTDOWN,
+  REJOINED,
   END_GAME
 } from "../actions";
 
@@ -21,6 +22,8 @@ const initialState = {
   ended: false,
   countdown: false,
   countdownDuration: 0,
+  duration: 0,
+  remainingDurationOnJoin: null,
   joined: false,
   exists: true,
   grid: null,
@@ -71,6 +74,11 @@ export default (state = initialState, action) => {
       return { ...state, started: true };
     case START_COUNTDOWN:
       return { ...state, countdown: true, countdownDuration: action.duration };
+    case REJOINED:
+      return {
+        ...state,
+        remainingDurationOnJoin: action.durationRemaining
+      };
     case END_GAME:
       return { ...state, ended: true };
     default:
