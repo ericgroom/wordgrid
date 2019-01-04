@@ -38,9 +38,10 @@ const Root = props => (
 );
 
 injectGlobal`
+  @import url('https://fonts.googleapis.com/css?family=Lato');
   body {
     background-color: #FFF8E7;
-    font-family: sans-serif;
+    font-family: 'Lato', sans-serif;
     margin: 0;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     .mobile-warning {
