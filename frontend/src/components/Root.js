@@ -59,6 +59,7 @@ injectGlobal`
   body {
     width: 100vw;
     height: 100vh;
+    max-width: 100%;
   }
 `;
 
