@@ -8,7 +8,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_NICKNAME:
-      return { ...state, nickname: action.nickname };
+      return { ...state, nickname: action.nickname, nicknameRequested: false };
     case REQUEST_SET_NICKNAME:
       return { ...state, nicknameRequested: true };
     case SET_USERID:

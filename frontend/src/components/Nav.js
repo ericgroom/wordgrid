@@ -1,9 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon as FA } from "@fortawesome/react-fontawesome";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
+import Modal from "./Modal";
+import Settings from "./Settings";
 
 const Header = styled.header`
-  padding: 1rem; 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0.5rem;
   background-color: #444;
   a,
   a:visited {
@@ -13,14 +21,43 @@ const Header = styled.header`
   h1 {
     margin: 0;
   }
+
+  button {
+    background: none;
+    border: none;
+    color: #eee;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+  }
 `;
 
-const Nav = () => (
-  <Header>
-    <Link to="/">
-      <h1>WordGrid</h1>
-    </Link>
-  </Header>
-);
+class Nav extends React.Component {
+  state = {
+    showSettings: false
+  };
+  toggleSettings = () => {
+    this.setState(prevState => ({ showSettings: !prevState.showSettings }));
+  };
+  render() {
+    return (
+      <Header>
+        <Link to="/">
+          <h1>WordGrid</h1>
+        </Link>
+        <button onClick={this.toggleSettings}>
+          <FA icon={faCog} />
+        </button>
+        <Modal
+          show={this.state.showSettings}
+          title="Settings"
+          close={this.toggleSettings}
+        >
+          <Settings />
+        </Modal>
+      </Header>
+    );
+  }
+}
 
 export default Nav;
