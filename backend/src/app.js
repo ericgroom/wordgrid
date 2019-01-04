@@ -65,9 +65,9 @@ getTrie()
         console.log(`socket ${socket.id} leaves game: ${gameId}`);
         socket.leave(gameId);
       });
-      socket.on("chat message", async message => {
+      socket.on("chat message", async ({ message, gameId }) => {
         console.log(`${socket.id} sends message: ${message}`);
-        await handlers.onChatMessage(io, socket, message);
+        await handlers.onChatMessage(io, socket, message, gameId);
       });
     });
   })

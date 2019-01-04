@@ -1,5 +1,5 @@
 import { eventChannel } from "redux-saga";
-import { take, call, all } from "redux-saga/effects";
+import { take, call, all, select } from "redux-saga/effects";
 import { SEND_MESSAGE, recievedMessage } from "../actions";
 import { putFrom } from "./index";
 
@@ -20,7 +20,10 @@ function* messageActionListener(socket) {
     const action = yield take([SEND_MESSAGE]);
     switch (action.type) {
       case SEND_MESSAGE:
-        socket.emit("chat message", action.message);
+        const gameId = yield select(state => state.game.id);
+        if (Number.isInteger(gameId)) {
+          socket.emit("chat message", { message: action.message, gameId });
+        }
         break;
       default:
         throw new Error(

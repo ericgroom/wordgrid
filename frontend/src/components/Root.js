@@ -7,7 +7,6 @@ import Welcome from "./Welcome";
 import SetNickname from "./SetNickname";
 import Nav from "./Nav";
 import { Helmet } from "react-helmet";
-import Chat from "./Chat";
 
 const theme = {
   darkBlue: "#2756c3"
@@ -20,7 +19,6 @@ const Root = props => (
         <>
           <Helmet defaultTitle="WordGrid" titleTemplate="WordGrid | %s" />
           <Nav />
-          <Chat />
           <Switch>
             <Route
               path="/"
