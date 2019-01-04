@@ -3,6 +3,7 @@ import styled from "styled-components";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import { joinGame, completeWord, startGame, leaveGame } from "../actions";
 import WordGrid from "./WordGrid";
 import Stats from "./Stats";
@@ -77,7 +78,14 @@ class Game extends Component {
                 This website may not work on your mobile device.
               </p>
               <Timer duration={this.props.gameDuration}>
-                {remaining => <h1>{remaining}</h1>}
+                {remaining => (
+                  <>
+                    <h1>{remaining}</h1>
+                    <Helmet>
+                      <title>{`${remaining}`}</title>
+                    </Helmet>
+                  </>
+                )}
               </Timer>
               {this.props.letters && (
                 <WordGrid

@@ -6,6 +6,7 @@ import Game from "./Game";
 import Welcome from "./Welcome";
 import SetNickname from "./SetNickname";
 import Nav from "./Nav";
+import { Helmet } from "react-helmet";
 
 const theme = {
   darkBlue: "#2756c3"
@@ -16,6 +17,7 @@ const Root = props => (
     <Router>
       <ThemeProvider theme={theme}>
         <>
+          <Helmet defaultTitle="WordGrid" titleTemplate="WordGrid | %s" />
           <Nav />
           <Switch>
             <Route

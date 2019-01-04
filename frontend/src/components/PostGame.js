@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { Helmet } from "react-helmet";
 import ListContainer from "./styles/ListContainer";
 import Container from "./styles/Container";
 
@@ -50,6 +51,9 @@ class PostGame extends React.Component {
     return (
       <Container>
         <ListContainer>
+          <Helmet>
+            <title>Game Over!</title>
+          </Helmet>
           <h2>Game Over</h2>
           {results.length > 0 ? (
             <ListGrid>
