@@ -1,6 +1,6 @@
 import jwt_decode from "jwt-decode";
 import { eventChannel } from "redux-saga";
-import { call, put, all, take, actionChannel, fork } from "redux-saga/effects";
+import { call, all, take } from "redux-saga/effects";
 import { putFrom } from "./index";
 import {
   SENT_AUTH,

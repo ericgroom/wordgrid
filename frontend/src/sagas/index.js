@@ -1,10 +1,9 @@
 import io from "socket.io-client";
-import { take, all, put, fork } from "redux-saga/effects";
+import { take, all, put } from "redux-saga/effects";
 
 import gameFlow from "./game";
 import messagesFlow from "./messages";
 import userFlow from "./user";
-import { CONFIRM_AUTH } from "../actions";
 
 /**
  * puts all actions emitted by an eventChannel, assuming that channel only emits actions
