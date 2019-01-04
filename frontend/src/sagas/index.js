@@ -27,12 +27,9 @@ export default function* socketSaga() {
     const gameSocket = io(`${process.env.REACT_APP_BACKEND_HOST}/game`, {
       path: process.env.REACT_APP_SOCKET_PATH
     });
-    const chatSocket = io(`${process.env.REACT_APP_BACKEND_HOST}/chat`, {
-      path: process.env.REACT_APP_SOCKET_PATH
-    });
     console.log("starting game and message flow");
     yield all([
-      messagesFlow(chatSocket),
+      messagesFlow(gameSocket),
       gameFlow(gameSocket),
       userFlow(gameSocket)
     ]);

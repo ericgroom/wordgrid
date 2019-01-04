@@ -21,13 +21,6 @@ app.get("/game/new", async function(req, res) {
   }
 });
 
-io.of("/chat").on("connection", function(socket) {
-  socket.on("chat message", async function(message) {
-    console.log(`${socket.id} sends message: ${message}`);
-    await handlers.onChatMessage(io, socket, message);
-  });
-});
-
 getTrie()
   .then(trie => {
     console.log("trie read successfully");
@@ -71,6 +64,10 @@ getTrie()
       socket.on("leave game", gameId => {
         console.log(`socket ${socket.id} leaves game: ${gameId}`);
         socket.leave(gameId);
+      });
+      socket.on("chat message", async message => {
+        console.log(`${socket.id} sends message: ${message}`);
+        await handlers.onChatMessage(io, socket, message);
       });
     });
   })

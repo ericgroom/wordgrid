@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
 import BigButton from "./styles/BigButton";
 import List from "./styles/List";
 import Timer from "./Timer";
 import CopyableLink from "../CopyableLink";
-import { Helmet } from "react-helmet";
+import Chat from "./Chat";
 
 const Wrapper = styled.div`
   text-align: center;
@@ -35,6 +36,7 @@ class PreGame extends React.Component {
         <Helmet>
           <title>{this.props.countdown ? "Starting!" : "In Lobby"}</title>
         </Helmet>
+        <Chat />
         <h3>
           Game isn't started yet, invite some friends with the link below!
         </h3>

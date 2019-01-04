@@ -181,7 +181,8 @@ exports.onAuthenticateAnonymous = async socket => {
 };
 
 exports.onChatMessage = async (io, socket, message) => {
-  const result = await db.createMessage({ message });
-  const id = result.generated_keys[0];
-  io.of("/chat").emit("chat message", { message, id });
+  const { nickname } = await db.getCurrentUser(socket);
+  if (nickname) {
+    io.of("/game").emit("chat message", { message, sender: nickname });
+  }
 };

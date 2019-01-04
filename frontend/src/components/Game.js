@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet";
 import { joinGame, completeWord, startGame, leaveGame } from "../actions";
 import WordGrid from "./WordGrid";
 import Stats from "./Stats";
-import Messages from "./Messages";
+import Chat from "./Chat";
 import WordBank from "./WordBank";
 import PreGame from "./PreGame";
 import PostGame from "./PostGame";
@@ -101,7 +101,7 @@ class Game extends Component {
             />
             <aside className="wordbank">
               <WordBank words={this.props.words} />
-              <Messages />
+              <Chat />
             </aside>
           </Container>
         );

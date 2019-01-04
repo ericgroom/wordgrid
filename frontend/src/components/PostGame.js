@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import ListContainer from "./styles/ListContainer";
 import Container from "./styles/Container";
+import Chat from "./Chat";
 
 const ListGrid = styled.div`
   display: grid;
@@ -51,6 +52,7 @@ class PostGame extends React.Component {
     return (
       <Container>
         <ListContainer>
+          <Chat />
           <Helmet>
             <title>Game Over!</title>
           </Helmet>

@@ -62,7 +62,6 @@ class Modal extends React.Component {
       portalDiv = document.createElement("div");
       portalDiv.id = "portal";
       document.getElementsByTagName("body")[0].appendChild(portalDiv);
-      console.log("added portal div");
     }
     portalDiv.appendChild(this.modalContainer);
   }
