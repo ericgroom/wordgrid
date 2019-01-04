@@ -17,6 +17,21 @@ const ChatWrapper = styled.div`
     font-size: 1rem;
     border-radius: 0.3rem 0.3rem 0 0;
     cursor: pointer;
+    .badge {
+      position: absolute;
+      top: -0.5rem;
+      left: -0.5rem;
+      background-color: red;
+      border-radius: 999em;
+      padding: 0.1rem;
+      font-size: 0.75rem;
+      line-height: 1rem;
+      min-width: 1rem;
+      height: 1rem;
+      white-space: nowrap;
+      vertical-align: baseline;
+      text-align: center;
+    }
   }
   .chat-window-wrapper {
     width: 20rem;
@@ -50,6 +65,7 @@ const ChatWrapper = styled.div`
       margin: 0;
       resize: none;
       width: 100%;
+      height: 2.5rem;
       border: none;
       font-family: inherit;
       font-size: inherit;
@@ -72,10 +88,17 @@ const ChatWrapper = styled.div`
 class ChatWindow extends React.Component {
   state = {
     show: false,
-    message: ""
+    message: "",
+    unreadMessages: 0
   };
+  componentDidUpdate(prevProps, prevState) {
+    if (!this.state.show && prevProps !== this.props) {
+      const dMessages = this.props.messages.length - prevProps.messages.length;
+      this.setState({ unreadMessages: prevState.unreadMessages + dMessages });
+    }
+  }
   toggleShow = () => {
-    this.setState(prevState => ({ show: !prevState.show }));
+    this.setState(prevState => ({ show: !prevState.show, unreadMessages: 0 }));
   };
   handleChange = e => {
     this.setState({ message: e.target.value });
@@ -97,11 +120,14 @@ class ChatWindow extends React.Component {
     }
   };
   render() {
-    const { show } = this.state;
+    const { show, unreadMessages } = this.state;
     const { messages } = this.props;
     return (
       <ChatWrapper className="chat" show={show}>
         <div className="chat-header" onClick={this.toggleShow}>
+          {unreadMessages > 0 && (
+            <div class="badge">{this.state.unreadMessages}</div>
+          )}
           Chat <FA icon={show ? faChevronDown : faChevronUp} />
         </div>
         <div className="chat-window-wrapper">
