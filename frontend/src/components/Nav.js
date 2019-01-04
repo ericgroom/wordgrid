@@ -11,7 +11,7 @@ const Header = styled.header`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0.5rem;
+  padding: 1rem;
   background-color: #444;
   a,
   a:visited {
@@ -27,7 +27,6 @@ const Header = styled.header`
     border: none;
     color: #eee;
     font-size: 1.5rem;
-    padding: 0.5rem;
     cursor: pointer;
   }
 `;
