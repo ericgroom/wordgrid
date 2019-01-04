@@ -4,15 +4,10 @@ const db = require("./queries");
 const { generateBoardFrequencies } = require("./utils");
 const { validateWord } = require("./words");
 
-function stripWordsFromGame(game) {
-  const users = game.users.map(user => _.omit(user, "words"));
-  return { ...game, users };
-}
-
 exports.onGameJoin = async (io, socket, gameId) => {
   try {
     // 1. check if game exists
-    const game = await db.getGame(gameId);
+    const game = await db.getGame(gameId, { joinRelation: false });
     if (!game) {
       socket.emit("not exists");
     }
@@ -46,7 +41,7 @@ exports.onGameJoin = async (io, socket, gameId) => {
       }
     }
     // 4. send current state
-    const gameState = await db.getGame(gameId);
+    const gameState = await db.getGame(gameId, {});
     io.of("/game")
       .to(`${gameId}`)
       .emit("state", gameState);
@@ -63,7 +58,7 @@ exports.onWordSubmitted = async (io, socket, trie, word, gameId) => {
   // 1. validate word
   const { valid, score } = validateWord(word.word, trie);
   // 2. get game object
-  const game = await db.getGame(gameId, false);
+  const game = await db.getGame(gameId, { joinRelation: false });
   // 3. ensure game is still active
   if (game.ended) return;
   // 4. add word to list of words played, update scores
@@ -106,15 +101,25 @@ exports.onGameStart = async (io, socket, gameId) => {
     gameId,
     (err, game) => {
       if (err) throw err;
-      // const newState = stripWordsFromGame(game);
-      io.of("/game")
-        .in(`${gameId}`)
-        .emit("state", game);
       if (game.ended) {
         console.log("ending");
+        db.getGame(gameId, {
+          joinRelation: true,
+          includeWordsPlayed: true
+        })
+          .then(game => {
+            io.of("/game")
+              .in(`${gameId}`)
+              .emit("state", game);
+          })
+          .catch(e => console.error(e));
         return false; // exit callback loop
+      } else {
+        io.of("/game")
+          .in(`${gameId}`)
+          .emit("state", game);
+        return true;
       }
-      return true;
     },
     1.0 * 1000
   );
@@ -122,7 +127,6 @@ exports.onGameStart = async (io, socket, gameId) => {
 
 exports.onNicknameChange = async (socket, nickname) => {
   const user = await db.getCurrentUser(socket);
-  console.log(user);
   await db.updateUser(user.id, { nickname });
   socket.emit("nickname", nickname);
 };

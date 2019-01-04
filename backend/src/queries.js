@@ -14,12 +14,19 @@ const TABLES = [GAMES_TABLE, USERS_TABLE];
 const knex = Knex(require("../knexfile.js")[process.env.NODE_ENV]);
 Model.knex(knex);
 
-exports.getGame = async (id, join = true) => {
+exports.getGame = async (
+  id,
+  { joinRelation = true, includeWordsPlayed = false }
+) => {
   try {
-    if (join) {
+    if (joinRelation && includeWordsPlayed) {
       return await Game.query()
-        .eager("[users.[words]]")
+        .eager("[users(public, scoreOrdered).[words]]")
         .modifyEager("users.words", builder => builder.where("game_id", id))
+        .findById(id);
+    } else if (joinRelation && !includeWordsPlayed) {
+      return await Game.query()
+        .eager("[users(public, scoreOrdered)]")
         .findById(id);
     } else {
       return await Game.query().findById(id);
@@ -32,9 +39,7 @@ exports.getGame = async (id, join = true) => {
 exports.getGameChanges = async (id, callback, timeout) => {
   const getGame = async () =>
     await Game.query()
-      .eager("[users.[words]]")
-      .modifyEager("users.words", builder => builder.where("game_id", id))
-      .modifyEager("users", builder => builder.orderBy("score", "DESC"))
+      .eager("[users(public, scoreOrdered)]")
       .findById(id);
   const callbackPredicate = (prev, next) =>
     JSON.stringify(prev) !== JSON.stringify(next);

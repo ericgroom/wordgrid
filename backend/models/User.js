@@ -35,9 +35,8 @@ class User extends Model {
 
   static get modifiers() {
     return {
-      public: builder => {
-        builder.select("id", "nickname", "is_anon");
-      }
+      public: builder => builder.select(["id", "nickname", "is_anon", "score"]),
+      scoreOrdered: builder => builder.orderBy("score", "DESC")
     };
   }
 }
