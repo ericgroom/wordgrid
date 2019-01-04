@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const db = require("./queries");
 const { generateBoardFrequencies } = require("./utils");
-const { validateWord } = require("./words");
+const { validateWord, validatePath } = require("./words");
 
 exports.onGameJoin = async (io, socket, gameId) => {
   try {
@@ -61,20 +61,38 @@ exports.onGameJoin = async (io, socket, gameId) => {
 
 exports.onWordSubmitted = async (io, socket, trie, word, gameId) => {
   // 1. validate word
-  const { valid, score } = validateWord(word.word, trie);
+  const { valid: validWord, score } = validateWord(word.word, trie);
   // 2. get game object
   const game = await db.getGame(gameId, { joinRelation: false });
   // 3. ensure game is still active
   if (game.ended) return;
-  // 4. add word to list of words played, update scores
+  // 4. validate path
+  const validPath = (function() {
+    // if the word is invalid there is no point in validating the path which is more expensive
+    if (!validWord) return false;
+    const isValidPath = validatePath(word.word, word.path, game.grid);
+    return isValidPath;
+  })();
+  const isValid = validWord && validPath;
+  // 5. add word to list of words played, update scores
   const { id: userId } = await db.getCurrentUser(socket);
-  if (valid) {
-    const validWord = { word: word.word, valid, score, id: word.id };
-    await db.addWord(validWord, userId, gameId);
+  console.log(
+    `user ${userId} plays "${
+      word.word
+    }" in ${gameId} which valid = ${isValid} (path ${validPath} word ${validWord})`
+  );
+  if (isValid) {
+    const validWordObject = {
+      word: word.word,
+      valid: isValid,
+      score,
+      id: word.id
+    };
+    await db.addWord(validWordObject, userId, gameId);
     await db.updateScore(userId, gameId);
   }
-  // 5. send word back to sender
-  socket.emit("word", { valid, id: word.id, score });
+  // 6. send word back to sender
+  socket.emit("word", { valid: isValid, id: word.id, score });
 };
 
 exports.startCountdown = async (io, socket, gameId) => {

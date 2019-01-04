@@ -95,7 +95,7 @@ function* gameActionListener(socket) {
           const words = yield select(state => state.game.words);
           const wordId = _.find(words, { word }).id;
           const gameId = yield select(state => state.game.id);
-          socket.emit("word", { word, wordId, gameId });
+          socket.emit("word", { word, wordId, gameId, path });
           yield put(sentWord(word));
         }
         break;
