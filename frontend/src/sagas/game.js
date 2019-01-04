@@ -59,6 +59,15 @@ function gameSocketChannel(socket) {
     socket.on("remaining time", durationRemaining => {
       emit(rejoined(durationRemaining));
     });
+    socket.on("played words", words => {
+      emit(
+        updateGameState({
+          words,
+          wordId: _.max(words.map(word => word.id)) + 1 || 0,
+          sentWords: words.map(word => word.word)
+        })
+      );
+    });
     return () => {
       emit({ type: LEAVE_GAME });
     };

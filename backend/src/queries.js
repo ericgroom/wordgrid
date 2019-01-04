@@ -110,6 +110,17 @@ exports.addWord = async (word, userId, gameId) => {
   }
 };
 
+exports.getWordsPlayed = async (userId, gameId) => {
+  try {
+    return await Word.query()
+      .where({ game_id: gameId, user_id: userId })
+      .select("id", "score", "word", "valid")
+      .orderBy("id", "ASC");
+  } catch (e) {
+    throw e;
+  }
+};
+
 exports.startGame = async (gameId, duration = 60) => {
   // TODO consider adding start and end timestamps
   const startTime = new Date();

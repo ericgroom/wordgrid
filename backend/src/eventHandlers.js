@@ -49,6 +49,11 @@ exports.onGameJoin = async (io, socket, gameId) => {
     if (secondsRemaining) {
       socket.emit("remaining time", secondsRemaining);
     }
+    // 6. Send list of words already played
+    const words = await db.getWordsPlayed(userId, gameId);
+    if (words && words.length > 0) {
+      socket.emit("played words", words);
+    }
   } catch (err) {
     console.error(err);
   }
