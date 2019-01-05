@@ -25,10 +25,10 @@ function* userFlow(socket) {
 function authSocketChannel(socket) {
   return eventChannel(emitter => {
     if (localStorage.authToken) {
-      const { userId } = jwt_decode(localStorage.authToken);
-      emitter(setUserId(userId));
       socket.emit("auth", localStorage.authToken, success => {
         emitter(confirmAuth(success));
+        const { userId } = jwt_decode(localStorage.authToken);
+        emitter(setUserId(userId));
       });
       emitter({ type: SENT_AUTH, new: false });
     } else {
