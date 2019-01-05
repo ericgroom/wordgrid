@@ -2,7 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider, connect } from "react-redux";
 import { injectGlobal, ThemeProvider } from "styled-components";
-import Game from "./Game";
+import posed, { PoseGroup } from "react-pose";
+import GameContainer from "./GameContainer";
 import Welcome from "./Welcome";
 import SetNickname from "./SetNickname";
 import Nav from "./Nav";
@@ -12,6 +13,17 @@ const theme = {
   darkBlue: "#2756c3"
 };
 
+const RouteContainer = posed.div({
+  enter: {
+    opacity: 1,
+    delay: 100,
+    beforeChildren: true
+  },
+  exit: {
+    opacity: 0
+  }
+});
+
 const Root = props => (
   <Provider store={props.store}>
     <Router>
@@ -19,20 +31,32 @@ const Root = props => (
         <>
           <Helmet defaultTitle="WordGrid" titleTemplate="WordGrid | %s" />
           <Nav />
-          <Switch>
-            <Route
-              path="/"
-              exact
-              render={() => <Welcome loading={props.loading} />}
-            />
-            <Route
-              path="/game/:id"
-              render={() => {
-                return props.nickname ? <Game /> : <SetNickname />;
-              }}
-            />
-            <Route path="/game" component={Game} />
-          </Switch>
+          <Route
+            render={({ location }) => (
+              <PoseGroup flipMove={false}>
+                <RouteContainer key={location.key}>
+                  <Switch location={location}>
+                    <Route
+                      path="/"
+                      exact
+                      render={() => <Welcome loading={props.loading} />}
+                    />
+                    <Route
+                      path="/game/:id"
+                      render={() => {
+                        return props.nickname ? (
+                          <GameContainer />
+                        ) : (
+                          <SetNickname />
+                        );
+                      }}
+                    />
+                    <Route path="/game" component={GameContainer} />
+                  </Switch>
+                </RouteContainer>
+              </PoseGroup>
+            )}
+          />
         </>
       </ThemeProvider>
     </Router>

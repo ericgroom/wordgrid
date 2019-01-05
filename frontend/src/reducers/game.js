@@ -29,6 +29,7 @@ const initialState = {
   grid: null,
   words: [],
   wordId: 0,
+  score: 0,
   sentWords: [], // words already sent to the backend so that saga can avoid duplicates
   users: []
 };

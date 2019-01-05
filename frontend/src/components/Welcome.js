@@ -1,11 +1,35 @@
 import React from "react";
 import styled from "styled-components";
+import posed from "react-pose";
 import CreateGameButton from "./CreateGameButton";
 import Spinner from "./styles/Spinner";
 
-const Wrapper = styled.div`
+const transition = {
+  exit: {
+    opacity: 0,
+    y: "-2rem"
+  },
+  enter: {
+    opacity: 1,
+    y: 0
+  }
+};
+
+const PosedWrapper = posed.div({
+  enter: {
+    staggerChildren: 100,
+    y: 0
+  },
+  exit: {
+    y: "-2rem"
+  }
+});
+
+const P = posed.p(transition);
+const H2 = posed.h2(transition);
+
+const Wrapper = styled(PosedWrapper)`
   text-align: center;
-  font-family: sans-serif;
   margin-top: 10%;
   color: #444;
 
@@ -19,20 +43,20 @@ const Wrapper = styled.div`
 `;
 
 const Welcome = ({ loading }) => (
-  <Wrapper>
+  <Wrapper initialPose="exit" pose="enter">
     <h1>Welcome to WordGrid!</h1>
     <CreateGameButton loading={loading} />
     {loading && <Spinner />}
 
     <article>
-      <h2>What is WordGrid?</h2>
-      <p>
+      <H2>What is WordGrid?</H2>
+      <P>
         WordGrid is a fun word-based game that you can play with your friends or
         alone. It's similar to a crossword puzzle but time-based and you can
         connect letters in any direction.
-      </p>
-      <h2>How do I play?</h2>
-      <p>
+      </P>
+      <H2>How do I play?</H2>
+      <P>
         Simple! After clicking the Create Game button above, you will be
         presented with a grid of 16 letters. Similar to a crossword puzzle, you
         connect letters by tapping/clicking and dragging between them. However
@@ -40,7 +64,7 @@ const Welcome = ({ loading }) => (
         line, in WordGrid you can go up, down, left, right and diagonal within a
         single word. Longer words are worth more points. Obtain the most points
         within the allotted time to win!
-      </p>
+      </P>
     </article>
   </Wrapper>
 );

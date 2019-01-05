@@ -1,15 +1,37 @@
 import React from "react";
 import styled from "styled-components";
+import posed from "react-pose";
 import { FontAwesomeIcon as FA } from "@fortawesome/react-fontawesome";
 import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
-const ChatWrapper = styled.div`
+const Posed = posed.div({
+  visible: {
+    y: 0,
+    transition: {
+      type: "tween",
+      duration: 200,
+      ease: "easeInOut"
+    }
+  },
+  hidden: {
+    y: "15rem",
+    transition: {
+      type: "tween",
+      duration: 200,
+      ease: "easeInOut"
+    }
+  }
+});
+
+const ChatWrapper = styled(Posed)`
   position: fixed;
   bottom: 0;
   right: 1rem;
   margin: 0;
   padding: 0;
+  z-index: 998;
   .chat-header {
+    display: ${props => (props.show ? "inherit" : "inline-block")};
     color: #eee;
     background-color: #222;
     font-weight: 600;
@@ -36,7 +58,6 @@ const ChatWrapper = styled.div`
   .chat-window-wrapper {
     width: 20rem;
     height: 15rem;
-    display: ${props => (props.show ? "inherit" : "none")};
     background-color: white;
   }
   .message-list {
@@ -123,7 +144,11 @@ class ChatWindow extends React.Component {
     const { show, unreadMessages } = this.state;
     const { messages } = this.props;
     return (
-      <ChatWrapper className="chat" show={show}>
+      <ChatWrapper
+        className="chat"
+        pose={show ? "visible" : "hidden"}
+        show={show}
+      >
         <div className="chat-header" onClick={this.toggleShow}>
           {unreadMessages > 0 && (
             <div class="badge">{this.state.unreadMessages}</div>
