@@ -43,8 +43,8 @@ class WordGrid extends Component {
   }
   handleTouchMove(i, e) {
     e.preventDefault();
-    const { pageX, pageY } = e.touches[0];
-    const elem = document.elementFromPoint(pageX, pageY);
+    const { clientX, clientY } = e.touches[0];
+    const elem = document.elementFromPoint(clientX, clientY);
     if (elem && elem.classList.contains("tile")) {
       const index = parseInt(elem.getAttribute("data-tile-index"));
       if (this.props.currentPath) {
