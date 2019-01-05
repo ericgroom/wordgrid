@@ -163,7 +163,10 @@ class ChatWindow extends React.Component {
         show={show}
       >
         <div className="chat-header" onClick={this.toggleShow}>
-          <ScaleUp class="badge" pose={unreadMessages > 0 ? "show" : "hide"}>
+          <ScaleUp
+            className="badge"
+            pose={unreadMessages > 0 ? "show" : "hide"}
+          >
             {this.state.unreadMessages}
           </ScaleUp>
           Chat <FA icon={show ? faChevronDown : faChevronUp} />

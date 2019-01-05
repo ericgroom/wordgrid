@@ -22,9 +22,20 @@ const Wrapper = styled.div`
 `;
 
 class PreGame extends React.Component {
+  static propTypes = {
+    startGame: PropTypes.func.isRequired,
+    users: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        nickname: PropTypes.string
+      })
+    ).isRequired
+  };
+
   state = {
     clicked: false
   };
+
   handleButtonClick = () => {
     this.setState({ clicked: true });
     this.props.startGame();
@@ -67,15 +78,5 @@ class PreGame extends React.Component {
     );
   }
 }
-
-PreGame.propTypes = {
-  startGame: PropTypes.func.isRequired,
-  users: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      nickname: PropTypes.string
-    })
-  ).isRequired
-};
 
 export default PreGame;

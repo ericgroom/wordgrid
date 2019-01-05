@@ -33,6 +33,7 @@ const Root = props => (
             <link
               href="https://fonts.googleapis.com/css?family=Lato"
               rel="preload"
+              as="style"
             />
           </Helmet>
           <Nav />
