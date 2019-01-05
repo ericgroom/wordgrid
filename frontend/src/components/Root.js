@@ -33,13 +33,14 @@ const Root = props => (
           <Nav />
           <Route
             render={({ location }) => (
-              <PoseGroup flipMove={false}>
-                <RouteContainer key={location.key}>
+              <PoseGroup>
+                <RouteContainer key={location.pathname}>
                   <Switch location={location}>
                     <Route
                       path="/"
                       exact
                       render={() => <Welcome loading={props.loading} />}
+                      key="home"
                     />
                     <Route
                       path="/game/:id"
@@ -50,8 +51,13 @@ const Root = props => (
                           <SetNickname />
                         );
                       }}
+                      key="game-id"
                     />
-                    <Route path="/game" component={GameContainer} />
+                    <Route
+                      path="/game"
+                      component={GameContainer}
+                      key="game-no-id"
+                    />
                   </Switch>
                 </RouteContainer>
               </PoseGroup>
