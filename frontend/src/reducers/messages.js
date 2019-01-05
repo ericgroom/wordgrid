@@ -1,3 +1,4 @@
+import { LEAVE_GAME } from "../actions";
 export const RECEIVED_MESSAGE = "RECIEVED_MESSAGE";
 export const SEND_MESSAGE = "SEND_MESSAGE";
 
@@ -17,6 +18,8 @@ export default (state = initialState, action) => {
         ],
         messageId: state.messageId + 1
       };
+    case LEAVE_GAME:
+      return initialState;
     default:
       return state;
   }
