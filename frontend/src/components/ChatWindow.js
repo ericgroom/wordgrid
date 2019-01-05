@@ -26,6 +26,15 @@ const Posed = posed.div({
   }
 });
 
+const ScaleUp = posed.div({
+  show: {
+    scale: 1.0
+  },
+  hide: {
+    scale: 0.0
+  }
+});
+
 const ChatWrapper = styled(Posed)`
   position: fixed;
   bottom: 0;
@@ -154,9 +163,9 @@ class ChatWindow extends React.Component {
         show={show}
       >
         <div className="chat-header" onClick={this.toggleShow}>
-          {unreadMessages > 0 && (
-            <div class="badge">{this.state.unreadMessages}</div>
-          )}
+          <ScaleUp class="badge" pose={unreadMessages > 0 ? "show" : "hide"}>
+            {this.state.unreadMessages}
+          </ScaleUp>
           Chat <FA icon={show ? faChevronDown : faChevronUp} />
         </div>
         <div className="chat-window-wrapper">
