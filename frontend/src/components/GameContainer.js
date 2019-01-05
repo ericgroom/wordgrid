@@ -9,6 +9,7 @@ import Game from "./Game";
 import PostGame from "./PostGame";
 import Spinner from "./styles/Spinner";
 import ToTheLeft from "./styles/ToTheLeft";
+import Chat from "./Chat";
 
 class GameContainer extends Component {
   componentDidMount() {
@@ -46,6 +47,7 @@ class GameContainer extends Component {
               </ToTheLeft>
             )}
           </PoseGroup>
+          <Chat />
         </div>
       );
     } else {

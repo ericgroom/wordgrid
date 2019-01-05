@@ -5,6 +5,9 @@ import { FontAwesomeIcon as FA } from "@fortawesome/react-fontawesome";
 import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const Posed = posed.div({
+  exit: {
+    y: "18rem"
+  },
   visible: {
     y: 0,
     transition: {
@@ -146,6 +149,7 @@ class ChatWindow extends React.Component {
     return (
       <ChatWrapper
         className="chat"
+        initialPose="exit"
         pose={show ? "visible" : "hidden"}
         show={show}
       >

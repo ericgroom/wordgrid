@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import Timer from "./Timer";
-import Chat from "./Chat";
 import WordGrid from "./WordGrid";
 import Stats from "./Stats";
 import Scoreboard from "./Scoreboard";
@@ -14,6 +13,7 @@ const Container = styled.div`
   align-items: center;
   justify-items: center;
   text-align: center;
+  height: 100%;
 
   @media (min-width: 800px) {
     grid-template-columns: repeat(2, minmax(400px, 1fr));
@@ -65,7 +65,6 @@ class Game extends React.Component {
         <Scoreboard users={connectedUsers} className="scoreboard" />
         <aside className="wordbank">
           <WordBank words={wordsPlayed} />
-          <Chat />
         </aside>
       </Container>
     );

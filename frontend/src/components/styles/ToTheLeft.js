@@ -4,19 +4,22 @@ const ToTheLeft = posed.div({
   enter: {
     x: 0,
     opacity: 1,
+    beforeChildren: true,
     transition: {
-      type: "tween",
-      duration: 300,
-      ease: "easeIn"
+      type: "spring",
+      dampening: 500,
+      mass: 0.01,
+      stiffening: 500
     }
   },
   exit: {
-    x: "-50%",
+    x: "-10%",
     opacity: 0,
     transition: {
-      type: "tween",
-      duration: 300,
-      ease: "easeIn"
+      type: "spring",
+      dampening: 100,
+      mass: 0.1,
+      stiffening: 200
     }
   }
 });
