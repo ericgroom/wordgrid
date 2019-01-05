@@ -32,7 +32,7 @@ const Wrapper = styled(PosedWrapper)`
   text-align: center;
   margin-top: 10%;
   color: #444;
-
+  padding: 1rem;
   article {
     margin: 1rem auto;
     margin-top: 5rem;
