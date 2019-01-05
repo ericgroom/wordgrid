@@ -44,7 +44,11 @@ class Nav extends React.Component {
         <Link to="/">
           <h1>WordGrid</h1>
         </Link>
-        <button onClick={this.toggleSettings} name="settings">
+        <button
+          onClick={this.toggleSettings}
+          name="settings"
+          aria-label="open settings"
+        >
           <FA icon={faCog} />
         </button>
         <Modal

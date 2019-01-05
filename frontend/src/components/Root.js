@@ -29,7 +29,12 @@ const Root = props => (
     <Router>
       <ThemeProvider theme={theme}>
         <>
-          <Helmet defaultTitle="WordGrid" titleTemplate="WordGrid | %s" />
+          <Helmet defaultTitle="WordGrid" titleTemplate="WordGrid | %s">
+            <link
+              href="https://fonts.googleapis.com/css?family=Lato"
+              rel="preload"
+            />
+          </Helmet>
           <Nav />
           <Route
             render={({ location }) => (
@@ -70,7 +75,6 @@ const Root = props => (
 );
 
 injectGlobal`
-  @import url('https://fonts.googleapis.com/css?family=Lato');
   body {
     background-color: #FFF8E7;
     font-family: 'Lato', sans-serif;
