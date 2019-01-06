@@ -1,7 +1,7 @@
 import jwt_decode from "jwt-decode";
 import { eventChannel } from "redux-saga";
 import { call, all, take } from "redux-saga/effects";
-import { putFrom } from "./index";
+import { putFrom, awaitAuthIfNeeded } from "./index";
 import {
   SENT_AUTH,
   SET_NICKNAME,
@@ -57,6 +57,7 @@ function userSocketChannel(socket) {
 }
 
 function* userActionListener(socket) {
+  yield call(awaitAuthIfNeeded);
   while (true) {
     console.log("userActionListener waiting...");
     const action = yield take(REQUEST_SET_NICKNAME, CONFIRM_AUTH);

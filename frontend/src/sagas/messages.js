@@ -1,7 +1,7 @@
 import { eventChannel } from "redux-saga";
 import { take, call, all, select } from "redux-saga/effects";
 import { SEND_MESSAGE, recievedMessage } from "../actions";
-import { putFrom } from "./index";
+import { putFrom, awaitAuthIfNeeded } from "./index";
 
 export default function* messagesFlow(socket) {
   while (true) {
@@ -16,7 +16,9 @@ export default function* messagesFlow(socket) {
  * @param {*} socket socket.io instance
  */
 function* messageActionListener(socket) {
+  yield call(awaitAuthIfNeeded);
   while (true) {
+    console.log("messageActionListener waiting...");
     const action = yield take([SEND_MESSAGE]);
     switch (action.type) {
       case SEND_MESSAGE:

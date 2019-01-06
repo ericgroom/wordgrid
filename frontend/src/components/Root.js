@@ -51,10 +51,10 @@ const Root = props => (
                     <Route
                       path="/game/:id"
                       render={() => {
-                        return props.nickname ? (
-                          <GameContainer />
-                        ) : (
+                        return props.needsNickname ? (
                           <SetNickname />
+                        ) : (
+                          <GameContainer />
                         );
                       }}
                       key="game-id"
@@ -104,7 +104,8 @@ const mapStateToProps = ({ game, user }) => ({
   gameActive: game.created && game.id,
   loading: game.created && !game.id,
   gameId: game.id,
-  nickname: user.nickname
+  nickname: user.nickname,
+  needsNickname: user.authConfirmed && !user.nickname
 });
 
 export default connect(mapStateToProps)(Root);

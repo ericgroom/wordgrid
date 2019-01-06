@@ -16,12 +16,14 @@ import {
   rejoined,
   endGame
 } from "../actions";
-import { putFrom } from "./index";
+import { putFrom, awaitAuthIfNeeded } from "./index";
 
 function* gameSocketFlow(socket) {
   while (true) {
     try {
+      console.log("restarting gameSocketFlow");
       const action = yield take(JOIN_GAME);
+      yield call(awaitAuthIfNeeded);
       socket.emit("join game", { id: action.id });
       const socketChannel = yield call(gameSocketChannel, socket);
       yield race([putFrom(socketChannel), gameActionListener(socket)]);
@@ -75,8 +77,9 @@ function gameSocketChannel(socket) {
 }
 
 function* gameActionListener(socket) {
+  yield call(awaitAuthIfNeeded);
   loop: while (true) {
-    console.log("awaiting action");
+    console.log("gameActionListener waiting...");
     const action = yield take([WORD_COMPLETED, REQUEST_START_GAME, LEAVE_GAME]);
     const gameId = yield select(state => state.game.id);
     switch (action.type) {
