@@ -41,7 +41,11 @@ exports.onGameJoin = async (io, socket, gameId) => {
       }
     }
     // 4. send current state
-    const gameState = await db.getGame(gameId, {});
+    const gameState = ended
+      ? await db.getGame(gameId, {
+          includeWordsPlayed: true
+        })
+      : await db.getGame(gameId, {});
     io.of("/game")
       .to(`${gameId}`)
       .emit("state", gameState);
