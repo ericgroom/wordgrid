@@ -50,6 +50,10 @@ function userSocketChannel(socket) {
     socket.on("nickname", nickname => {
       emit({ type: SET_NICKNAME, nickname });
     });
+    socket.on("give token", callback => {
+      const token = localStorage.authToken;
+      callback(token);
+    });
     return () => {
       console.log("in unsub");
     };

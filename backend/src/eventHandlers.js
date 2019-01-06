@@ -12,7 +12,7 @@ exports.onGameJoin = async (io, socket, gameId) => {
       socket.emit("not exists");
     }
     socket.join(`${gameId}`);
-    const user = await db.getCurrentUser(socket);
+    const user = await exports.getCurrentUser(socket, gameId);
     if (!user) {
       console.log(`cannot find user for socket id ${socket.id}`);
       return;
@@ -79,7 +79,7 @@ exports.onWordSubmitted = async (io, socket, trie, word, gameId) => {
   })();
   const isValid = validWord && validPath;
   // 5. add word to list of words played, update scores
-  const { id: userId } = await db.getCurrentUser(socket);
+  const { id: userId } = await exports.getCurrentUser(socket, gameId);
   console.log(
     `user ${userId} plays "${
       word.word
@@ -153,7 +153,7 @@ exports.onGameStart = async (io, socket, gameId) => {
 };
 
 exports.onNicknameChange = async (socket, nickname) => {
-  const user = await db.getCurrentUser(socket);
+  const user = await exports.getCurrentUser(socket);
   await db.updateUser(user.id, { nickname });
   socket.emit("nickname", nickname);
 };
@@ -185,10 +185,44 @@ exports.onAuthenticateAnonymous = async socket => {
 };
 
 exports.onChatMessage = async (io, socket, message, gameId) => {
-  const { nickname } = await db.getCurrentUser(socket);
+  const { nickname } = await exports.getCurrentUser(socket, gameId);
   if (nickname) {
     io.of("/game")
       .in(`${gameId}`)
       .emit("chat message", { message, sender: nickname });
+  }
+};
+
+/**
+ * Gets the currently logged in user.
+ *
+ * For most cases, the client will authenticate with the server. However, in some
+ * cases, the server will lose track of which socket id corresponds to which user.
+ * This happens most often when the server restarts or a client has the webpage open
+ * for long enough that the socket disconnects and reconnects later.
+ *
+ * This function will first try to get a user from the database based on their
+ * socket id, and then if unsuccessful will ask the client to provide their auth token.
+ *
+ * @param {Number} rejoinGameId gameId to rejoin socket if disconnected
+ */
+exports.getCurrentUser = async (socket, rejoinGameId) => {
+  const user = await db.getCurrentUser(socket);
+  if (!user) {
+    const token = await (async function() {
+      return new Promise((resolve, reject) => {
+        socket.emit("give token", token => {
+          resolve(token);
+        });
+      });
+    })();
+    const { userId } = await jwt.verify(token, process.env.APP_SECRET);
+    const user = await db.updateUser(userId, { socket_id: socket.id });
+    if (rejoinGameId) {
+      socket.join(`${rejoinGameId}`);
+    }
+    return user;
+  } else {
+    return user;
   }
 };

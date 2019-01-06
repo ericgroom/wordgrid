@@ -159,6 +159,7 @@ exports.updateUser = async (id, user) => {
   try {
     return await User.query()
       .findById(id)
+      .returning("*")
       .patch(user);
   } catch (e) {
     throw e;
@@ -181,15 +182,12 @@ exports.getCurrentUser = async socket => {
   }
 };
 
-exports.createMessage = async message => {
+exports.getActiveGamesForUser = async user => {
   try {
-    const conn = await connect();
-    const message = await r
-      .table(MESSAGES_TABLE)
-      .insert(message)
-      .run(conn);
-    await conn.close();
-    return message;
+    return await user.$relatedQuery("games").where({
+      ended: false,
+      started: true
+    });
   } catch (e) {
     throw e;
   }
