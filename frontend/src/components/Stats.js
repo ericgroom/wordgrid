@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import AnimatedNumber from "./AnimatedNumber";
 
 const Wrapper = styled.div`
   text-align: center;
@@ -10,7 +11,9 @@ const Wrapper = styled.div`
 
 const Stats = props => (
   <Wrapper>
-    <h2>Score: {props.score}</h2>
+    <h2>
+      Score: <AnimatedNumber num={props.score} />
+    </h2>
   </Wrapper>
 );
 
