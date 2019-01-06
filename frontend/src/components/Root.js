@@ -8,6 +8,7 @@ import Welcome from "./Welcome";
 import SetNickname from "./SetNickname";
 import Nav from "./Nav";
 import { Helmet } from "react-helmet";
+import ErrorBoundry from "./ErrorBoundry";
 
 const theme = {
   darkBlue: "#2756c3"
@@ -37,38 +38,40 @@ const Root = props => (
             />
           </Helmet>
           <Nav />
-          <Route
-            render={({ location }) => (
-              <PoseGroup>
-                <RouteContainer key={location.pathname}>
-                  <Switch location={location}>
-                    <Route
-                      path="/"
-                      exact
-                      render={() => <Welcome loading={props.loading} />}
-                      key="home"
-                    />
-                    <Route
-                      path="/game/:id"
-                      render={() => {
-                        return props.needsNickname ? (
-                          <SetNickname />
-                        ) : (
-                          <GameContainer />
-                        );
-                      }}
-                      key="game-id"
-                    />
-                    <Route
-                      path="/game"
-                      component={GameContainer}
-                      key="game-no-id"
-                    />
-                  </Switch>
-                </RouteContainer>
-              </PoseGroup>
-            )}
-          />
+          <ErrorBoundry>
+            <Route
+              render={({ location }) => (
+                <PoseGroup>
+                  <RouteContainer key={location.pathname}>
+                    <Switch location={location}>
+                      <Route
+                        path="/"
+                        exact
+                        render={() => <Welcome loading={props.loading} />}
+                        key="home"
+                      />
+                      <Route
+                        path="/game/:id"
+                        render={() => {
+                          return props.needsNickname ? (
+                            <SetNickname />
+                          ) : (
+                            <GameContainer />
+                          );
+                        }}
+                        key="game-id"
+                      />
+                      <Route
+                        path="/game"
+                        component={GameContainer}
+                        key="game-no-id"
+                      />
+                    </Switch>
+                  </RouteContainer>
+                </PoseGroup>
+              )}
+            />
+          </ErrorBoundry>
         </>
       </ThemeProvider>
     </Router>

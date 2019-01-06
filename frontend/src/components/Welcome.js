@@ -77,7 +77,26 @@ class Welcome extends React.Component {
             word.
           </P>
         </article>
-        <WordGrid letters={["w", "o", "r", "d", "g", "r", "i", "d", "w", "o", "r", "d", "g", "r", "i", "d"]} />
+        <WordGrid
+          letters={[
+            "w",
+            "o",
+            "r",
+            "d",
+            "g",
+            "r",
+            "i",
+            "d",
+            "w",
+            "o",
+            "r",
+            "d",
+            "g",
+            "r",
+            "i",
+            "d"
+          ]}
+        />
       </Wrapper>
     );
   }
