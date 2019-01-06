@@ -28,6 +28,12 @@ class Word extends Model {
       }
     };
   }
+
+  static get modifiers() {
+    return {
+      scoreOrdered: builder => builder.orderBy("score", "DESC")
+    };
+  }
 }
 
 module.exports = Word;

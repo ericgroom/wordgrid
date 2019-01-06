@@ -21,7 +21,7 @@ exports.getGame = async (
   try {
     if (joinRelation && includeWordsPlayed) {
       return await Game.query()
-        .eager("[users(public, scoreOrdered).[words]]")
+        .eager("[users(public, scoreOrdered).[words(scoreOrdered)]]")
         .modifyEager("users.words", builder => builder.where("game_id", id))
         .findById(id);
     } else if (joinRelation && !includeWordsPlayed) {
