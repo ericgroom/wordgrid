@@ -9,7 +9,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 const Overlay = posed.div({
   show: {
     opacity: 1,
-    delayChildren: 50,
+    beforeChildren: true,
     applyAtStart: { display: "block" }
   },
   hide: {
