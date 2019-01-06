@@ -63,7 +63,7 @@ const mapStateToProps = ({ game, user: { userId, nickname } }) => ({
   countdown: game.countdown,
   countdownDuration: game.countdownDuration,
   gameExists: game.exists,
-  loading: game.created && !game.id,
+  loading: game.loading,
   wordsPlayed: game.words,
   nickname: nickname,
   gameStarted: game.started,

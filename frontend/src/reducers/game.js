@@ -25,6 +25,7 @@ const initialState = {
   duration: 0,
   remainingDurationOnJoin: null,
   joined: false,
+  loading: false,
   exists: true,
   grid: null,
   words: [],
@@ -41,9 +42,9 @@ export default (state = initialState, action) => {
     case GAME_CREATED:
       return { ...state, id: action.id };
     case GAME_STATE_UPDATE:
-      return { ...state, ...action.state };
+      return { ...state, ...action.state, loading: false };
     case JOIN_GAME:
-      return { ...state, id: action.id, joined: true };
+      return { ...state, id: action.id, joined: true, loading: true };
     case LEAVE_GAME:
       return initialState;
     case UPDATE_WORD:
