@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import LineTo from "react-lineto";
-import { connect } from "react-redux";
-import { extendPath, beginPath, endPath } from "../actions";
+import { appendOrRevert, bfs, gridNeighbors } from "../utils";
 import Tile from "./Tile";
 import PointerListener from "./PointerListener";
 import TouchListener from "./TouchListener";
@@ -28,14 +27,33 @@ class WordGrid extends Component {
     letters: PropTypes.arrayOf(PropTypes.string).isRequired,
     onWord: PropTypes.func
   };
+  state = {
+    path: null
+  };
+  beginPath = index => {
+    this.setState({ path: [index] });
+  };
+  extendPath(index) {
+    const path = this.state.path;
+    // only allows including an index once
+    let simplifiedPath = appendOrRevert(path, index);
+    // make sure the path is walkable and fill in any gaps
+    if (simplifiedPath.length > 1) {
+      const current = simplifiedPath[simplifiedPath.length - 1];
+      const previous = simplifiedPath[simplifiedPath.length - 2];
+      const expandedPath = bfs(previous, current, gridNeighbors(4));
+      simplifiedPath = [...simplifiedPath.slice(0, -2), ...expandedPath];
+    }
+    this.setState({ path: simplifiedPath });
+  }
   handleMouseDown(index, e) {
     e.preventDefault();
-    this.props.beginPath(index);
+    this.beginPath(index);
   }
   handleMouseEnter(index, e) {
     e.preventDefault();
-    if (this.props.currentPath) {
-      this.props.extendPath(index);
+    if (this.state.path) {
+      this.extendPath(index);
     }
   }
   handleMouseLeave(e) {
@@ -55,10 +73,12 @@ class WordGrid extends Component {
     }
   }
   endPath() {
-    if (this.props.currentPath) {
-      const { currentWord, currentPath } = this.props;
-      this.props.onWord({ word: currentWord, path: currentPath });
-      this.props.endPath();
+    if (this.state.path) {
+      const path = this.state.path;
+      const letters = this.props.letters;
+      const word = path ? path.map(i => letters[i]).join("") : "";
+      this.props.onWord && this.props.onWord({ word, path });
+      this.setState({ path: null });
     }
   }
   render() {
@@ -80,9 +100,9 @@ class WordGrid extends Component {
                 />
               ))}
             </Grid>
-            {this.props.currentPath &&
-              this.props.currentPath.slice(1).map((node, i) => {
-                const previous = this.props.currentPath[i]; // since we slice, it's not i - 1
+            {this.state.path &&
+              this.state.path.slice(1).map((node, i) => {
+                const previous = this.state.path[i]; // since we slice, it's not i - 1
                 return (
                   <LineTo
                     from={`tile-${previous}`}
@@ -100,22 +120,4 @@ class WordGrid extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const path = state.grid.path;
-  const letters = state.game.grid;
-  return {
-    currentPath: path,
-    currentWord: path ? path.map(i => letters[i]).join("") : ""
-  };
-};
-
-const mapDispatchToProps = dispatch => ({
-  extendPath: index => dispatch(extendPath(index)),
-  beginPath: index => dispatch(beginPath(index)),
-  endPath: () => dispatch(endPath())
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(WordGrid);
+export default WordGrid;
