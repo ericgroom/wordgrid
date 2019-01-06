@@ -1,7 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import posed from "react-pose";
 
-const Background = styled.div`
+const Growable = posed.div({
+  normal: {
+    scale: 1.0,
+    boxShadow: "0px 0px 0px 0px darkgreen"
+  },
+  large: {
+    scale: 1.1,
+    boxShadow: "0px 2px 3px 1px darkgreen"
+  }
+});
+
+const Background = styled(Growable)`
   background-color: #222;
   color: #fff;
   font-weight: bold;
@@ -11,13 +23,9 @@ const Background = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 0.2rem;
-  box-shadow: 0 2px 3px 1px darkgreen;
+
   pointer-events: auto;
 
-  &:hover {
-    transform: translate(0px, -5px);
-    transition: transform 0.1s;
-  }
   p {
     margin: none;
     padding: none;

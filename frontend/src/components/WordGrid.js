@@ -11,7 +11,7 @@ const Grid = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 4rem);
   grid-template-rows: repeat(4, 4rem);
-  gap: 0.75rem;
+  gap: 1rem;
   padding: 0;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   pointer-events: none;
@@ -81,6 +81,12 @@ class WordGrid extends Component {
       this.setState({ path: null });
     }
   }
+  tilePose = index => {
+    if (this.state.path && this.state.path.includes(index)) {
+      return "large";
+    }
+    return "normal";
+  };
   render() {
     return (
       <>
@@ -97,6 +103,7 @@ class WordGrid extends Component {
                   className={`tile tile-${index}`}
                   key={index}
                   data-tile-index={index}
+                  pose={this.tilePose(index)}
                 />
               ))}
             </Grid>
