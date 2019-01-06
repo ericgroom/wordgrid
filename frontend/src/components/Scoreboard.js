@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import posed, { PoseGroup } from "react-pose";
 import ListContainer from "./styles/ListContainer";
+
+const Li = posed.li();
 
 const OrderedList = styled.ol`
   margin: 0;
@@ -13,14 +16,16 @@ const Scoreboard = ({ users }) => (
   <aside>
     <ListContainer>
       <OrderedList>
-        {users &&
-          users.map(user => (
-            <li key={user.id}>
-              <p>
-                {user.nickname} &ndash; {user.score}
-              </p>
-            </li>
-          ))}
+        <PoseGroup>
+          {users &&
+            users.map(user => (
+              <Li key={user.id}>
+                <p>
+                  {user.nickname} &ndash; {user.score}
+                </p>
+              </Li>
+            ))}
+        </PoseGroup>
       </OrderedList>
     </ListContainer>
   </aside>
