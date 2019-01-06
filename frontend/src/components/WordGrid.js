@@ -65,14 +65,14 @@ class WordGrid extends Component {
     const elem = document.elementFromPoint(clientX, clientY);
     if (elem && elem.classList.contains("tile")) {
       const index = parseInt(elem.getAttribute("data-tile-index"));
-      if (this.props.currentPath) {
-        this.props.extendPath(index);
+      if (this.state.path) {
+        this.extendPath(index);
       } else {
-        this.props.beginPath(index);
+        this.beginPath(index);
       }
     }
   }
-  endPath() {
+  endPath = () => {
     if (this.state.path) {
       const path = this.state.path;
       const letters = this.props.letters;
@@ -80,7 +80,7 @@ class WordGrid extends Component {
       this.props.onWord && this.props.onWord({ word, path });
       this.setState({ path: null });
     }
-  }
+  };
   tilePose = index => {
     if (this.state.path && this.state.path.includes(index)) {
       return "large";
@@ -90,8 +90,8 @@ class WordGrid extends Component {
   render() {
     return (
       <>
-        <TouchListener onTouchEnd={this.endPath.bind(this)}>
-          <PointerListener onPointerUp={this.endPath.bind(this)}>
+        <TouchListener onTouchEnd={this.endPath}>
+          <PointerListener onPointerUp={this.endPath}>
             <Grid>
               {this.props.letters.map((letter, index) => (
                 <Tile
