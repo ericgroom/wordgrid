@@ -49,7 +49,7 @@ exports.getGameChanges = async (id, callback, timeout) => {
 exports.createGame = async game => {
   try {
     const gameObj = await Game.query().insert(game);
-    console.log(gameObj);
+    console.log(`new game ${gameObj.id}`);
     return gameObj;
   } catch (e) {
     throw e;

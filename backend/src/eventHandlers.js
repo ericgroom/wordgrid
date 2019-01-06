@@ -159,8 +159,8 @@ exports.onAuthentication = async (socket, token) => {
     const { userId } = await jwt.verify(token, process.env.APP_SECRET);
     await db.updateUser(userId, { socket_id: socket.id });
     console.log(`user ${userId} is now associated with socket ${socket.id}`);
-    const userObj = await db.getUser(userId);
-    socket.emit("nickname", userObj.nickname);
+    const { nickname } = await db.getUser(userId);
+    socket.emit("nickname", nickname);
     return true;
   } catch (e) {
     console.error(e);
