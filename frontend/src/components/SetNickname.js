@@ -17,10 +17,12 @@ class SetNickname extends React.Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    this.props.setNickname(this.state.nickname);
+    if (this.state.nickname.length > 0) {
+      this.props.setNickname(this.state.nickname);
+      this.setState({ nickname: "" });
+    }
   };
   render() {
-    if (this.props.pendingAuth) return <Spinner />;
     return (
       <Page>
         <h1>To join please enter a nickname</h1>
@@ -37,13 +39,14 @@ class SetNickname extends React.Component {
           </label>
           <button type="submit">Set</button>
         </form>
+        {this.props.loading && <Spinner />}
       </Page>
     );
   }
 }
 
 const mapStateToProps = ({ user }) => ({
-  pendingAuth: user.userId !== null
+  loading: user.nicknameRequested
 });
 
 const mapDispatchToProps = dispatch => ({
