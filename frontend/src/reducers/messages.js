@@ -1,6 +1,4 @@
-import { LEAVE_GAME } from "../actions";
-export const RECEIVED_MESSAGE = "RECIEVED_MESSAGE";
-export const SEND_MESSAGE = "SEND_MESSAGE";
+import { LEAVE_GAME, RECEIVED_MESSAGE } from "../actions";
 
 const initialState = {
   messages: [],
@@ -14,7 +12,7 @@ export default (state = initialState, action) => {
         ...state,
         messages: [
           ...state.messages,
-          { ...action.message, id: state.messageId }
+          { message: action.message, id: state.messageId }
         ],
         messageId: state.messageId + 1
       };

@@ -1,7 +1,15 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { tween } from "popmotion";
 
 class AnimatedNumber extends React.Component {
+  static propTypes = {
+    num: PropTypes.number.isRequired,
+    duration: PropTypes.number
+  };
+  static defaultProps = {
+    duration: 500
+  };
   state = {
     num: 0
   };
