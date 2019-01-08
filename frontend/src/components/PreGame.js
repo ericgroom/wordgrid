@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import BigButton from "./styles/BigButton";
 import List from "./styles/List";
 import Timer from "./Timer";
-import CopyableLink from "../CopyableLink";
+import CopyableLink from "./CopyableLink";
 
 const Wrapper = styled.div`
   text-align: center;

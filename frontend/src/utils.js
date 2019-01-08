@@ -1,4 +1,4 @@
-import _ from "lodash";
+import takeWhile from "lodash/takeWhile";
 
 /**
  * If the element passed to this function already exists in the array,
@@ -17,7 +17,7 @@ import _ from "lodash";
  * @returns {[T]}
  */
 export function appendOrRevert(array, elem) {
-  return [..._.takeWhile(array, e => e !== elem), elem];
+  return [...takeWhile(array, e => e !== elem), elem];
 }
 
 /**
@@ -133,4 +133,25 @@ export function bfs(from, to, neighborsFor) {
     throw new Error("bfs MAX_ITERATIONS surpassed");
   }
   throw new Error("bfs path not found");
+}
+
+/**
+ * Modifies a path so that an index is only included once and that the path
+ * is walkable.
+ *
+ * @param {number[]} path current path
+ * @param {number} index index to extend path
+ * @returns {number[]} the modified path
+ */
+export function extendAndReconcilePath(path, index) {
+  // only allows including an index once
+  let reconciledPath = appendOrRevert(path, index);
+  // make sure the path is walkable and fill in any gaps
+  if (reconciledPath.length > 1) {
+    const current = reconciledPath[reconciledPath.length - 1];
+    const previous = reconciledPath[reconciledPath.length - 2];
+    const expandedPath = bfs(previous, current, gridNeighbors(4));
+    reconciledPath = [...reconciledPath.slice(0, -2), ...expandedPath];
+  }
+  return reconciledPath;
 }

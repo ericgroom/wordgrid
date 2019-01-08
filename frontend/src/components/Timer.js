@@ -1,14 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+/**
+ * Render props component that counts down from a give time and passes
+ * the remaining duration to children in seconds. If a new duration is passed, the timer will restart
+ * at the new time.
+ */
 class Timer extends React.Component {
   static propTypes = {
     children: PropTypes.func.isRequired,
-    onTimerEnd: PropTypes.func,
+    /** duration to count down from */
     duration: PropTypes.number
   };
   state = {
-    remaining: 0,
+    remaining: this.props.duration || 0,
     intervalId: null
   };
   setup = () => {

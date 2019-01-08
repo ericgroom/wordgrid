@@ -1,12 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import ChatWindow from "./ChatWindow";
 
-class Chat extends React.Component {
-  state = {
-    message: "",
-    show: false
+/**
+ * Container component for chat. Interfaces with redux as well as mounts
+ * ChatWindow as a portal
+ */
+export class Chat extends React.Component {
+  static propTypes = {
+    /** List of messages to display */
+    messages: PropTypes.arrayOf(
+      PropTypes.shape({
+        sender: PropTypes.string,
+        message: PropTypes.string
+      })
+    ),
+    /** Function to call when the user sends a message */
+    sendMessage: PropTypes.func.isRequired
   };
   chatContainer = (function() {
     const el = document.createElement("div");
@@ -26,8 +38,15 @@ class Chat extends React.Component {
     const portalDiv = document.getElementById("portal");
     portalDiv.removeChild(this.chatContainer);
   }
+  /**
+   * Calls props.sendMessage with message content.
+   *
+   * @param {string} message message text
+   */
   sendMessage = message => {
-    this.props.sendMessage(message);
+    if (message && message.length > 0) {
+      this.props.sendMessage(message);
+    }
   };
   handleChange = e => {
     this.setState({ message: e.target.value });

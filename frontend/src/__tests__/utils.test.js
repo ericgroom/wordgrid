@@ -3,7 +3,8 @@ import {
   XYToIndex,
   indexToXY,
   bfs,
-  gridNeighbors
+  gridNeighbors,
+  extendAndReconcilePath
 } from "../utils";
 
 describe("appendOrRevert", () => {
@@ -103,5 +104,20 @@ describe("bfs", () => {
     );
     const path = bfs(fromIndex, toIndex, gridNeighbors(10));
     expect(path.length).toBe(10);
+  });
+});
+
+describe("extendAndReconcile", () => {
+  it("should extend an empty path", () => {
+    const result = extendAndReconcilePath([], 1);
+    expect(result).toEqual([1]);
+  });
+  it("should backtrack to a previous index if it is included twice", () => {
+    const result = extendAndReconcilePath([0, 1, 2, 3], 2);
+    expect(result).toEqual([0, 1, 2]);
+  });
+  it("should fill in any unwalkable gaps", () => {
+    const result = extendAndReconcilePath([0, 1], 3);
+    expect(result).toEqual([0, 1, 2, 3]);
   });
 });

@@ -2,9 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { tween } from "popmotion";
 
+/**
+ * "Animates" a number by counting up or down from the previous number passed
+ * to this component. This component returns a span.
+ */
 class AnimatedNumber extends React.Component {
   static propTypes = {
+    /** The number to be displayed */
     num: PropTypes.number.isRequired,
+    /** The duration it takes to transition between two numbers in ms */
     duration: PropTypes.number
   };
   static defaultProps = {
@@ -24,6 +30,10 @@ class AnimatedNumber extends React.Component {
       this.animate();
     }
   }
+  /**
+   * Starts a new animation from the previous number passed or the number reached
+   * by a currently in-progress animation. Also cancels any animation in-progress.
+   */
   animate = () => {
     if (this.action) {
       this.action.stop();
@@ -35,11 +45,7 @@ class AnimatedNumber extends React.Component {
     }).start(v => this.setState({ num: Math.round(v) }));
   };
   render() {
-    return (
-      <span from={0} to={1000}>
-        {this.state.num}
-      </span>
-    );
+    return <span>{this.state.num}</span>;
   }
 }
 

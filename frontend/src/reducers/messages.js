@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
         ...state,
         messages: [
           ...state.messages,
-          { message: action.message, id: state.messageId }
+          { ...action.message, id: state.messageId }
         ],
         messageId: state.messageId + 1
       };

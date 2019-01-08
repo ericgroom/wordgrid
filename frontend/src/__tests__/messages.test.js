@@ -23,11 +23,11 @@ describe("messages reducer", () => {
     expect(initialState.messages.length).toBe(0);
     expect(initialState.messageId).toBe(0);
 
-    const message = "a new message";
+    const message = { message: "a new message", sender: "eric" };
     const newState = messagesReducer(initialState, receivedMessage(message));
     expect(newState.messages.length).toBe(1);
     expect(newState.messageId).toBe(1);
-    expect(newState.messages[0]).toEqual({ message, id: 0 });
+    expect(newState.messages[0]).toEqual({ ...message, id: 0 });
   });
 });
 
@@ -64,15 +64,15 @@ describe("messages saga", () => {
    * Too difficult to test `take` effect for the moment. This is due to change
    * with the release of version 1.0 of `redux-saga`, will revisit when it releases.
    */
-  it("listens for actions and emits a socket event", async () => {
+  it.skip("listens for actions and emits a socket event", async () => {
     let actionsDispatched = [];
-    // const task = await runSaga(
-    //   {
-    //     dispatch: action => actionsDispatched.push(action)
-    //   },
-    //   messagesSaga,
-    //   socket
-    // );
-    // expect(task.isRunning()).toBe(true);
+    const task = await runSaga(
+      {
+        dispatch: action => actionsDispatched.push(action)
+      },
+      messagesSaga,
+      socket
+    );
+    expect(task.isRunning()).toBe(true);
   });
 });

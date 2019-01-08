@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { setNickname } from "../actions";
 import Spinner from "./styles/Spinner";
 
-const Page = styled.div`
+const Wrapper = styled.div`
   text-align: center;
 `;
 
@@ -24,7 +24,7 @@ class SetNickname extends React.Component {
   };
   render() {
     return (
-      <Page>
+      <Wrapper>
         <h1>To join please enter a nickname</h1>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="nickname">
@@ -40,7 +40,7 @@ class SetNickname extends React.Component {
           <button type="submit">Set</button>
         </form>
         {this.props.loading && <Spinner />}
-      </Page>
+      </Wrapper>
     );
   }
 }

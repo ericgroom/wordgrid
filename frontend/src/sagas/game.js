@@ -1,6 +1,8 @@
 import { eventChannel } from "redux-saga";
 import { take, race, all, call, put, select } from "redux-saga/effects";
-import _ from "lodash";
+import max from "lodash/max";
+import find from "lodash/find";
+
 import {
   updateGameState,
   REQUEST_CREATE_GAME,
@@ -65,7 +67,7 @@ function gameSocketChannel(socket) {
       emit(
         updateGameState({
           words,
-          wordId: _.max(words.map(word => word.id)) + 1 || 0,
+          wordId: max(words.map(word => word.id)) + 1 || 0,
           sentWords: words.map(word => word.word)
         })
       );
@@ -96,7 +98,7 @@ function* gameActionListener(socket) {
         // send the word
         if (!tooShort && !alreadySent) {
           const words = yield select(state => state.game.words);
-          const wordId = _.find(words, { word }).id;
+          const wordId = find(words, { word }).id;
           const gameId = yield select(state => state.game.id);
           socket.emit("word", { word, wordId, gameId, path });
           yield put(sentWord(word));

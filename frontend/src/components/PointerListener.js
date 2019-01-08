@@ -1,6 +1,13 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-class MouseListener extends React.Component {
+/**
+ * Listens for pointerup event and calls props.onPointerUp
+ */
+class PointerListener extends React.Component {
+  static propTypes = {
+    onPointerUp: PropTypes.func.isRequired
+  };
   componentDidMount() {
     document.addEventListener("pointerup", this.props.onPointerUp);
   }
@@ -12,4 +19,4 @@ class MouseListener extends React.Component {
   }
 }
 
-export default MouseListener;
+export default PointerListener;
