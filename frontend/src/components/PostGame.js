@@ -36,7 +36,30 @@ const List = styled.div`
   }
 `;
 
+/**
+ * Displays a list of users, their score acheived, and list of words played.
+ */
 class PostGame extends React.Component {
+  static propTypes = {
+    /** array of users */
+    results: PropTypes.arrayOf(
+      PropTypes.shape({
+        /** user's id */
+        id: PropTypes.string,
+        /** words the user played */
+        words: PropTypes.arrayOf(
+          PropTypes.shape({
+            /** id of word */
+            id: PropTypes.number,
+            /** the actual word as a string */
+            word: PropTypes.string
+          })
+        ),
+        /** the score the user acheived */
+        score: PropTypes.number
+      })
+    ).isRequired
+  };
   state = {
     detailId: null
   };
@@ -55,7 +78,7 @@ class PostGame extends React.Component {
             <title>Game Over!</title>
           </Helmet>
           <h2>Game Over</h2>
-          {results.length > 0 ? (
+          {results && results.length > 0 ? (
             <ListGrid>
               {results.map((user, index) => (
                 <List
@@ -89,21 +112,5 @@ class PostGame extends React.Component {
     );
   }
 }
-
-PostGame.propTypes = {
-  results: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      words: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number,
-          word: PropTypes.string,
-          valid: PropTypes.boolean
-        })
-      ),
-      score: PropTypes.number
-    })
-  ).isRequired
-};
 
 export default PostGame;

@@ -54,7 +54,7 @@ class Nav extends React.Component {
         <Modal
           show={this.state.showSettings}
           title="Settings"
-          close={this.toggleSettings}
+          onClose={this.toggleSettings}
         >
           <Settings />
         </Modal>

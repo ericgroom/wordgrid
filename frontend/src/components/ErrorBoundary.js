@@ -10,11 +10,22 @@ const ErrorWrapper = styled.div`
     color: red;
   }
 `;
-class ErrorBoundry extends React.Component {
+
+/**
+ * Used to catch errors in child components and display an error
+ * message to users.
+ */
+class ErrorBoundary extends React.Component {
   state = {
     error: "",
     hasError: false
   };
+  /**
+   * Docs sugggest making ui changes in this method, logging should be done
+   * in componentDidCatch.
+   *
+   * @param {Error | string} error
+   */
   static getDerivedStateFromError(error) {
     if (typeof error !== "string") {
       error = error.toString();
@@ -24,9 +35,6 @@ class ErrorBoundry extends React.Component {
   componentDidCatch(error, info) {
     console.log("error in boundry: ", error, "info: ", info);
   }
-  dismiss = () => {
-    this.setState({ error: "", hasError: false });
-  };
   render() {
     const { hasError } = this.state;
     if (hasError) {
@@ -44,4 +52,4 @@ class ErrorBoundry extends React.Component {
   }
 }
 
-export default ErrorBoundry;
+export default ErrorBoundary;

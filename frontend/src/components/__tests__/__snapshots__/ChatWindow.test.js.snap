@@ -87,6 +87,7 @@ ShallowWrapper {
           />
         </div>,
         <div
+          aria-hidden={true}
           className="chat-window-wrapper"
         >
           <ul
@@ -265,6 +266,7 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
+          "aria-hidden": true,
           "children": Array [
             <ul
               className="message-list"
@@ -648,6 +650,7 @@ ShallowWrapper {
             />
           </div>,
           <div
+            aria-hidden={true}
             className="chat-window-wrapper"
           >
             <ul
@@ -826,6 +829,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
+            "aria-hidden": true,
             "children": Array [
               <ul
                 className="message-list"
@@ -1243,6 +1247,7 @@ ShallowWrapper {
           />
         </div>,
         <div
+          aria-hidden={true}
           className="chat-window-wrapper"
         >
           <ul
@@ -1390,6 +1395,7 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
+          "aria-hidden": true,
           "children": Array [
             <ul
               className="message-list"
@@ -1565,6 +1571,7 @@ ShallowWrapper {
             />
           </div>,
           <div
+            aria-hidden={true}
             className="chat-window-wrapper"
           >
             <ul
@@ -1712,6 +1719,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
+            "aria-hidden": true,
             "children": Array [
               <ul
                 className="message-list"

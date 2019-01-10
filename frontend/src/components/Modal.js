@@ -81,11 +81,20 @@ const ModalWrapper = styled(Overlay)`
   }
 `;
 
+/**
+ * Reusable Modal component.
+ */
 class Modal extends React.Component {
+  static defaultProps = {
+    title: ""
+  };
   static propTypes = {
+    /** will display the modal if set to true */
     show: PropTypes.bool.isRequired,
+    /** title shown in the heading of the modal */
     title: PropTypes.string,
-    close: PropTypes.func.isRequired
+    /** called when the modal closes to update state in parent if necessary */
+    onClose: PropTypes.func
   };
   modalContainer = (function() {
     const el = document.createElement("div");
@@ -104,27 +113,39 @@ class Modal extends React.Component {
   componentWillUnmount() {
     document.removeChild(this.modalContainer);
   }
-  handleClose = e => {
+  /**
+   * Checks if the element clicked was the modal background and closes the modal if it is
+   */
+  handleBackgroundClick = e => {
     e.preventDefault();
     if (e.target.getAttribute("data-is-background")) {
-      this.props.close();
+      this.close();
     }
   };
+  /**
+   * Closes the modal if the escape key is pressed
+   */
   handleKeyUp = e => {
     if (e.keyCode === 27) {
-      this.props.close();
+      this.close();
     }
+  };
+  /**
+   * Closes modal
+   */
+  close = () => {
+    this.props.onClose && this.props.onClose();
   };
   render() {
     const { show = false } = this.props;
-    // if (show) {
     return ReactDOM.createPortal(
       <ModalWrapper
-        onClick={this.handleClose}
+        onClick={this.handleBackgroundClick}
         data-is-background
         aria-modal
         onKeyUp={this.handleKeyUp}
         tabIndex="-1"
+        aria-hidden={!show}
         show={show}
         pose={show ? "show" : "hide"}
       >
@@ -133,7 +154,7 @@ class Modal extends React.Component {
             <FA
               icon={faTimes}
               size="2x"
-              onClick={this.props.close}
+              onClick={this.close}
               className="close-button"
             />
             <h1>{this.props.title}</h1>
@@ -143,9 +164,6 @@ class Modal extends React.Component {
       </ModalWrapper>,
       this.modalContainer
     );
-    // } else {
-    //   return null;
-    // }
   }
 }
 

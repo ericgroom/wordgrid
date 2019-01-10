@@ -8,7 +8,7 @@ import Welcome from "./Welcome";
 import SetNickname from "./SetNickname";
 import Nav from "./Nav";
 import { Helmet } from "react-helmet";
-import ErrorBoundry from "./ErrorBoundry";
+import ErrorBoundary from "./ErrorBoundary";
 
 const theme = {
   darkBlue: "#2756c3"
@@ -38,7 +38,7 @@ const Root = props => (
             />
           </Helmet>
           <Nav />
-          <ErrorBoundry>
+          <ErrorBoundary>
             <Route
               render={({ location }) => (
                 <PoseGroup>
@@ -71,7 +71,7 @@ const Root = props => (
                 </PoseGroup>
               )}
             />
-          </ErrorBoundry>
+          </ErrorBoundary>
         </>
       </ThemeProvider>
     </Router>

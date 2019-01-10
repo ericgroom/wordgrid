@@ -21,8 +21,12 @@ const Wrapper = styled.div`
   }
 `;
 
+/**
+ * Displays a url that is easy for the user to copy.
+ */
 class CopyableLink extends React.Component {
   static propTypes = {
+    /** The url to display to the user */
     url: PropTypes.string.isRequired
   };
   input = React.createRef();

@@ -87,7 +87,7 @@ class ChatWindow extends React.Component {
           </ScaleUp>
           Chat <FA icon={show ? faChevronDown : faChevronUp} />
         </div>
-        <div className="chat-window-wrapper">
+        <div className="chat-window-wrapper" aria-hidden={!show}>
           <ul className="message-list">
             {messages &&
               messages.map(m => {
