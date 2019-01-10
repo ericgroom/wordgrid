@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import posed from "react-pose";
 import CreateGameButton from "./CreateGameButton";
-import Spinner from "./styles/Spinner";
-import WordGrid from "./WordGrid";
+import Spinner from "../styles/Spinner";
+import WordGrid from "../shared/wordgrid";
 
 const transition = {
   exit: {

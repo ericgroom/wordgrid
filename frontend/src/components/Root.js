@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider, connect } from "react-redux";
 import { injectGlobal, ThemeProvider } from "styled-components";
 import posed, { PoseGroup } from "react-pose";
-import GameContainer from "./GameContainer";
-import Welcome from "./Welcome";
+import Game from "./game";
+import Welcome from "./homepage";
 import SetNickname from "./SetNickname";
 import Nav from "./Nav";
 import { Helmet } from "react-helmet";
-import ErrorBoundary from "./ErrorBoundary";
+import ErrorBoundary from "./shared/ErrorBoundary";
 
 const theme = {
   darkBlue: "#2756c3"
@@ -56,16 +56,12 @@ const Root = props => (
                           return props.needsNickname ? (
                             <SetNickname />
                           ) : (
-                            <GameContainer />
+                            <Game />
                           );
                         }}
                         key="game-id"
                       />
-                      <Route
-                        path="/game"
-                        component={GameContainer}
-                        key="game-no-id"
-                      />
+                      <Route path="/game" component={Game} key="game-no-id" />
                     </Switch>
                   </RouteContainer>
                 </PoseGroup>

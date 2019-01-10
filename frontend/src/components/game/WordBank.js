@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import Spinner from "./styles/Spinner";
+import Spinner from "../styles/Spinner";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as FA } from "@fortawesome/react-fontawesome";
-import List from "./styles/List";
+import List from "../styles/List";
 
 const Word = styled.div`
   text-decoration: ${props =>
@@ -17,8 +17,8 @@ const Word = styled.div`
       props.valid === undefined
         ? "inherit"
         : props.valid
-          ? "lightgreen"
-          : "red"};
+        ? "lightgreen"
+        : "red"};
     margin: 0;
     margin-left: 0.2rem;
   }

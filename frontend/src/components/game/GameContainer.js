@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import _ from "lodash";
+import get from "lodash/get";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { PoseGroup } from "react-pose";
-import { joinGame, completeWord, startGame, leaveGame } from "../actions";
+import { joinGame, completeWord, startGame, leaveGame } from "../../actions";
 import PreGame from "./PreGame";
 import Game from "./Game";
 import PostGame from "./PostGame";
-import Spinner from "./styles/Spinner";
-import ToTheLeft from "./styles/ToTheLeft";
-import Chat from "./Chat";
+import Spinner from "../styles/Spinner";
+import ToTheLeft from "../styles/ToTheLeft";
+import Chat from "../chat";
 
 class GameContainer extends Component {
   componentDidMount() {
@@ -76,7 +76,7 @@ const mapStateToProps = ({ game, user: { userId, nickname } }) => ({
   score:
     game.users.length > 0
       ? game.users
-        ? _.get(game.users.find(user => user.id === userId), "score", 0)
+        ? get(game.users.find(user => user.id === userId), "score", 0)
         : 0
       : 0
 });

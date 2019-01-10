@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import posed from "react-pose";
 import { FontAwesomeIcon as FA } from "@fortawesome/react-fontawesome";
 import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import ChatWrapper from "./styles/ChatWindow";
+import ChatStyles from "./styles/ChatStyles";
 
 const ScaleUp = posed.div({
   show: {
@@ -72,7 +72,7 @@ class ChatWindow extends React.Component {
     const { show, unreadMessages } = this.state;
     const { messages } = this.props;
     return (
-      <ChatWrapper
+      <ChatStyles
         className="chat"
         initialPose="exit"
         pose={show ? "visible" : "hidden"}
@@ -113,7 +113,7 @@ class ChatWindow extends React.Component {
             <button type="submit">Send</button>
           </form>
         </div>
-      </ChatWrapper>
+      </ChatStyles>
     );
   }
 }

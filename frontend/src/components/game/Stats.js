@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import AnimatedNumber from "./AnimatedNumber";
+import AnimatedNumber from "../shared/AnimatedNumber";
 
 const Wrapper = styled.div`
   text-align: center;

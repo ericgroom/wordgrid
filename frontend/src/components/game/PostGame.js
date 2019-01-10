@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
-import ListContainer from "./styles/ListContainer";
-import Container from "./styles/Container";
+import ListContainer from "../styles/ListContainer";
+import Container from "../styles/Container";
 
 const ListGrid = styled.div`
   display: grid;

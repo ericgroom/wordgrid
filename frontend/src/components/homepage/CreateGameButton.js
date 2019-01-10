@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { createGame } from "../actions";
+import { createGame } from "../../actions";
 import { Redirect } from "react-router";
-import BigButton from "./styles/BigButton";
+import BigButton from "../styles/BigButton";
 
 class CreateGameButton extends React.Component {
   state = { clicked: false }; // used to prevent react router from automatically routing without user interaction

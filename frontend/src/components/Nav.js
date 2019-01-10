@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon as FA } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
-import Modal from "./Modal";
+import Modal from "./shared/Modal";
 import Settings from "./Settings";
 
 const Header = styled.header`

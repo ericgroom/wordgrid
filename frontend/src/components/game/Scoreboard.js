@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import posed, { PoseGroup } from "react-pose";
-import ListContainer from "./styles/ListContainer";
+import ListContainer from "../styles/ListContainer";
 
 const Li = posed.li();
 

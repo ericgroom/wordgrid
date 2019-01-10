@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
-import Timer from "./Timer";
-import WordGrid from "./WordGrid";
+import Timer from "../shared/Timer";
+import WordGrid from "../shared/wordgrid";
 import Stats from "./Stats";
 import Scoreboard from "./Scoreboard";
 import WordBank from "./WordBank";

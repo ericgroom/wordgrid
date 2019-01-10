@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import LineTo from "react-lineto";
-import { extendAndReconcilePath } from "../utils";
+import { extendAndReconcilePath } from "./utils";
 import Tile from "./Tile";
 import PointerListener from "./PointerListener";
 import TouchListener from "./TouchListener";

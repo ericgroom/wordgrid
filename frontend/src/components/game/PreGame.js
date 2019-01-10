@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
-import BigButton from "./styles/BigButton";
-import List from "./styles/List";
-import Timer from "./Timer";
-import CopyableLink from "./CopyableLink";
+import BigButton from "../styles/BigButton";
+import List from "../styles/List";
+import Timer from "../shared/Timer";
+import CopyableLink from "../shared/CopyableLink";
 
 const Wrapper = styled.div`
   text-align: center;
