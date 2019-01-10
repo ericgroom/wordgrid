@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider, connect } from "react-redux";
-import { injectGlobal, ThemeProvider } from "styled-components";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
 import posed, { PoseGroup } from "react-pose";
 import Game from "./game";
 import Welcome from "./homepage";
@@ -24,6 +24,31 @@ const RouteContainer = posed.div({
     opacity: 0
   }
 });
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: #FFF8E7;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    .mobile-warning {
+      display: none;
+    }
+    @media (hover:none) {
+      .mobile-warning {
+        display: block;
+        color: red;
+      }
+    }
+  }
+
+
+  body {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+  }
+`;
 
 const App = props => (
   <Provider store={props.store}>
@@ -68,36 +93,12 @@ const App = props => (
               )}
             />
           </ErrorBoundary>
+          <GlobalStyle />
         </>
       </ThemeProvider>
     </Router>
   </Provider>
 );
-
-injectGlobal`
-  body {
-    background-color: #FFF8E7;
-    font-family: 'Lato', sans-serif;
-    margin: 0;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    .mobile-warning {
-      display: none;
-    }
-    @media (hover:none) {
-      .mobile-warning {
-        display: block;
-        color: red;
-      }
-    }
-  }
-
-
-  body {
-    width: 100vw;
-    height: 100vh;
-    max-width: 100%;
-  }
-`;
 
 const mapStateToProps = ({ game, user }) => ({
   gameActive: game.created && game.id,

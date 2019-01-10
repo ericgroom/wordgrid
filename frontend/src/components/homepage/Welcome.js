@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import posed from "react-pose";
 import CreateGameButton from "./CreateGameButton";
 import Spinner from "../styles/Spinner";

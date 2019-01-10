@@ -20,7 +20,7 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "function",
     "props": Object {
-      "children": <Styled(Component)>
+      "children": <ForwardRef>
         <FontAwesomeIcon
           border={false}
           className="close"
@@ -60,13 +60,13 @@ ShallowWrapper {
           </span>
           asdf
         </p>
-      </Styled(Component)>,
+      </ForwardRef>,
     },
     "ref": null,
     "rendered": Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "class",
+      "nodeType": "function",
       "props": Object {
         "children": Array [
           <FontAwesomeIcon
@@ -182,7 +182,28 @@ ShallowWrapper {
           "type": "p",
         },
       ],
-      "type": [Function],
+      "type": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "Error__ErrorWrapper-sc-6zzp3k-0",
+          "isStatic": true,
+          "rules": Array [
+            "background-color:#222;color:#eee;text-align:left;padding:1rem;padding-left:1.5rem;border-radius:999rem;position:fixed;top:2rem;left:2rem;right:2rem;margin:1rem auto;max-width:30rem;box-shadow:2px 2px 3px black;p{margin:0;margin-left:1rem;display:inline-block;}.prefix{font-weight:600;color:red;}.close:hover{color:red;transition:color 0.3s;}",
+          ],
+        },
+        "displayName": "Error__ErrorWrapper",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "Error__ErrorWrapper-sc-6zzp3k-0",
+        "target": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "render": [Function],
+        },
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      },
     },
     "type": Symbol(react.fragment),
   },
@@ -192,7 +213,7 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "function",
       "props": Object {
-        "children": <Styled(Component)>
+        "children": <ForwardRef>
           <FontAwesomeIcon
             border={false}
             className="close"
@@ -232,13 +253,13 @@ ShallowWrapper {
             </span>
             asdf
           </p>
-        </Styled(Component)>,
+        </ForwardRef>,
       },
       "ref": null,
       "rendered": Object {
         "instance": null,
         "key": undefined,
-        "nodeType": "class",
+        "nodeType": "function",
         "props": Object {
           "children": Array [
             <FontAwesomeIcon
@@ -354,7 +375,28 @@ ShallowWrapper {
             "type": "p",
           },
         ],
-        "type": [Function],
+        "type": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "Error__ErrorWrapper-sc-6zzp3k-0",
+            "isStatic": true,
+            "rules": Array [
+              "background-color:#222;color:#eee;text-align:left;padding:1rem;padding-left:1.5rem;border-radius:999rem;position:fixed;top:2rem;left:2rem;right:2rem;margin:1rem auto;max-width:30rem;box-shadow:2px 2px 3px black;p{margin:0;margin-left:1rem;display:inline-block;}.prefix{font-weight:600;color:red;}.close:hover{color:red;transition:color 0.3s;}",
+            ],
+          },
+          "displayName": "Error__ErrorWrapper",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "Error__ErrorWrapper-sc-6zzp3k-0",
+          "target": Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "render": [Function],
+          },
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        },
       },
       "type": Symbol(react.fragment),
     },

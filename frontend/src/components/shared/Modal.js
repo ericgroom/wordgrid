@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import posed from "react-pose";
 import { FontAwesomeIcon as FA } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
