@@ -25,7 +25,7 @@ const RouteContainer = posed.div({
   }
 });
 
-const Root = props => (
+const App = props => (
   <Provider store={props.store}>
     <Router>
       <ThemeProvider theme={theme}>
@@ -107,4 +107,4 @@ const mapStateToProps = ({ game, user }) => ({
   needsNickname: user.authConfirmed && !user.nickname
 });
 
-export default connect(mapStateToProps)(Root);
+export default connect(mapStateToProps)(App);
