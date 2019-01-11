@@ -66,3 +66,78 @@ describe("gameReducer", () => {
     expect(state.wordsById[2]).toEqual({ id: 2, word: "fd" });
   });
 });
+
+describe("game selectors", () => {
+  let initialState;
+  beforeEach(() => {
+    initialState = gameReducer(undefined, {});
+  });
+  it("getScoreOfUser with initial state", () => {
+    const score = gameSelectors.getScoreOfUser(initialState, 0);
+    expect(score).toBe(0);
+  });
+  it("getScoreOfUser with multiple users", () => {
+    const users = [
+      { id: 0, nickname: "Eric", score: 10 },
+      { id: 10, nickname: "Nathan", score: 1000 }
+    ];
+    const stateWithUsers = gameReducer(
+      initialState,
+      gameActions.updateGameState({ users })
+    );
+    expect(stateWithUsers.users.length).toBe(2);
+    expect(gameSelectors.getScoreOfUser(stateWithUsers, 0)).toBe(10);
+    expect(gameSelectors.getScoreOfUser(stateWithUsers, 10)).toBe(1000);
+  });
+  it("getAllWords", () => {
+    const words = ["asdf", "fdsa", "fd"];
+    let state = initialState;
+    for (let word of words) {
+      const id = state.nextWordId;
+      state = gameReducer(state, gameActions.addWord({ word, id }));
+    }
+    expect(state.wordIds.length).toEqual(3);
+    expect(gameSelectors.getAllWords(state)).toEqual([
+      { id: 0, word: "asdf" },
+      { id: 1, word: "fdsa" },
+      { id: 2, word: "fd" }
+    ]);
+  });
+  it("getGameState initial state", () => {
+    expect(gameSelectors.getGameState(initialState)).toBe("pregame");
+  });
+  it("getGameState active", () => {
+    const state = gameReducer(
+      initialState,
+      gameActions.updateGameState({ started: true })
+    );
+    expect(gameSelectors.getGameState(state)).toBe("active");
+  });
+  it("getGameState ended", () => {
+    const state = gameReducer(
+      initialState,
+      gameActions.updateGameState({ started: true, ended: true })
+    );
+    expect(gameSelectors.getGameState(state)).toBe("ended");
+  });
+  it("getGameState exists", () => {
+    // included started to make sure exists takes precidence
+    const state = gameReducer(
+      initialState,
+      gameActions.updateGameState({
+        started: true,
+        exists: false
+      })
+    );
+    expect(gameSelectors.getGameState(state)).toBe("non-existant");
+  });
+  it("getGameState loading", () => {
+    const state = gameReducer(initialState, gameActions.joinGame(0));
+    expect(gameSelectors.getGameState(state)).toBe("loading");
+    const joined = gameReducer(
+      initialState,
+      gameActions.updateGameState({ joined: true })
+    );
+    expect(gameSelectors.getGameState(joined)).toBe("pregame");
+  });
+});
