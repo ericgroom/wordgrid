@@ -1,5 +1,9 @@
-import { messageListener } from "../messages";
+import SagaTester from "redux-saga-tester";
+import rootReducer from "../../reducers";
+import { SEND_MESSAGE } from "../../actions/messages";
+import { messageListener, messageActionListener } from "../messages";
 import { receivedMessage } from "../../actions/messages";
+import { joinGame } from "../../actions";
 
 jest.mock("../index.js", () => ({
   ...jest.requireActual("../index.js"),
@@ -8,27 +12,18 @@ jest.mock("../index.js", () => ({
   }
 }));
 
-function createMockSocket() {
-  let handlers = {};
-  let socket = {};
-  socket.on = function(event, handler) {
-    handlers[event] = handler;
-  };
-  socket.emit = function(event, ...args) {
-    handlers[event](...args);
-  };
-  socket.handlers = handlers;
-  return socket;
-}
-
 describe("messages saga", () => {
   let socket;
   let messageHandler;
+  let sagaTester;
 
   beforeEach(() => {
     socket = createMockSocket();
     messageHandler = jest.fn();
     socket.on("chat message", messageHandler);
+    sagaTester = new SagaTester({
+      reducers: rootReducer
+    });
   });
   it("listens for messages and puts appropriate action", async () => {
     const gen = messageListener(socket);
@@ -37,19 +32,17 @@ describe("messages saga", () => {
     const helloAction = await task;
     expect(helloAction).toEqual(receivedMessage("hello"));
   });
-  /**
-   * Too difficult to test `take` effect for the moment. This is due to change
-   * with the release of version 1.0 of `redux-saga`, will revisit when it releases.
-   */
-  it.skip("listens for actions and emits a socket event", async () => {
+  it("listens for actions and emits a socket event", async () => {
     let actionsDispatched = [];
-    const task = await runSaga(
-      {
-        dispatch: action => actionsDispatched.push(action)
-      },
-      messagesSaga,
-      socket
-    );
-    expect(task.isRunning()).toBe(true);
+    sagaTester.start(messageActionListener, socket);
+    expect(sagaTester.getState()).toEqual(rootReducer(undefined, {}));
+    sagaTester.dispatch(joinGame(12));
+    expect(sagaTester.getState().game.id).toBe(12);
+    sagaTester.dispatch({ type: SEND_MESSAGE, message: "hello!" });
+    expect(messageHandler.mock.calls.length).toBe(1);
+    expect(messageHandler.mock.calls[0][0]).toEqual({
+      message: "hello!",
+      gameId: 12
+    });
   });
 });
