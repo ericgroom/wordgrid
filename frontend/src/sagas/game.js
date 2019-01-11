@@ -47,7 +47,6 @@ function gameSocketChannel(socket) {
     });
     socket.on("not exists", () => emit(updateGameState({ exists: false })));
     socket.on("word", word => {
-      console.log(word);
       emit(updateWord(word));
     });
     socket.on("user join", nickname => {

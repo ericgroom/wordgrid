@@ -1,35 +1,12 @@
-import messagesReducer from "../reducers/messages";
-import { RECEIVED_MESSAGE, receivedMessage } from "../actions/messages";
-import messagesSaga, { messageListener } from "../sagas/messages";
-import { runSaga, stdChannel } from "redux-saga";
+import { messageListener } from "../messages";
+import { receivedMessage } from "../../actions/messages";
 
-jest.mock("../sagas/index.js", () => ({
-  ...jest.requireActual("../sagas/index.js"),
+jest.mock("../index.js", () => ({
+  ...jest.requireActual("../index.js"),
   awaitAuthIfNeeded: function*() {
     console.log("awaiting auth");
   }
 }));
-
-describe("messages actions", () => {
-  it("receivedMessage", () => {
-    const message = "hello";
-    const action = receivedMessage(message);
-    expect(action).toEqual({ type: RECEIVED_MESSAGE, message });
-  });
-});
-describe("messages reducer", () => {
-  it("updates state when message is received", () => {
-    const initialState = messagesReducer(undefined, {});
-    expect(initialState.messages.length).toBe(0);
-    expect(initialState.messageId).toBe(0);
-
-    const message = { message: "a new message", sender: "eric" };
-    const newState = messagesReducer(initialState, receivedMessage(message));
-    expect(newState.messages.length).toBe(1);
-    expect(newState.messageId).toBe(1);
-    expect(newState.messages[0]).toEqual({ ...message, id: 0 });
-  });
-});
 
 function createMockSocket() {
   let handlers = {};

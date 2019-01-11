@@ -67,10 +67,7 @@ class GameController extends Component {
 }
 
 const mapStateToProps = state => {
-  const {
-    game,
-    user: { nickname }
-  } = state;
+  const { game } = state;
   return {
     letters: game.grid,
     gameId: game.id,
@@ -78,7 +75,6 @@ const mapStateToProps = state => {
     countdown: game.countdown,
     countdownDuration: game.countdownDuration,
     wordsPlayed: getAllWordsPlayed(state),
-    nickname: nickname,
     connectedUsers: game.users,
     gameDuration: game.duration,
     score: getScoreOfCurrentUser(state)
