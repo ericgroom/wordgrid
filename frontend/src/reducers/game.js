@@ -1,5 +1,4 @@
 import get from "lodash/get";
-import findIndex from "lodash/findIndex";
 import {
   REQUEST_CREATE_GAME,
   GAME_CREATED,
@@ -7,13 +6,12 @@ import {
   JOIN_GAME,
   LEAVE_GAME,
   UPDATE_WORD,
-  WORD_COMPLETED,
   USER_JOIN,
-  WORD_SENT,
   START_GAME,
   START_COUNTDOWN,
   REJOINED,
-  END_GAME
+  END_GAME,
+  ADD_WORD
 } from "../actions";
 
 const initialState = {
@@ -28,35 +26,29 @@ const initialState = {
   loading: false,
   exists: true,
   grid: null,
-  words: [],
-  wordId: 0,
-  sentWords: [], // words already sent to the backend so that saga can avoid duplicates
+  wordsById: {},
+  wordIds: [],
+  nextWordId: 0,
   users: []
 };
 
 const updateWord = (state, action) => {
-  const words = state.words;
-  const wordIndex = findIndex(words, word => word.id === action.word.id);
-  const word = words[wordIndex];
+  const word = state.wordsById[action.word.id];
   const updatedWord = { ...word, ...action.word };
-  let updatedWords = [...words];
-  updatedWords[wordIndex] = updatedWord;
-  return { ...state, words: updatedWords };
-};
-
-const wordCompleted = (state, action) => {
-  // don't add word if the length is less than 3 or already added
-  if (
-    action.word.word.length < 3 ||
-    state.words.some(({ word }) => word === action.word.word)
-  ) {
-    return state;
-  }
+  const wordsById = {
+    ...state.wordsById,
+    [action.word.id]: updatedWord
+  };
   return {
     ...state,
-    wordId: state.wordId + 1,
-    words: [...state.words, { word: action.word.word, id: state.wordId }]
+    wordsById
   };
+};
+
+const addWord = (state, action) => {
+  const wordIds = [...state.wordIds, action.word.id];
+  const wordsById = { ...state.wordsById, [action.word.id]: action.word };
+  return { ...state, wordIds, wordsById, nextWordId: state.nextWordId + 1 };
 };
 
 export default (state = initialState, action) => {
@@ -73,10 +65,8 @@ export default (state = initialState, action) => {
       return initialState;
     case UPDATE_WORD:
       return updateWord(state, action);
-    case WORD_COMPLETED:
-      return wordCompleted(state, action);
-    case WORD_SENT:
-      return { ...state, sentWords: [...state.sentWords, action.word] };
+    case ADD_WORD:
+      return addWord(state, action);
     case USER_JOIN:
       return { ...state, users: [...state.users, action.nickname] };
     case START_GAME:
@@ -108,11 +98,24 @@ export const getScoreOfUser = (state, userId) => {
     : 0;
 };
 
+/**
+ * Get the current state of the game as a string.
+ * @param {object} state state local to this reducer
+ */
 export const getGameState = state => {
   if (state.loading) return "loading";
   if (!state.exists) return "non-existant";
   if (state.ended) return "ended";
   if (!state.started) return "pregame";
   if (state.started) return "active";
-  throw new Error("unaccounted case in getGameState");
+  if (process.env.NODE_ENV !== "production")
+    throw new Error("unaccounted case in getGameState");
+  return "non-existant";
 };
+
+/**
+ * Gets all words played by the user.
+ * @param {object} state state local to this reducer
+ */
+export const getAllWords = state =>
+  state.wordIds.map(id => state.wordsById[id]);

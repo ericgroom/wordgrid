@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { PoseGroup } from "react-pose";
 import { joinGame, completeWord, startGame, leaveGame } from "../../actions";
-import { getScoreOfCurrentUser, getGameState } from "../../reducers";
+import {
+  getScoreOfCurrentUser,
+  getGameState,
+  getAllWordsPlayed
+} from "../../reducers";
 import PreGame from "./PreGame";
 import Game from "./Game";
 import PostGame from "./PostGame";
@@ -73,7 +77,7 @@ const mapStateToProps = state => {
     gameState: getGameState(state),
     countdown: game.countdown,
     countdownDuration: game.countdownDuration,
-    wordsPlayed: game.words,
+    wordsPlayed: getAllWordsPlayed(state),
     nickname: nickname,
     connectedUsers: game.users,
     gameDuration: game.duration,

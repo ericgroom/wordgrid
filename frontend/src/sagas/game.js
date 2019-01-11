@@ -1,7 +1,7 @@
 import { eventChannel } from "redux-saga";
 import { take, race, all, call, put, select } from "redux-saga/effects";
 import max from "lodash/max";
-import find from "lodash/find";
+import { getAllWords } from "../reducers/game";
 
 import {
   updateGameState,
@@ -12,11 +12,11 @@ import {
   updateWord,
   WORD_COMPLETED,
   userJoined,
-  sentWord,
   REQUEST_START_GAME,
   startCountdown,
   rejoined,
-  endGame
+  endGame,
+  addWord
 } from "../actions";
 import { putFrom, awaitAuthIfNeeded } from "./index";
 
@@ -51,7 +51,6 @@ function gameSocketChannel(socket) {
       emit(updateWord(word));
     });
     socket.on("user join", nickname => {
-      console.log(`${nickname} joined`);
       emit(userJoined(nickname));
     });
     socket.on("countdown", duration => {
@@ -92,16 +91,19 @@ function* gameActionListener(socket) {
         // don't send words less than 3 letters long
         const tooShort = word.length < 3;
         // check if word has already been sent
-        const sentWords = yield select(state => state.game.sentWords);
-        const alreadySent = sentWords.some(sentWord => sentWord === word);
+        const gameState = yield select(state => state.game);
+        const alreadySent = getAllWords(gameState).some(
+          sentWord => sentWord.word === word
+        );
 
         // send the word
         if (!tooShort && !alreadySent) {
-          const words = yield select(state => state.game.words);
-          const wordId = find(words, { word }).id;
-          const gameId = yield select(state => state.game.id);
-          socket.emit("word", { word, wordId, gameId, path });
-          yield put(sentWord(word));
+          const { id: gameId, nextWordId: wordId } = yield select(
+            state => state.game
+          );
+          const wordObj = { word, id: wordId, path };
+          yield put(addWord(wordObj));
+          socket.emit("word", wordObj, gameId);
         }
         break;
       case REQUEST_START_GAME:
