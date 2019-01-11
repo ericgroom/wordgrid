@@ -1,2 +1,2 @@
-import GameContainer from "./GameContainer";
-export default GameContainer;
+import GameController from "./GameController";
+export default GameController;

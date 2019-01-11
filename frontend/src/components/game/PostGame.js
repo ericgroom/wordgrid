@@ -45,7 +45,7 @@ class PostGame extends React.Component {
     results: PropTypes.arrayOf(
       PropTypes.shape({
         /** user's id */
-        id: PropTypes.string,
+        id: PropTypes.number,
         /** words the user played */
         words: PropTypes.arrayOf(
           PropTypes.shape({

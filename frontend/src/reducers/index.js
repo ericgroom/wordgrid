@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import messages from "./messages";
-import game from "./game";
+import game, * as gameSelectors from "./game";
 import user from "./user";
 
 export default combineReducers({
@@ -8,3 +8,8 @@ export default combineReducers({
   game,
   user
 });
+
+export const getScoreOfCurrentUser = state =>
+  gameSelectors.getScoreOfUser(state.game, state.user.userId);
+
+export const getGameState = state => gameSelectors.getGameState(state.game);
