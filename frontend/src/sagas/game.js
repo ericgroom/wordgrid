@@ -11,7 +11,6 @@ import {
   LEAVE_GAME,
   updateWord,
   WORD_COMPLETED,
-  userJoined,
   REQUEST_START_GAME,
   startCountdown,
   rejoined,
@@ -48,9 +47,6 @@ function gameSocketChannel(socket) {
     socket.on("not exists", () => emit(updateGameState({ exists: false })));
     socket.on("word", word => {
       emit(updateWord(word));
-    });
-    socket.on("user join", nickname => {
-      emit(userJoined(nickname));
     });
     socket.on("countdown", duration => {
       emit(startCountdown(duration));

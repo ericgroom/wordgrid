@@ -6,7 +6,6 @@ import {
   JOIN_GAME,
   LEAVE_GAME,
   UPDATE_WORD,
-  USER_JOIN,
   START_GAME,
   START_COUNTDOWN,
   REJOINED,
@@ -67,8 +66,6 @@ export default (state = initialState, action) => {
       return updateWord(state, action);
     case ADD_WORD:
       return addWord(state, action);
-    case USER_JOIN:
-      return { ...state, users: [...state.users, action.nickname] };
     case START_GAME:
       return { ...state, started: true };
     case START_COUNTDOWN:

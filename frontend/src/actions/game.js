@@ -5,7 +5,6 @@ export const JOIN_GAME = "JOIN_GAME";
 export const LEAVE_GAME = "LEAVE_GAME";
 export const WORD_COMPLETED = "WORD_COMPLETED";
 export const UPDATE_WORD = "UPDATE_WORD";
-export const USER_JOIN = "USER_JOIN";
 export const REQUEST_START_GAME = "REQUEST_START_GAME";
 export const START_GAME = "START_GAME";
 export const END_GAME = "END_GAME";
@@ -20,7 +19,6 @@ export const addWord = word => ({ type: ADD_WORD, word });
 export const updateWord = word => ({ type: UPDATE_WORD, word });
 export const completeWord = word => ({ type: WORD_COMPLETED, word });
 
-export const userJoined = nickname => ({ type: USER_JOIN, nickname });
 export const startGame = () => ({ type: REQUEST_START_GAME });
 export const startCountdown = duration => ({ type: START_COUNTDOWN, duration });
 export const leaveGame = id => ({ type: LEAVE_GAME, id });
