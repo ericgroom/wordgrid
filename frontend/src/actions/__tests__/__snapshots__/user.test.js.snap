@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`user action creators confirmAuth 1`] = `
+Object {
+  "success": true,
+  "type": "CONFIRM_AUTH",
+}
+`;
+
+exports[`user action creators setNickname 1`] = `
+Object {
+  "nickname": "Eric",
+  "type": "REQUEST_SET_NICKNAME",
+}
+`;
+
+exports[`user action creators setUserId 1`] = `
+Object {
+  "id": 123,
+  "type": "SET_USERID",
+}
+`;

@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`game action creators addWord 1`] = `
+Object {
+  "type": "ADD_WORD",
+  "word": Object {
+    "id": 0,
+    "path": Array [
+      0,
+      1,
+      2,
+      3,
+    ],
+    "valid": true,
+    "word": "asdf",
+  },
+}
+`;
+
+exports[`game action creators completeWord 1`] = `
+Object {
+  "type": "WORD_COMPLETED",
+  "word": Object {
+    "path": Array [
+      1,
+      2,
+      3,
+      4,
+    ],
+    "word": "asdf",
+  },
+}
+`;
+
+exports[`game action creators createGame 1`] = `
+Object {
+  "type": "REQUEST_CREATE_GAME",
+}
+`;
+
+exports[`game action creators endGame 1`] = `
+Object {
+  "type": "END_GAME",
+}
+`;
+
+exports[`game action creators gameCreated 1`] = `
+Object {
+  "id": 123,
+  "type": "GAME_CREATED",
+}
+`;
+
+exports[`game action creators joinGame 1`] = `
+Object {
+  "id": 123,
+  "type": "JOIN_GAME",
+}
+`;
+
+exports[`game action creators leaveGame 1`] = `
+Object {
+  "id": 123,
+  "type": "LEAVE_GAME",
+}
+`;
+
+exports[`game action creators rejoined 1`] = `
+Object {
+  "durationRemaining": 15,
+  "type": "REJOINED",
+}
+`;
+
+exports[`game action creators startCountdown 1`] = `
+Object {
+  "duration": 3,
+  "type": "START_COUNTDOWN",
+}
+`;
+
+exports[`game action creators startGame 1`] = `
+Object {
+  "type": "REQUEST_START_GAME",
+}
+`;
+
+exports[`game action creators updateGameState 1`] = `
+Object {
+  "state": Object {
+    "started": true,
+    "users": Array [
+      Object {
+        "id": 2,
+        "nickname": "Eric",
+      },
+    ],
+  },
+  "type": "GAME_STATE_UPDATE",
+}
+`;
+
+exports[`game action creators updateWord 1`] = `
+Object {
+  "type": "UPDATE_WORD",
+  "word": Object {
+    "id": 2,
+    "score": 34,
+    "valid": false,
+  },
+}
+`;

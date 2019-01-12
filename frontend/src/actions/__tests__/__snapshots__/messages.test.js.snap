@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`messages actions receivedMessage 1`] = `
+Object {
+  "message": "hello",
+  "type": "RECEIVED_MESSAGE",
+}
+`;
