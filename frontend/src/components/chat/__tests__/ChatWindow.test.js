@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import ChatWindow from "../ChatWindow";
 
 describe("<ChatWindow />", () => {
@@ -17,5 +17,14 @@ describe("<ChatWindow />", () => {
       <ChatWindow sendMessage={() => {}} messages={messages} />
     );
     expect(wrapper).toMatchSnapshot();
+  });
+  it("can send a message", () => {
+    const onSend = jest.fn();
+    const wrapper = mount(<ChatWindow sendMessage={onSend} />);
+    wrapper
+      .find("form")
+      .first()
+      .simulate("submit");
+    expect(onSend.mock.calls.length).toBe(1);
   });
 });
