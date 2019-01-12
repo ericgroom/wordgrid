@@ -3,14 +3,7 @@ import rootReducer from "../../reducers";
 import { SEND_MESSAGE } from "../../actions/messages";
 import { messageListener, messageActionListener } from "../messages";
 import { receivedMessage } from "../../actions/messages";
-import { joinGame } from "../../actions";
-
-jest.mock("../index.js", () => ({
-  ...jest.requireActual("../index.js"),
-  awaitAuthIfNeeded: function*() {
-    console.log("awaiting auth");
-  }
-}));
+import { joinGame, confirmAuth } from "../../actions";
 
 describe("messages saga", () => {
   let socket;
@@ -33,9 +26,9 @@ describe("messages saga", () => {
     expect(helloAction).toEqual(receivedMessage("hello"));
   });
   it("listens for actions and emits a socket event", async () => {
-    let actionsDispatched = [];
     sagaTester.start(messageActionListener, socket);
     expect(sagaTester.getState()).toEqual(rootReducer(undefined, {}));
+    sagaTester.dispatch(confirmAuth(true));
     sagaTester.dispatch(joinGame(12));
     expect(sagaTester.getState().game.id).toBe(12);
     sagaTester.dispatch({ type: SEND_MESSAGE, message: "hello!" });

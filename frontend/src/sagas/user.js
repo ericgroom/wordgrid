@@ -22,7 +22,7 @@ function* userFlow(socket) {
   ]);
 }
 
-function authSocketChannel(socket) {
+export function authSocketChannel(socket) {
   return eventChannel(emitter => {
     if (localStorage.authToken) {
       socket.emit("auth", localStorage.authToken, success => {
@@ -41,7 +41,7 @@ function authSocketChannel(socket) {
   });
 }
 
-function userSocketChannel(socket) {
+export function userSocketChannel(socket) {
   return eventChannel(emit => {
     socket.on("token", token => {
       localStorage.authToken = token;
@@ -60,7 +60,7 @@ function userSocketChannel(socket) {
   });
 }
 
-function* userActionListener(socket) {
+export function* userActionListener(socket) {
   yield call(awaitAuthIfNeeded);
   while (true) {
     console.log("userActionListener waiting...");
@@ -68,7 +68,6 @@ function* userActionListener(socket) {
     console.log("userActionListener taking action", action.type);
     switch (action.type) {
       case REQUEST_SET_NICKNAME:
-        console.log("setting!");
         socket.emit("nickname", action.nickname);
         break;
       case CONFIRM_AUTH:
