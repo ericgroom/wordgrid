@@ -2,7 +2,7 @@ const utils = require("./utils");
 const emitters = require("../emitters");
 const wordUtils = require("../words");
 const board = require("../board");
-const db = require("../queries");
+const db = require("../queries/game");
 
 exports.onGameJoin = async (io, socket, gameId) => {
   try {
@@ -24,6 +24,7 @@ exports.onGameJoin = async (io, socket, gameId) => {
     // 3. join game if not ended
     if (!ended) {
       try {
+        // TODO actually check if user is already in game to prevent false positives
         await db.joinGame(userId, gameId);
       } catch (e) {
         console.log(`${userId} already a member of game: ${gameId}`);

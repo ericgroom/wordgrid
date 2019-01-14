@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
 const utils = require("./utils");
-const db = require("../queries");
+const db = require("../queries/users");
 const emitters = require("../emitters");
 
 exports.changeNickname = async (socket, nickname) => {
   const user = await utils.getCurrentUser(socket);
   await db.updateUser(user.id, { nickname });
-  emitters.user.updateNickname(socket, nickname);
+  emitters.user.sendNickname(socket, nickname);
 };
 
 exports.authenticate = async (socket, token) => {

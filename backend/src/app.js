@@ -5,18 +5,12 @@ const corsMiddleware = require("./corsMiddleware");
 const { getTrie } = require("./words");
 const db = require("./queries");
 const { createServer, attachListeners } = require("./socketServer");
+const gameRouter = require("./routes/game");
 
 app.use(corsMiddleware);
+app.use(gameRouter);
 
-app.get("/game/new", async function(req, res) {
-  try {
-    const { id: gameId } = await db.createGame({});
-    res.json({ gameId: gameId });
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
-  }
-});
+db.setupDB();
 
 getTrie()
   .then(trie => {

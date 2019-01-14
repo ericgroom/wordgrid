@@ -1,19 +1,17 @@
-const Knex = require("knex");
-const { Model } = require("objection");
 const Game = require("../models/Game");
-const User = require("../models/User");
 const Word = require("../models/Word");
 const GameUserRelation = require("../models/GameUserRelation");
-const { timedLoop } = require("./utils");
+const { timedLoop } = require("../utils");
 
-const DB_NAME = "wordgrid";
-const GAMES_TABLE = "games";
-const USERS_TABLE = "users";
-const TABLES = [GAMES_TABLE, USERS_TABLE];
-
-const knex = Knex(require("../knexfile.js")[process.env.NODE_ENV]);
-Model.knex(knex);
-
+/**
+ * Retrieves a game
+ *
+ * @param {number} id database id
+ * @param {{joinRelation=true, includeWordsPlayed=false}} options
+ *  joinRelation will retrieve all game relations,
+ *  includeWordsPlayed will include words played by all users in response
+ * @returns {Game} Game model instance
+ */
 exports.getGame = async (
   id,
   { joinRelation = true, includeWordsPlayed = false }
@@ -36,6 +34,17 @@ exports.getGame = async (
   }
 };
 
+/**
+ * Continually retrieves Game instance and calls callback with the instance
+ * until the callback returns false. If the game instance doesn't change between
+ * calls the callback will not be called.
+ *
+ * @param {number} id database id for game
+ * @param {function} callback callback which will be called repeatedly:
+ *  will be passed game instance, callback should return a boolean indicating
+ *  whether to run again
+ * @param {number} timeout time delay between each iteration in ms
+ */
 exports.getGameChanges = async (id, callback, timeout) => {
   const getGame = async () =>
     await Game.query()
@@ -46,16 +55,26 @@ exports.getGameChanges = async (id, callback, timeout) => {
   await timedLoop(getGame, callback, callbackPredicate, timeout);
 };
 
+/**
+ * Creates a new game
+ *
+ * @param {object=} game initial properties of game
+ * @returns {Game} Game model instance
+ */
 exports.createGame = async game => {
   try {
-    const gameObj = await Game.query().insert(game);
-    console.log(`new game ${gameObj.id}`);
-    return gameObj;
+    return await Game.query().insert(game);
   } catch (e) {
     throw e;
   }
 };
 
+/**
+ * Updates a game via patch operation
+ *
+ * @param {number} id database id of game
+ * @param {object} game key-value object of properties to update
+ */
 exports.updateGame = async (id, game) => {
   try {
     return await Game.query()
@@ -66,6 +85,12 @@ exports.updateGame = async (id, game) => {
   }
 };
 
+/**
+ * Recalculates the score of a user in a game
+ *
+ * @param {number} userId database id of user
+ * @param {number} gameId database id of game
+ */
 exports.updateScore = async (userId, gameId) => {
   try {
     const sum = await Word.query()
@@ -84,6 +109,12 @@ exports.updateScore = async (userId, gameId) => {
   }
 };
 
+/**
+ * Joins a user to a game
+ *
+ * @param {number} userId database id of user
+ * @param {number} gameId database id of game
+ */
 exports.joinGame = async (userId, gameId) => {
   try {
     return await GameUserRelation.query().insert({
@@ -117,6 +148,14 @@ exports.endGameIfNeeded = async gameId => {
   return { ended, secondsRemaining };
 };
 
+/**
+ * Add a word played by a user in a game
+ *
+ * @param {{word: string, valid: boolean, score: number, id: number}} word word played
+ *  Note: `word.id` only is unique relative to the current user and game, not across all words played
+ * @param {number} userId database id of user
+ * @param {number} gameId database id of game
+ */
 exports.addWord = async (word, userId, gameId) => {
   try {
     return await Word.query().insert({
@@ -132,6 +171,13 @@ exports.addWord = async (word, userId, gameId) => {
   }
 };
 
+/**
+ * Retrieves the list of words played by a user in a game
+ *
+ * @param {number} userId database id of user
+ * @param {number} gameId database id of game
+ * @returns {Word[]} array of Word model instances
+ */
 exports.getWordsPlayed = async (userId, gameId) => {
   try {
     return await Word.query()
@@ -143,6 +189,13 @@ exports.getWordsPlayed = async (userId, gameId) => {
   }
 };
 
+/**
+ * Starts a game
+ *
+ * @param {number} gameId database id of game to start
+ * @param {number=60} duration duration of game
+ * @returns {Game} Game model instance
+ */
 exports.startGame = async (gameId, duration = 60) => {
   // TODO consider adding start and end timestamps
   const startTime = new Date();
@@ -162,55 +215,4 @@ exports.startGame = async (gameId, duration = 60) => {
       ended_at: endTime,
       duration
     });
-};
-
-// exports.gameQuery = async () => {
-//   const conn = await connect();
-//   return { conn, query: r.table(GAMES_TABLE) };
-// };
-
-exports.createUser = async user => {
-  try {
-    return await User.query().insert(user);
-  } catch (e) {
-    throw e;
-  }
-};
-
-exports.updateUser = async (id, user) => {
-  try {
-    return await User.query()
-      .findById(id)
-      .returning("*")
-      .patch(user);
-  } catch (e) {
-    throw e;
-  }
-};
-
-exports.getUser = async id => {
-  try {
-    return await User.query().findById(id);
-  } catch (e) {
-    throw e;
-  }
-};
-
-exports.getCurrentUser = async socket => {
-  try {
-    return await User.query().findOne("socket_id", socket.id);
-  } catch (e) {
-    throw e;
-  }
-};
-
-exports.getActiveGamesForUser = async user => {
-  try {
-    return await user.$relatedQuery("games").where({
-      ended: false,
-      started: true
-    });
-  } catch (e) {
-    throw e;
-  }
 };

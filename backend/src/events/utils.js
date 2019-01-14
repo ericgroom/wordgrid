@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const emitters = require("../emitters");
-const db = require("../queries");
+const db = require("../queries/users");
 
 /**
  * Gets the currently logged in user.
