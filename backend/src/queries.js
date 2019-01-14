@@ -95,6 +95,28 @@ exports.joinGame = async (userId, gameId) => {
   }
 };
 
+/**
+ * Checks if a game has ended, if so, ends the game. If not,
+ * returns the number of seconds remaining.
+ *
+ * @param {number} gameId database id of game
+ * @returns {{ended: boolean, secondsRemaining: number}} ended status and seconds remaining
+ */
+exports.endGameIfNeeded = async gameId => {
+  const game = await Game.query().findById(gameId);
+  let ended = game.ended;
+  const now = new Date();
+  if (game.ended_at === null) {
+    return { ended, secondsRemaining: null };
+  }
+  const secondsRemaining = Math.floor((game.ended_at - now) / 1000);
+  if (secondsRemaining < 0 && !ended) {
+    await exports.updateGame(gameId, { ended: true });
+    ended = true;
+  }
+  return { ended, secondsRemaining };
+};
+
 exports.addWord = async (word, userId, gameId) => {
   try {
     return await Word.query().insert({
