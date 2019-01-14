@@ -34,3 +34,20 @@ exports.authenticateAnonymous = async socket => {
     return false;
   }
 };
+
+exports.registerListeners = socket => {
+  socket.on("nickname", async nickname => {
+    console.log(`${socket.id} changes nickname to: ${nickname}`);
+    await exports.changeNickname(socket, nickname);
+  });
+  socket.on("auth", async (token, fn) => {
+    console.log(`${socket.id} authenticates: existing user`);
+    const success = await exports.authenticate(socket, token);
+    fn(success);
+  });
+  socket.on("new auth", async fn => {
+    console.log(`${socket.id} authenticates: new anonymous user`);
+    const success = await exports.authenticateAnonymous(socket);
+    fn(success);
+  });
+};

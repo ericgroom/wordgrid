@@ -121,3 +121,31 @@ exports.onGameStart = async (io, gameId) => {
     1.0 * 1000
   );
 };
+
+exports.registerListeners = (io, socket, trie) => {
+  socket.on("join game", async ({ id }) => {
+    console.log(`${socket.id} joins game: ${id}`);
+    await exports.onGameJoin(io, socket, id);
+  });
+  socket.on("word", async ({ word, id: wordId, path }, gameId) => {
+    console.log(`${socket.id} plays word: ${word} in game: ${gameId}`);
+    await exports.onWordSubmitted(
+      socket,
+      trie,
+      { word, id: wordId, path },
+      gameId
+    );
+  });
+  socket.on("game start", async ({ id }) => {
+    const countdown = await exports.startCountdown(io, id);
+    setTimeout(async () => {
+      console.log(`${socket.id} starts game: ${id}`);
+      await exports.onGameStart(io, id);
+    }, countdown * 1000);
+  });
+
+  socket.on("leave game", gameId => {
+    console.log(`socket ${socket.id} leaves game: ${gameId}`);
+    socket.leave(gameId);
+  });
+};
