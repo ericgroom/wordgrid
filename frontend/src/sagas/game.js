@@ -60,9 +60,12 @@ function gameSocketChannel(socket) {
     socket.on("played words", words => {
       emit(
         updateGameState({
-          words,
-          wordId: max(words.map(word => word.id)) + 1 || 0,
-          sentWords: words.map(word => word.word)
+          wordIds: words.map(word => word.id),
+          wordsById: words.reduce((acc, word) => {
+            acc[word.id] = word;
+            return acc;
+          }, {}),
+          nextWordId: max(words.map(word => word.id)) + 1 || 0
         })
       );
     });
