@@ -3,6 +3,12 @@ export const GAME_CREATED = "GAME_CREATED";
 export const GAME_STATE_UPDATE = "GAME_STATE_UPDATE";
 export const JOIN_GAME = "JOIN_GAME";
 export const LEAVE_GAME = "LEAVE_GAME";
+/**
+ * Used by saga, since sagas run after reducers, and reducers
+ * can't emit additional actions, it is difficult to both check
+ * if a word has been sent to the backend and update state, so the
+ * saga handles everything and then emits `ADD_WORD`
+ */
 export const WORD_COMPLETED = "WORD_COMPLETED";
 export const UPDATE_WORD = "UPDATE_WORD";
 export const REQUEST_START_GAME = "REQUEST_START_GAME";

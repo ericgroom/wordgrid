@@ -37,7 +37,7 @@ function* gameSocketFlow(socket) {
 /**
  * Creates socket.io instance and emits actions based on events
  */
-function gameSocketChannel(socket) {
+export function gameSocketChannel(socket) {
   return eventChannel(emit => {
     socket.on("state", updatedState => {
       let state = { ...updatedState };
@@ -75,7 +75,7 @@ function gameSocketChannel(socket) {
   });
 }
 
-function* gameActionListener(socket) {
+export function* gameActionListener(socket) {
   yield call(awaitAuthIfNeeded);
   loop: while (true) {
     console.log("gameActionListener waiting...");
@@ -105,12 +105,11 @@ function* gameActionListener(socket) {
         }
         break;
       case REQUEST_START_GAME:
-        console.log(`starting game: ${gameId}`);
         socket.emit("game start", { id: gameId });
         break;
       case LEAVE_GAME:
         socket.emit("leave game", action.id);
-        break loop;
+        break loop; // restart game saga
       default:
         throw new Error(
           `messageActionListener saga took action but has no handler for: ${
@@ -124,7 +123,7 @@ function* gameActionListener(socket) {
 /**
  * Listens to non-socket related game actions
  */
-function* gameCreateListener() {
+export function* gameCreateListener() {
   while (true) {
     console.log("starting gameCreateListener");
     const action = yield take(REQUEST_CREATE_GAME);
@@ -148,7 +147,6 @@ function* gameCreateListener() {
 function* createGame() {
   try {
     const url = `${process.env.REACT_APP_BACKEND_URL}/game/new`;
-    console.log(url);
     const res = yield call(fetch, url);
     const { gameId } = yield call([res, "json"]);
     yield put(gameCreated(gameId));
