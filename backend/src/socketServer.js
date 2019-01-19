@@ -3,7 +3,7 @@ const eventHandlers = require("./events");
 
 exports.createServer = function(httpServer) {
   return io(httpServer, {
-    origins: "wordgrid.app:*"
+    origins: "wordgrid.app:* localhost:* 127.0.0.1:*"
   });
 };
 
