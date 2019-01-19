@@ -9,7 +9,7 @@ exports.onChatMessage = async (io, socket, message, gameId) => {
 };
 
 exports.registerListeners = (io, socket) => {
-  socket.on("chat message", async ({ message, gameId }) => {
+  socket.on("send chat message", async ({ message, gameId }) => {
     console.log(`${socket.id} sends message: ${message}`);
     await exports.onChatMessage(io, socket, message, gameId);
   });

@@ -24,7 +24,7 @@ export function* messageActionListener(socket) {
       case SEND_MESSAGE:
         const gameId = yield select(state => state.game.id);
         if (Number.isInteger(gameId)) {
-          socket.emit("chat message", { message: action.message, gameId });
+          socket.emit("send chat message", { message: action.message, gameId });
         }
         break;
       default:
