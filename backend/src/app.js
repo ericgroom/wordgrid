@@ -7,7 +7,8 @@ const db = require("./queries");
 const { createServer, attachListeners } = require("./socketServer");
 const gameRouter = require("./routes/game");
 
-app.use(corsMiddleware);
+const FRONTEND_URL = "https://wordgrid.app";
+app.use(corsMiddleware(process.env.NODE_ENV === "production" && FRONTEND_URL));
 app.use(gameRouter);
 
 db.setupDB();
@@ -16,6 +17,9 @@ getTrie()
   .then(trie => {
     console.log("trie read successfully");
     const io = createServer(http);
+    if (process.env.NODE_ENV === "production") {
+      io.origins(FRONTEND_URL);
+    }
     attachListeners(io, trie);
   })
   .catch(err => console.error("unable to create trie", err));
