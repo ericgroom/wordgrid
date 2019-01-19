@@ -3,6 +3,7 @@ const fs = require("fs");
 
 const wordsPath = path.join(__dirname, "..", "words_alpha_opt.txt");
 const triePath = path.join(__dirname, "..", "trie.json");
+
 function readWords() {
   return new Promise((resolve, reject) => {
     fs.readFile(wordsPath, "utf-8", (err, data) => {
@@ -55,6 +56,12 @@ function getTrie(writeIfNotExists = true) {
   });
 }
 
+/**
+ * Checks if a word exists in a trie
+ * @param {string} word word to check
+ * @param {object} trie trie instance
+ * @returns {boolean} true if word exists in trie
+ */
 function wordInTrie(word, trie) {
   let curr = trie;
   for (let i = 0; i < word.length; i++) {
@@ -65,12 +72,27 @@ function wordInTrie(word, trie) {
   return "end" in curr;
 }
 
+/**
+ * Calculates the score for a given word.
+ *
+ * Note that this function doesn't do any validation!
+ * @param {string} word word to score
+ * @returns {number} score
+ */
+function scoreWord(word) {
+  return word.length * 10;
+}
+
+/**
+ * Determines if a word is a valid dictionary word
+ * @param {string} word word to validate
+ * @param {object} trie trie instance
+ * @returns {boolean} validity
+ */
 function validateWord(word, trie) {
   const inTrie = wordInTrie(word, trie);
   const large = word.length >= 3;
-  const valid = inTrie && large;
-  const score = valid ? word.length * 10 : 0;
-  return { valid, score };
+  return inTrie && large;
 }
 
 /**
@@ -138,9 +160,19 @@ function gridNeighbors(size) {
   };
 }
 
+// currently there is only one grid size, so creates a shortcut
 const gridNeighborsFor4 = gridNeighbors(4);
 const neighborsFor = index => gridNeighborsFor4(index);
 
+/**
+ * Determines if a path taken to create a word is valid for a given grid.
+ *
+ * Checks to make sure the path and word match, that the path is walkable, etc.
+ * @param {string} word word played
+ * @param {[number]} path array of indicies correlating to the word played in a grid
+ * @param {[string]} grid grid the word was played in
+ * @returns {boolean} true if path is valid
+ */
 function validatePath(word, path, grid) {
   // assert path is the same length as word
   if (word.length !== path.length) return false;
@@ -164,8 +196,29 @@ function validatePath(word, path, grid) {
   return false;
 }
 
+/**
+ * Shortcut to check if a word is a valid dictionary word and if a valid path was taken
+ * @param {string} word word played
+ * @param {[number]} path path taken to play word
+ * @param {[string]} grid grid word was played in
+ * @param {object} trie trie instance
+ * @returns {boolean} true if both word and path are valid, false otherwise
+ */
+function validateWordAndPath(word, path, grid, trie) {
+  const validWord = validateWord(word, trie);
+  const validPath = (function() {
+    // if the word is invalid there is no point in validating the path which is more expensive
+    if (!validWord) return false;
+    const isValidPath = validatePath(word, path, grid);
+    return isValidPath;
+  })();
+  return validWord && validPath;
+}
+
 module.exports = {
   validateWord,
   getTrie,
-  validatePath
+  validatePath,
+  validateWordAndPath,
+  scoreWord
 };

@@ -1,0 +1,1975 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ChatWindow /> renders a list of messages if they exist 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ChatWindow
+    messages={
+      Array [
+        Object {
+          "id": 0,
+          "message": "hi",
+          "sender": "eric",
+        },
+        Object {
+          "id": 1,
+          "message": "I'm",
+          "sender": "eric",
+        },
+        Object {
+          "id": 2,
+          "message": "super",
+          "sender": "eric",
+        },
+        Object {
+          "id": 3,
+          "message": "creative",
+          "sender": "eric",
+        },
+      ]
+    }
+    sendMessage={[Function]}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <div
+          className="chat-header"
+          onClick={[Function]}
+        >
+          <ForwardRef
+            className="badge"
+            pose="hide"
+          >
+            0
+          </ForwardRef>
+          Chat 
+          <FontAwesomeIcon
+            border={false}
+            className=""
+            fixedWidth={false}
+            flip={null}
+            icon={
+              Object {
+                "icon": Array [
+                  448,
+                  512,
+                  Array [],
+                  "f077",
+                  "M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z",
+                ],
+                "iconName": "chevron-up",
+                "prefix": "fas",
+              }
+            }
+            inverse={false}
+            listItem={false}
+            mask={null}
+            pull={null}
+            pulse={false}
+            rotation={null}
+            size={null}
+            spin={false}
+            symbol={false}
+            title=""
+            transform={null}
+          />
+        </div>,
+        <div
+          aria-hidden={true}
+          className="chat-window-wrapper"
+        >
+          <ul
+            className="message-list"
+          >
+            <li>
+              <span
+                className="sender"
+              >
+                eric
+                :
+              </span>
+              hi
+            </li>
+            <li>
+              <span
+                className="sender"
+              >
+                eric
+                :
+              </span>
+              I'm
+            </li>
+            <li>
+              <span
+                className="sender"
+              >
+                eric
+                :
+              </span>
+              super
+            </li>
+            <li>
+              <span
+                className="sender"
+              >
+                eric
+                :
+              </span>
+              creative
+            </li>
+          </ul>
+          <form
+            className="message-input"
+            onSubmit={[Function]}
+          >
+            <textarea
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Enter a message..."
+              type="text"
+              value=""
+            />
+            <button
+              type="submit"
+            >
+              Send
+            </button>
+          </form>
+        </div>,
+      ],
+      "className": "chat",
+      "initialPose": "exit",
+      "pose": "hidden",
+      "show": false,
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <ForwardRef
+              className="badge"
+              pose="hide"
+            >
+              0
+            </ForwardRef>,
+            "Chat ",
+            <FontAwesomeIcon
+              border={false}
+              className=""
+              fixedWidth={false}
+              flip={null}
+              icon={
+                Object {
+                  "icon": Array [
+                    448,
+                    512,
+                    Array [],
+                    "f077",
+                    "M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z",
+                  ],
+                  "iconName": "chevron-up",
+                  "prefix": "fas",
+                }
+              }
+              inverse={false}
+              listItem={false}
+              mask={null}
+              pull={null}
+              pulse={false}
+              rotation={null}
+              size={null}
+              spin={false}
+              symbol={false}
+              title=""
+              transform={null}
+            />,
+          ],
+          "className": "chat-header",
+          "onClick": [Function],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": 0,
+              "className": "badge",
+              "pose": "hide",
+            },
+            "ref": null,
+            "rendered": 0,
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "render": [Function],
+            },
+          },
+          "Chat ",
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "border": false,
+              "className": "",
+              "fixedWidth": false,
+              "flip": null,
+              "icon": Object {
+                "icon": Array [
+                  448,
+                  512,
+                  Array [],
+                  "f077",
+                  "M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z",
+                ],
+                "iconName": "chevron-up",
+                "prefix": "fas",
+              },
+              "inverse": false,
+              "listItem": false,
+              "mask": null,
+              "pull": null,
+              "pulse": false,
+              "rotation": null,
+              "size": null,
+              "spin": false,
+              "symbol": false,
+              "title": "",
+              "transform": null,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "aria-hidden": true,
+          "children": Array [
+            <ul
+              className="message-list"
+            >
+              <li>
+                <span
+                  className="sender"
+                >
+                  eric
+                  :
+                </span>
+                hi
+              </li>
+              <li>
+                <span
+                  className="sender"
+                >
+                  eric
+                  :
+                </span>
+                I'm
+              </li>
+              <li>
+                <span
+                  className="sender"
+                >
+                  eric
+                  :
+                </span>
+                super
+              </li>
+              <li>
+                <span
+                  className="sender"
+                >
+                  eric
+                  :
+                </span>
+                creative
+              </li>
+            </ul>,
+            <form
+              className="message-input"
+              onSubmit={[Function]}
+            >
+              <textarea
+                onChange={[Function]}
+                onKeyPress={[Function]}
+                placeholder="Enter a message..."
+                type="text"
+                value=""
+              />
+              <button
+                type="submit"
+              >
+                Send
+              </button>
+            </form>,
+          ],
+          "className": "chat-window-wrapper",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                Array [
+                  <li>
+                    <span
+                      className="sender"
+                    >
+                      eric
+                      :
+                    </span>
+                    hi
+                  </li>,
+                  <li>
+                    <span
+                      className="sender"
+                    >
+                      eric
+                      :
+                    </span>
+                    I'm
+                  </li>,
+                  <li>
+                    <span
+                      className="sender"
+                    >
+                      eric
+                      :
+                    </span>
+                    super
+                  </li>,
+                  <li>
+                    <span
+                      className="sender"
+                    >
+                      eric
+                      :
+                    </span>
+                    creative
+                  </li>,
+                ],
+                false,
+              ],
+              "className": "message-list",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": "0",
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <span
+                      className="sender"
+                    >
+                      eric
+                      :
+                    </span>,
+                    "hi",
+                  ],
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        "eric",
+                        ":",
+                      ],
+                      "className": "sender",
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      "eric",
+                      ":",
+                    ],
+                    "type": "span",
+                  },
+                  "hi",
+                ],
+                "type": "li",
+              },
+              Object {
+                "instance": null,
+                "key": "1",
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <span
+                      className="sender"
+                    >
+                      eric
+                      :
+                    </span>,
+                    "I'm",
+                  ],
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        "eric",
+                        ":",
+                      ],
+                      "className": "sender",
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      "eric",
+                      ":",
+                    ],
+                    "type": "span",
+                  },
+                  "I'm",
+                ],
+                "type": "li",
+              },
+              Object {
+                "instance": null,
+                "key": "2",
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <span
+                      className="sender"
+                    >
+                      eric
+                      :
+                    </span>,
+                    "super",
+                  ],
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        "eric",
+                        ":",
+                      ],
+                      "className": "sender",
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      "eric",
+                      ":",
+                    ],
+                    "type": "span",
+                  },
+                  "super",
+                ],
+                "type": "li",
+              },
+              Object {
+                "instance": null,
+                "key": "3",
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <span
+                      className="sender"
+                    >
+                      eric
+                      :
+                    </span>,
+                    "creative",
+                  ],
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        "eric",
+                        ":",
+                      ],
+                      "className": "sender",
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      "eric",
+                      ":",
+                    ],
+                    "type": "span",
+                  },
+                  "creative",
+                ],
+                "type": "li",
+              },
+              false,
+            ],
+            "type": "ul",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <textarea
+                  onChange={[Function]}
+                  onKeyPress={[Function]}
+                  placeholder="Enter a message..."
+                  type="text"
+                  value=""
+                />,
+                <button
+                  type="submit"
+                >
+                  Send
+                </button>,
+              ],
+              "className": "message-input",
+              "onSubmit": [Function],
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "onChange": [Function],
+                  "onKeyPress": [Function],
+                  "placeholder": "Enter a message...",
+                  "type": "text",
+                  "value": "",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "textarea",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Send",
+                  "type": "submit",
+                },
+                "ref": null,
+                "rendered": "Send",
+                "type": "button",
+              },
+            ],
+            "type": "form",
+          },
+        ],
+        "type": "div",
+      },
+    ],
+    "type": Object {
+      "$$typeof": Symbol(react.forward_ref),
+      "attrs": Array [],
+      "componentStyle": ComponentStyle {
+        "componentId": "ChatStyles__ChatWrapper-sc-13xvm08-0",
+        "isStatic": false,
+        "rules": Array [
+          "position:fixed;bottom:0;right:1rem;margin:0;padding:0;z-index:998;.chat-header{display:",
+          [Function],
+          ";color:#eee;background-color:#222;font-weight:600;padding:0.5rem;font-size:1rem;border-radius:0.3rem 0.3rem 0 0;cursor:pointer;.badge{position:absolute;top:-0.5rem;left:-0.5rem;background-color:red;border-radius:999em;padding:0.1rem;font-size:0.75rem;line-height:1rem;min-width:1rem;height:1rem;white-space:nowrap;vertical-align:baseline;text-align:center;}}.chat-window-wrapper{width:20rem;height:15rem;background-color:white;}.message-list{margin:0;padding-left:0;padding:0.5rem;overflow-wrap:break-word;overflow:auto;height:calc(100% - 3.3rem);list-style:none;.muted{text-align:center;}}.message-input{display:flex;justify-content:stretch;align-items:stretch;position:absolute;bottom:0;width:100%;border-top:1px solid gray;textarea{padding:0.2rem;margin:0;resize:none;width:100%;height:2.5rem;border:none;font-family:inherit;font-size:inherit;}button{border:none;color:#eee;background:",
+          [Function],
+          ";}}.muted{color:gray;}.sender{color:",
+          [Function],
+          ";white-space:nowrap;}",
+        ],
+      },
+      "displayName": "ChatStyles__ChatWrapper",
+      "foldedComponentIds": Array [],
+      "render": [Function],
+      "styledComponentId": "ChatStyles__ChatWrapper-sc-13xvm08-0",
+      "target": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      },
+      "toString": [Function],
+      "warnTooManyClasses": [Function],
+      "withComponent": [Function],
+    },
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <div
+            className="chat-header"
+            onClick={[Function]}
+          >
+            <ForwardRef
+              className="badge"
+              pose="hide"
+            >
+              0
+            </ForwardRef>
+            Chat 
+            <FontAwesomeIcon
+              border={false}
+              className=""
+              fixedWidth={false}
+              flip={null}
+              icon={
+                Object {
+                  "icon": Array [
+                    448,
+                    512,
+                    Array [],
+                    "f077",
+                    "M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z",
+                  ],
+                  "iconName": "chevron-up",
+                  "prefix": "fas",
+                }
+              }
+              inverse={false}
+              listItem={false}
+              mask={null}
+              pull={null}
+              pulse={false}
+              rotation={null}
+              size={null}
+              spin={false}
+              symbol={false}
+              title=""
+              transform={null}
+            />
+          </div>,
+          <div
+            aria-hidden={true}
+            className="chat-window-wrapper"
+          >
+            <ul
+              className="message-list"
+            >
+              <li>
+                <span
+                  className="sender"
+                >
+                  eric
+                  :
+                </span>
+                hi
+              </li>
+              <li>
+                <span
+                  className="sender"
+                >
+                  eric
+                  :
+                </span>
+                I'm
+              </li>
+              <li>
+                <span
+                  className="sender"
+                >
+                  eric
+                  :
+                </span>
+                super
+              </li>
+              <li>
+                <span
+                  className="sender"
+                >
+                  eric
+                  :
+                </span>
+                creative
+              </li>
+            </ul>
+            <form
+              className="message-input"
+              onSubmit={[Function]}
+            >
+              <textarea
+                onChange={[Function]}
+                onKeyPress={[Function]}
+                placeholder="Enter a message..."
+                type="text"
+                value=""
+              />
+              <button
+                type="submit"
+              >
+                Send
+              </button>
+            </form>
+          </div>,
+        ],
+        "className": "chat",
+        "initialPose": "exit",
+        "pose": "hidden",
+        "show": false,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <ForwardRef
+                className="badge"
+                pose="hide"
+              >
+                0
+              </ForwardRef>,
+              "Chat ",
+              <FontAwesomeIcon
+                border={false}
+                className=""
+                fixedWidth={false}
+                flip={null}
+                icon={
+                  Object {
+                    "icon": Array [
+                      448,
+                      512,
+                      Array [],
+                      "f077",
+                      "M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z",
+                    ],
+                    "iconName": "chevron-up",
+                    "prefix": "fas",
+                  }
+                }
+                inverse={false}
+                listItem={false}
+                mask={null}
+                pull={null}
+                pulse={false}
+                rotation={null}
+                size={null}
+                spin={false}
+                symbol={false}
+                title=""
+                transform={null}
+              />,
+            ],
+            "className": "chat-header",
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "children": 0,
+                "className": "badge",
+                "pose": "hide",
+              },
+              "ref": null,
+              "rendered": 0,
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+            },
+            "Chat ",
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "border": false,
+                "className": "",
+                "fixedWidth": false,
+                "flip": null,
+                "icon": Object {
+                  "icon": Array [
+                    448,
+                    512,
+                    Array [],
+                    "f077",
+                    "M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z",
+                  ],
+                  "iconName": "chevron-up",
+                  "prefix": "fas",
+                },
+                "inverse": false,
+                "listItem": false,
+                "mask": null,
+                "pull": null,
+                "pulse": false,
+                "rotation": null,
+                "size": null,
+                "spin": false,
+                "symbol": false,
+                "title": "",
+                "transform": null,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "aria-hidden": true,
+            "children": Array [
+              <ul
+                className="message-list"
+              >
+                <li>
+                  <span
+                    className="sender"
+                  >
+                    eric
+                    :
+                  </span>
+                  hi
+                </li>
+                <li>
+                  <span
+                    className="sender"
+                  >
+                    eric
+                    :
+                  </span>
+                  I'm
+                </li>
+                <li>
+                  <span
+                    className="sender"
+                  >
+                    eric
+                    :
+                  </span>
+                  super
+                </li>
+                <li>
+                  <span
+                    className="sender"
+                  >
+                    eric
+                    :
+                  </span>
+                  creative
+                </li>
+              </ul>,
+              <form
+                className="message-input"
+                onSubmit={[Function]}
+              >
+                <textarea
+                  onChange={[Function]}
+                  onKeyPress={[Function]}
+                  placeholder="Enter a message..."
+                  type="text"
+                  value=""
+                />
+                <button
+                  type="submit"
+                >
+                  Send
+                </button>
+              </form>,
+            ],
+            "className": "chat-window-wrapper",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  Array [
+                    <li>
+                      <span
+                        className="sender"
+                      >
+                        eric
+                        :
+                      </span>
+                      hi
+                    </li>,
+                    <li>
+                      <span
+                        className="sender"
+                      >
+                        eric
+                        :
+                      </span>
+                      I'm
+                    </li>,
+                    <li>
+                      <span
+                        className="sender"
+                      >
+                        eric
+                        :
+                      </span>
+                      super
+                    </li>,
+                    <li>
+                      <span
+                        className="sender"
+                      >
+                        eric
+                        :
+                      </span>
+                      creative
+                    </li>,
+                  ],
+                  false,
+                ],
+                "className": "message-list",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": "0",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <span
+                        className="sender"
+                      >
+                        eric
+                        :
+                      </span>,
+                      "hi",
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          "eric",
+                          ":",
+                        ],
+                        "className": "sender",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        "eric",
+                        ":",
+                      ],
+                      "type": "span",
+                    },
+                    "hi",
+                  ],
+                  "type": "li",
+                },
+                Object {
+                  "instance": null,
+                  "key": "1",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <span
+                        className="sender"
+                      >
+                        eric
+                        :
+                      </span>,
+                      "I'm",
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          "eric",
+                          ":",
+                        ],
+                        "className": "sender",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        "eric",
+                        ":",
+                      ],
+                      "type": "span",
+                    },
+                    "I'm",
+                  ],
+                  "type": "li",
+                },
+                Object {
+                  "instance": null,
+                  "key": "2",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <span
+                        className="sender"
+                      >
+                        eric
+                        :
+                      </span>,
+                      "super",
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          "eric",
+                          ":",
+                        ],
+                        "className": "sender",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        "eric",
+                        ":",
+                      ],
+                      "type": "span",
+                    },
+                    "super",
+                  ],
+                  "type": "li",
+                },
+                Object {
+                  "instance": null,
+                  "key": "3",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <span
+                        className="sender"
+                      >
+                        eric
+                        :
+                      </span>,
+                      "creative",
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          "eric",
+                          ":",
+                        ],
+                        "className": "sender",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        "eric",
+                        ":",
+                      ],
+                      "type": "span",
+                    },
+                    "creative",
+                  ],
+                  "type": "li",
+                },
+                false,
+              ],
+              "type": "ul",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <textarea
+                    onChange={[Function]}
+                    onKeyPress={[Function]}
+                    placeholder="Enter a message..."
+                    type="text"
+                    value=""
+                  />,
+                  <button
+                    type="submit"
+                  >
+                    Send
+                  </button>,
+                ],
+                "className": "message-input",
+                "onSubmit": [Function],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "onChange": [Function],
+                    "onKeyPress": [Function],
+                    "placeholder": "Enter a message...",
+                    "type": "text",
+                    "value": "",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "textarea",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Send",
+                    "type": "submit",
+                  },
+                  "ref": null,
+                  "rendered": "Send",
+                  "type": "button",
+                },
+              ],
+              "type": "form",
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "ChatStyles__ChatWrapper-sc-13xvm08-0",
+          "isStatic": false,
+          "rules": Array [
+            "position:fixed;bottom:0;right:1rem;margin:0;padding:0;z-index:998;.chat-header{display:",
+            [Function],
+            ";color:#eee;background-color:#222;font-weight:600;padding:0.5rem;font-size:1rem;border-radius:0.3rem 0.3rem 0 0;cursor:pointer;.badge{position:absolute;top:-0.5rem;left:-0.5rem;background-color:red;border-radius:999em;padding:0.1rem;font-size:0.75rem;line-height:1rem;min-width:1rem;height:1rem;white-space:nowrap;vertical-align:baseline;text-align:center;}}.chat-window-wrapper{width:20rem;height:15rem;background-color:white;}.message-list{margin:0;padding-left:0;padding:0.5rem;overflow-wrap:break-word;overflow:auto;height:calc(100% - 3.3rem);list-style:none;.muted{text-align:center;}}.message-input{display:flex;justify-content:stretch;align-items:stretch;position:absolute;bottom:0;width:100%;border-top:1px solid gray;textarea{padding:0.2rem;margin:0;resize:none;width:100%;height:2.5rem;border:none;font-family:inherit;font-size:inherit;}button{border:none;color:#eee;background:",
+            [Function],
+            ";}}.muted{color:gray;}.sender{color:",
+            [Function],
+            ";white-space:nowrap;}",
+          ],
+        },
+        "displayName": "ChatStyles__ChatWrapper",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "ChatStyles__ChatWrapper-sc-13xvm08-0",
+        "target": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "render": [Function],
+        },
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      },
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`<ChatWindow /> renders without crashing 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ChatWindow
+    sendMessage={[Function]}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <div
+          className="chat-header"
+          onClick={[Function]}
+        >
+          <ForwardRef
+            className="badge"
+            pose="hide"
+          >
+            0
+          </ForwardRef>
+          Chat 
+          <FontAwesomeIcon
+            border={false}
+            className=""
+            fixedWidth={false}
+            flip={null}
+            icon={
+              Object {
+                "icon": Array [
+                  448,
+                  512,
+                  Array [],
+                  "f077",
+                  "M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z",
+                ],
+                "iconName": "chevron-up",
+                "prefix": "fas",
+              }
+            }
+            inverse={false}
+            listItem={false}
+            mask={null}
+            pull={null}
+            pulse={false}
+            rotation={null}
+            size={null}
+            spin={false}
+            symbol={false}
+            title=""
+            transform={null}
+          />
+        </div>,
+        <div
+          aria-hidden={true}
+          className="chat-window-wrapper"
+        >
+          <ul
+            className="message-list"
+          >
+            <p
+              className="muted"
+            >
+              There doesn't appear to be any messages
+            </p>
+          </ul>
+          <form
+            className="message-input"
+            onSubmit={[Function]}
+          >
+            <textarea
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Enter a message..."
+              type="text"
+              value=""
+            />
+            <button
+              type="submit"
+            >
+              Send
+            </button>
+          </form>
+        </div>,
+      ],
+      "className": "chat",
+      "initialPose": "exit",
+      "pose": "hidden",
+      "show": false,
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <ForwardRef
+              className="badge"
+              pose="hide"
+            >
+              0
+            </ForwardRef>,
+            "Chat ",
+            <FontAwesomeIcon
+              border={false}
+              className=""
+              fixedWidth={false}
+              flip={null}
+              icon={
+                Object {
+                  "icon": Array [
+                    448,
+                    512,
+                    Array [],
+                    "f077",
+                    "M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z",
+                  ],
+                  "iconName": "chevron-up",
+                  "prefix": "fas",
+                }
+              }
+              inverse={false}
+              listItem={false}
+              mask={null}
+              pull={null}
+              pulse={false}
+              rotation={null}
+              size={null}
+              spin={false}
+              symbol={false}
+              title=""
+              transform={null}
+            />,
+          ],
+          "className": "chat-header",
+          "onClick": [Function],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": 0,
+              "className": "badge",
+              "pose": "hide",
+            },
+            "ref": null,
+            "rendered": 0,
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "render": [Function],
+            },
+          },
+          "Chat ",
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "border": false,
+              "className": "",
+              "fixedWidth": false,
+              "flip": null,
+              "icon": Object {
+                "icon": Array [
+                  448,
+                  512,
+                  Array [],
+                  "f077",
+                  "M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z",
+                ],
+                "iconName": "chevron-up",
+                "prefix": "fas",
+              },
+              "inverse": false,
+              "listItem": false,
+              "mask": null,
+              "pull": null,
+              "pulse": false,
+              "rotation": null,
+              "size": null,
+              "spin": false,
+              "symbol": false,
+              "title": "",
+              "transform": null,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "aria-hidden": true,
+          "children": Array [
+            <ul
+              className="message-list"
+            >
+              <p
+                className="muted"
+              >
+                There doesn't appear to be any messages
+              </p>
+            </ul>,
+            <form
+              className="message-input"
+              onSubmit={[Function]}
+            >
+              <textarea
+                onChange={[Function]}
+                onKeyPress={[Function]}
+                placeholder="Enter a message..."
+                type="text"
+                value=""
+              />
+              <button
+                type="submit"
+              >
+                Send
+              </button>
+            </form>,
+          ],
+          "className": "chat-window-wrapper",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                undefined,
+                <p
+                  className="muted"
+                >
+                  There doesn't appear to be any messages
+                </p>,
+              ],
+              "className": "message-list",
+            },
+            "ref": null,
+            "rendered": Array [
+              undefined,
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "There doesn't appear to be any messages",
+                  "className": "muted",
+                },
+                "ref": null,
+                "rendered": "There doesn't appear to be any messages",
+                "type": "p",
+              },
+            ],
+            "type": "ul",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <textarea
+                  onChange={[Function]}
+                  onKeyPress={[Function]}
+                  placeholder="Enter a message..."
+                  type="text"
+                  value=""
+                />,
+                <button
+                  type="submit"
+                >
+                  Send
+                </button>,
+              ],
+              "className": "message-input",
+              "onSubmit": [Function],
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "onChange": [Function],
+                  "onKeyPress": [Function],
+                  "placeholder": "Enter a message...",
+                  "type": "text",
+                  "value": "",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "textarea",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Send",
+                  "type": "submit",
+                },
+                "ref": null,
+                "rendered": "Send",
+                "type": "button",
+              },
+            ],
+            "type": "form",
+          },
+        ],
+        "type": "div",
+      },
+    ],
+    "type": Object {
+      "$$typeof": Symbol(react.forward_ref),
+      "attrs": Array [],
+      "componentStyle": ComponentStyle {
+        "componentId": "ChatStyles__ChatWrapper-sc-13xvm08-0",
+        "isStatic": false,
+        "rules": Array [
+          "position:fixed;bottom:0;right:1rem;margin:0;padding:0;z-index:998;.chat-header{display:",
+          [Function],
+          ";color:#eee;background-color:#222;font-weight:600;padding:0.5rem;font-size:1rem;border-radius:0.3rem 0.3rem 0 0;cursor:pointer;.badge{position:absolute;top:-0.5rem;left:-0.5rem;background-color:red;border-radius:999em;padding:0.1rem;font-size:0.75rem;line-height:1rem;min-width:1rem;height:1rem;white-space:nowrap;vertical-align:baseline;text-align:center;}}.chat-window-wrapper{width:20rem;height:15rem;background-color:white;}.message-list{margin:0;padding-left:0;padding:0.5rem;overflow-wrap:break-word;overflow:auto;height:calc(100% - 3.3rem);list-style:none;.muted{text-align:center;}}.message-input{display:flex;justify-content:stretch;align-items:stretch;position:absolute;bottom:0;width:100%;border-top:1px solid gray;textarea{padding:0.2rem;margin:0;resize:none;width:100%;height:2.5rem;border:none;font-family:inherit;font-size:inherit;}button{border:none;color:#eee;background:",
+          [Function],
+          ";}}.muted{color:gray;}.sender{color:",
+          [Function],
+          ";white-space:nowrap;}",
+        ],
+      },
+      "displayName": "ChatStyles__ChatWrapper",
+      "foldedComponentIds": Array [],
+      "render": [Function],
+      "styledComponentId": "ChatStyles__ChatWrapper-sc-13xvm08-0",
+      "target": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      },
+      "toString": [Function],
+      "warnTooManyClasses": [Function],
+      "withComponent": [Function],
+    },
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <div
+            className="chat-header"
+            onClick={[Function]}
+          >
+            <ForwardRef
+              className="badge"
+              pose="hide"
+            >
+              0
+            </ForwardRef>
+            Chat 
+            <FontAwesomeIcon
+              border={false}
+              className=""
+              fixedWidth={false}
+              flip={null}
+              icon={
+                Object {
+                  "icon": Array [
+                    448,
+                    512,
+                    Array [],
+                    "f077",
+                    "M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z",
+                  ],
+                  "iconName": "chevron-up",
+                  "prefix": "fas",
+                }
+              }
+              inverse={false}
+              listItem={false}
+              mask={null}
+              pull={null}
+              pulse={false}
+              rotation={null}
+              size={null}
+              spin={false}
+              symbol={false}
+              title=""
+              transform={null}
+            />
+          </div>,
+          <div
+            aria-hidden={true}
+            className="chat-window-wrapper"
+          >
+            <ul
+              className="message-list"
+            >
+              <p
+                className="muted"
+              >
+                There doesn't appear to be any messages
+              </p>
+            </ul>
+            <form
+              className="message-input"
+              onSubmit={[Function]}
+            >
+              <textarea
+                onChange={[Function]}
+                onKeyPress={[Function]}
+                placeholder="Enter a message..."
+                type="text"
+                value=""
+              />
+              <button
+                type="submit"
+              >
+                Send
+              </button>
+            </form>
+          </div>,
+        ],
+        "className": "chat",
+        "initialPose": "exit",
+        "pose": "hidden",
+        "show": false,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <ForwardRef
+                className="badge"
+                pose="hide"
+              >
+                0
+              </ForwardRef>,
+              "Chat ",
+              <FontAwesomeIcon
+                border={false}
+                className=""
+                fixedWidth={false}
+                flip={null}
+                icon={
+                  Object {
+                    "icon": Array [
+                      448,
+                      512,
+                      Array [],
+                      "f077",
+                      "M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z",
+                    ],
+                    "iconName": "chevron-up",
+                    "prefix": "fas",
+                  }
+                }
+                inverse={false}
+                listItem={false}
+                mask={null}
+                pull={null}
+                pulse={false}
+                rotation={null}
+                size={null}
+                spin={false}
+                symbol={false}
+                title=""
+                transform={null}
+              />,
+            ],
+            "className": "chat-header",
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "children": 0,
+                "className": "badge",
+                "pose": "hide",
+              },
+              "ref": null,
+              "rendered": 0,
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+            },
+            "Chat ",
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "border": false,
+                "className": "",
+                "fixedWidth": false,
+                "flip": null,
+                "icon": Object {
+                  "icon": Array [
+                    448,
+                    512,
+                    Array [],
+                    "f077",
+                    "M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z",
+                  ],
+                  "iconName": "chevron-up",
+                  "prefix": "fas",
+                },
+                "inverse": false,
+                "listItem": false,
+                "mask": null,
+                "pull": null,
+                "pulse": false,
+                "rotation": null,
+                "size": null,
+                "spin": false,
+                "symbol": false,
+                "title": "",
+                "transform": null,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "aria-hidden": true,
+            "children": Array [
+              <ul
+                className="message-list"
+              >
+                <p
+                  className="muted"
+                >
+                  There doesn't appear to be any messages
+                </p>
+              </ul>,
+              <form
+                className="message-input"
+                onSubmit={[Function]}
+              >
+                <textarea
+                  onChange={[Function]}
+                  onKeyPress={[Function]}
+                  placeholder="Enter a message..."
+                  type="text"
+                  value=""
+                />
+                <button
+                  type="submit"
+                >
+                  Send
+                </button>
+              </form>,
+            ],
+            "className": "chat-window-wrapper",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  undefined,
+                  <p
+                    className="muted"
+                  >
+                    There doesn't appear to be any messages
+                  </p>,
+                ],
+                "className": "message-list",
+              },
+              "ref": null,
+              "rendered": Array [
+                undefined,
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "There doesn't appear to be any messages",
+                    "className": "muted",
+                  },
+                  "ref": null,
+                  "rendered": "There doesn't appear to be any messages",
+                  "type": "p",
+                },
+              ],
+              "type": "ul",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <textarea
+                    onChange={[Function]}
+                    onKeyPress={[Function]}
+                    placeholder="Enter a message..."
+                    type="text"
+                    value=""
+                  />,
+                  <button
+                    type="submit"
+                  >
+                    Send
+                  </button>,
+                ],
+                "className": "message-input",
+                "onSubmit": [Function],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "onChange": [Function],
+                    "onKeyPress": [Function],
+                    "placeholder": "Enter a message...",
+                    "type": "text",
+                    "value": "",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "textarea",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Send",
+                    "type": "submit",
+                  },
+                  "ref": null,
+                  "rendered": "Send",
+                  "type": "button",
+                },
+              ],
+              "type": "form",
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "ChatStyles__ChatWrapper-sc-13xvm08-0",
+          "isStatic": false,
+          "rules": Array [
+            "position:fixed;bottom:0;right:1rem;margin:0;padding:0;z-index:998;.chat-header{display:",
+            [Function],
+            ";color:#eee;background-color:#222;font-weight:600;padding:0.5rem;font-size:1rem;border-radius:0.3rem 0.3rem 0 0;cursor:pointer;.badge{position:absolute;top:-0.5rem;left:-0.5rem;background-color:red;border-radius:999em;padding:0.1rem;font-size:0.75rem;line-height:1rem;min-width:1rem;height:1rem;white-space:nowrap;vertical-align:baseline;text-align:center;}}.chat-window-wrapper{width:20rem;height:15rem;background-color:white;}.message-list{margin:0;padding-left:0;padding:0.5rem;overflow-wrap:break-word;overflow:auto;height:calc(100% - 3.3rem);list-style:none;.muted{text-align:center;}}.message-input{display:flex;justify-content:stretch;align-items:stretch;position:absolute;bottom:0;width:100%;border-top:1px solid gray;textarea{padding:0.2rem;margin:0;resize:none;width:100%;height:2.5rem;border:none;font-family:inherit;font-size:inherit;}button{border:none;color:#eee;background:",
+            [Function],
+            ";}}.muted{color:gray;}.sender{color:",
+            [Function],
+            ";white-space:nowrap;}",
+          ],
+        },
+        "displayName": "ChatStyles__ChatWrapper",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "ChatStyles__ChatWrapper-sc-13xvm08-0",
+        "target": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "render": [Function],
+        },
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      },
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;

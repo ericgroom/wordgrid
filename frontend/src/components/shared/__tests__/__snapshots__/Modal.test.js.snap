@@ -1,0 +1,1355 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Modal /> doesn't show when \`props.show\` is false 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Modal
+    show={false}
+    title=""
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "portal",
+    "props": Object {
+      "children": <ForwardRef
+        aria-hidden={true}
+        aria-modal={true}
+        data-is-background={true}
+        onClick={[Function]}
+        onKeyUp={[Function]}
+        pose="hide"
+        show={false}
+        tabIndex="-1"
+      >
+        <div
+          className="content"
+        >
+          <ForwardRef
+            className="heading"
+          >
+            <FontAwesomeIcon
+              border={false}
+              className="close-button"
+              fixedWidth={false}
+              flip={null}
+              icon={
+                Object {
+                  "icon": Array [
+                    352,
+                    512,
+                    Array [],
+                    "f00d",
+                    "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                  ],
+                  "iconName": "times",
+                  "prefix": "fas",
+                }
+              }
+              inverse={false}
+              listItem={false}
+              mask={null}
+              onClick={[Function]}
+              pull={null}
+              pulse={false}
+              rotation={null}
+              size="2x"
+              spin={false}
+              symbol={false}
+              title=""
+              transform={null}
+            />
+            <h1>
+              
+            </h1>
+          </ForwardRef>
+          <ForwardRef
+            className="children"
+          />
+        </div>
+      </ForwardRef>,
+      "containerInfo": <div
+        id="modal"
+      />,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "aria-hidden": true,
+        "aria-modal": true,
+        "children": <div
+          className="content"
+        >
+          <ForwardRef
+            className="heading"
+          >
+            <FontAwesomeIcon
+              border={false}
+              className="close-button"
+              fixedWidth={false}
+              flip={null}
+              icon={
+                Object {
+                  "icon": Array [
+                    352,
+                    512,
+                    Array [],
+                    "f00d",
+                    "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                  ],
+                  "iconName": "times",
+                  "prefix": "fas",
+                }
+              }
+              inverse={false}
+              listItem={false}
+              mask={null}
+              onClick={[Function]}
+              pull={null}
+              pulse={false}
+              rotation={null}
+              size="2x"
+              spin={false}
+              symbol={false}
+              title=""
+              transform={null}
+            />
+            <h1>
+              
+            </h1>
+          </ForwardRef>
+          <ForwardRef
+            className="children"
+          />
+        </div>,
+        "data-is-background": true,
+        "onClick": [Function],
+        "onKeyUp": [Function],
+        "pose": "hide",
+        "show": false,
+        "tabIndex": "-1",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <ForwardRef
+              className="heading"
+            >
+              <FontAwesomeIcon
+                border={false}
+                className="close-button"
+                fixedWidth={false}
+                flip={null}
+                icon={
+                  Object {
+                    "icon": Array [
+                      352,
+                      512,
+                      Array [],
+                      "f00d",
+                      "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                    ],
+                    "iconName": "times",
+                    "prefix": "fas",
+                  }
+                }
+                inverse={false}
+                listItem={false}
+                mask={null}
+                onClick={[Function]}
+                pull={null}
+                pulse={false}
+                rotation={null}
+                size="2x"
+                spin={false}
+                symbol={false}
+                title=""
+                transform={null}
+              />
+              <h1>
+                
+              </h1>
+            </ForwardRef>,
+            <ForwardRef
+              className="children"
+            />,
+          ],
+          "className": "content",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": Array [
+                <FontAwesomeIcon
+                  border={false}
+                  className="close-button"
+                  fixedWidth={false}
+                  flip={null}
+                  icon={
+                    Object {
+                      "icon": Array [
+                        352,
+                        512,
+                        Array [],
+                        "f00d",
+                        "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                      ],
+                      "iconName": "times",
+                      "prefix": "fas",
+                    }
+                  }
+                  inverse={false}
+                  listItem={false}
+                  mask={null}
+                  onClick={[Function]}
+                  pull={null}
+                  pulse={false}
+                  rotation={null}
+                  size="2x"
+                  spin={false}
+                  symbol={false}
+                  title=""
+                  transform={null}
+                />,
+                <h1>
+                  
+                </h1>,
+              ],
+              "className": "heading",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "border": false,
+                  "className": "close-button",
+                  "fixedWidth": false,
+                  "flip": null,
+                  "icon": Object {
+                    "icon": Array [
+                      352,
+                      512,
+                      Array [],
+                      "f00d",
+                      "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                    ],
+                    "iconName": "times",
+                    "prefix": "fas",
+                  },
+                  "inverse": false,
+                  "listItem": false,
+                  "mask": null,
+                  "onClick": [Function],
+                  "pull": null,
+                  "pulse": false,
+                  "rotation": null,
+                  "size": "2x",
+                  "spin": false,
+                  "symbol": false,
+                  "title": "",
+                  "transform": null,
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "",
+                },
+                "ref": null,
+                "rendered": "",
+                "type": "h1",
+              },
+            ],
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "render": [Function],
+            },
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": undefined,
+              "className": "children",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "render": [Function],
+            },
+          },
+        ],
+        "type": "div",
+      },
+      "type": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "Modal__ModalWrapper-sc-1wyozvj-0",
+          "isStatic": true,
+          "rules": Array [
+            "position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.4);z-index:999;.content{margin:1rem auto;max-width:600px;background-color:#fff;color:#222;border-radius:0.5rem;height:90%;width:100%;overflow:hidden;}.children{overflow:auto;max-height:100%;padding:1rem;}.heading{border-radius:0.5rem 0.5rem 0 0;background-image:linear-gradient(#fff,#ddd);padding:0.5rem;h1{margin:0;margin-left:1rem;display:inline-block;}}.close-button{cursor:pointer;color:red;padding:0 0.5rem;}",
+          ],
+        },
+        "displayName": "Modal__ModalWrapper",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "Modal__ModalWrapper-sc-1wyozvj-0",
+        "target": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "render": [Function],
+        },
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      },
+    },
+    "type": Symbol(react.portal),
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "portal",
+      "props": Object {
+        "children": <ForwardRef
+          aria-hidden={true}
+          aria-modal={true}
+          data-is-background={true}
+          onClick={[Function]}
+          onKeyUp={[Function]}
+          pose="hide"
+          show={false}
+          tabIndex="-1"
+        >
+          <div
+            className="content"
+          >
+            <ForwardRef
+              className="heading"
+            >
+              <FontAwesomeIcon
+                border={false}
+                className="close-button"
+                fixedWidth={false}
+                flip={null}
+                icon={
+                  Object {
+                    "icon": Array [
+                      352,
+                      512,
+                      Array [],
+                      "f00d",
+                      "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                    ],
+                    "iconName": "times",
+                    "prefix": "fas",
+                  }
+                }
+                inverse={false}
+                listItem={false}
+                mask={null}
+                onClick={[Function]}
+                pull={null}
+                pulse={false}
+                rotation={null}
+                size="2x"
+                spin={false}
+                symbol={false}
+                title=""
+                transform={null}
+              />
+              <h1>
+                
+              </h1>
+            </ForwardRef>
+            <ForwardRef
+              className="children"
+            />
+          </div>
+        </ForwardRef>,
+        "containerInfo": <div
+          id="modal"
+        />,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "aria-hidden": true,
+          "aria-modal": true,
+          "children": <div
+            className="content"
+          >
+            <ForwardRef
+              className="heading"
+            >
+              <FontAwesomeIcon
+                border={false}
+                className="close-button"
+                fixedWidth={false}
+                flip={null}
+                icon={
+                  Object {
+                    "icon": Array [
+                      352,
+                      512,
+                      Array [],
+                      "f00d",
+                      "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                    ],
+                    "iconName": "times",
+                    "prefix": "fas",
+                  }
+                }
+                inverse={false}
+                listItem={false}
+                mask={null}
+                onClick={[Function]}
+                pull={null}
+                pulse={false}
+                rotation={null}
+                size="2x"
+                spin={false}
+                symbol={false}
+                title=""
+                transform={null}
+              />
+              <h1>
+                
+              </h1>
+            </ForwardRef>
+            <ForwardRef
+              className="children"
+            />
+          </div>,
+          "data-is-background": true,
+          "onClick": [Function],
+          "onKeyUp": [Function],
+          "pose": "hide",
+          "show": false,
+          "tabIndex": "-1",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <ForwardRef
+                className="heading"
+              >
+                <FontAwesomeIcon
+                  border={false}
+                  className="close-button"
+                  fixedWidth={false}
+                  flip={null}
+                  icon={
+                    Object {
+                      "icon": Array [
+                        352,
+                        512,
+                        Array [],
+                        "f00d",
+                        "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                      ],
+                      "iconName": "times",
+                      "prefix": "fas",
+                    }
+                  }
+                  inverse={false}
+                  listItem={false}
+                  mask={null}
+                  onClick={[Function]}
+                  pull={null}
+                  pulse={false}
+                  rotation={null}
+                  size="2x"
+                  spin={false}
+                  symbol={false}
+                  title=""
+                  transform={null}
+                />
+                <h1>
+                  
+                </h1>
+              </ForwardRef>,
+              <ForwardRef
+                className="children"
+              />,
+            ],
+            "className": "content",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "children": Array [
+                  <FontAwesomeIcon
+                    border={false}
+                    className="close-button"
+                    fixedWidth={false}
+                    flip={null}
+                    icon={
+                      Object {
+                        "icon": Array [
+                          352,
+                          512,
+                          Array [],
+                          "f00d",
+                          "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                        ],
+                        "iconName": "times",
+                        "prefix": "fas",
+                      }
+                    }
+                    inverse={false}
+                    listItem={false}
+                    mask={null}
+                    onClick={[Function]}
+                    pull={null}
+                    pulse={false}
+                    rotation={null}
+                    size="2x"
+                    spin={false}
+                    symbol={false}
+                    title=""
+                    transform={null}
+                  />,
+                  <h1>
+                    
+                  </h1>,
+                ],
+                "className": "heading",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "border": false,
+                    "className": "close-button",
+                    "fixedWidth": false,
+                    "flip": null,
+                    "icon": Object {
+                      "icon": Array [
+                        352,
+                        512,
+                        Array [],
+                        "f00d",
+                        "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                      ],
+                      "iconName": "times",
+                      "prefix": "fas",
+                    },
+                    "inverse": false,
+                    "listItem": false,
+                    "mask": null,
+                    "onClick": [Function],
+                    "pull": null,
+                    "pulse": false,
+                    "rotation": null,
+                    "size": "2x",
+                    "spin": false,
+                    "symbol": false,
+                    "title": "",
+                    "transform": null,
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "",
+                  },
+                  "ref": null,
+                  "rendered": "",
+                  "type": "h1",
+                },
+              ],
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "children": undefined,
+                "className": "children",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+            },
+          ],
+          "type": "div",
+        },
+        "type": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "Modal__ModalWrapper-sc-1wyozvj-0",
+            "isStatic": true,
+            "rules": Array [
+              "position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.4);z-index:999;.content{margin:1rem auto;max-width:600px;background-color:#fff;color:#222;border-radius:0.5rem;height:90%;width:100%;overflow:hidden;}.children{overflow:auto;max-height:100%;padding:1rem;}.heading{border-radius:0.5rem 0.5rem 0 0;background-image:linear-gradient(#fff,#ddd);padding:0.5rem;h1{margin:0;margin-left:1rem;display:inline-block;}}.close-button{cursor:pointer;color:red;padding:0 0.5rem;}",
+            ],
+          },
+          "displayName": "Modal__ModalWrapper",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "Modal__ModalWrapper-sc-1wyozvj-0",
+          "target": Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "render": [Function],
+          },
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        },
+      },
+      "type": Symbol(react.portal),
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`<Modal /> shows when \`props.show\` is true 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Modal
+    show={true}
+    title=""
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "portal",
+    "props": Object {
+      "children": <ForwardRef
+        aria-hidden={false}
+        aria-modal={true}
+        data-is-background={true}
+        onClick={[Function]}
+        onKeyUp={[Function]}
+        pose="show"
+        show={true}
+        tabIndex="-1"
+      >
+        <div
+          className="content"
+        >
+          <ForwardRef
+            className="heading"
+          >
+            <FontAwesomeIcon
+              border={false}
+              className="close-button"
+              fixedWidth={false}
+              flip={null}
+              icon={
+                Object {
+                  "icon": Array [
+                    352,
+                    512,
+                    Array [],
+                    "f00d",
+                    "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                  ],
+                  "iconName": "times",
+                  "prefix": "fas",
+                }
+              }
+              inverse={false}
+              listItem={false}
+              mask={null}
+              onClick={[Function]}
+              pull={null}
+              pulse={false}
+              rotation={null}
+              size="2x"
+              spin={false}
+              symbol={false}
+              title=""
+              transform={null}
+            />
+            <h1>
+              
+            </h1>
+          </ForwardRef>
+          <ForwardRef
+            className="children"
+          />
+        </div>
+      </ForwardRef>,
+      "containerInfo": <div
+        id="modal"
+      />,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "aria-hidden": false,
+        "aria-modal": true,
+        "children": <div
+          className="content"
+        >
+          <ForwardRef
+            className="heading"
+          >
+            <FontAwesomeIcon
+              border={false}
+              className="close-button"
+              fixedWidth={false}
+              flip={null}
+              icon={
+                Object {
+                  "icon": Array [
+                    352,
+                    512,
+                    Array [],
+                    "f00d",
+                    "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                  ],
+                  "iconName": "times",
+                  "prefix": "fas",
+                }
+              }
+              inverse={false}
+              listItem={false}
+              mask={null}
+              onClick={[Function]}
+              pull={null}
+              pulse={false}
+              rotation={null}
+              size="2x"
+              spin={false}
+              symbol={false}
+              title=""
+              transform={null}
+            />
+            <h1>
+              
+            </h1>
+          </ForwardRef>
+          <ForwardRef
+            className="children"
+          />
+        </div>,
+        "data-is-background": true,
+        "onClick": [Function],
+        "onKeyUp": [Function],
+        "pose": "show",
+        "show": true,
+        "tabIndex": "-1",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <ForwardRef
+              className="heading"
+            >
+              <FontAwesomeIcon
+                border={false}
+                className="close-button"
+                fixedWidth={false}
+                flip={null}
+                icon={
+                  Object {
+                    "icon": Array [
+                      352,
+                      512,
+                      Array [],
+                      "f00d",
+                      "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                    ],
+                    "iconName": "times",
+                    "prefix": "fas",
+                  }
+                }
+                inverse={false}
+                listItem={false}
+                mask={null}
+                onClick={[Function]}
+                pull={null}
+                pulse={false}
+                rotation={null}
+                size="2x"
+                spin={false}
+                symbol={false}
+                title=""
+                transform={null}
+              />
+              <h1>
+                
+              </h1>
+            </ForwardRef>,
+            <ForwardRef
+              className="children"
+            />,
+          ],
+          "className": "content",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": Array [
+                <FontAwesomeIcon
+                  border={false}
+                  className="close-button"
+                  fixedWidth={false}
+                  flip={null}
+                  icon={
+                    Object {
+                      "icon": Array [
+                        352,
+                        512,
+                        Array [],
+                        "f00d",
+                        "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                      ],
+                      "iconName": "times",
+                      "prefix": "fas",
+                    }
+                  }
+                  inverse={false}
+                  listItem={false}
+                  mask={null}
+                  onClick={[Function]}
+                  pull={null}
+                  pulse={false}
+                  rotation={null}
+                  size="2x"
+                  spin={false}
+                  symbol={false}
+                  title=""
+                  transform={null}
+                />,
+                <h1>
+                  
+                </h1>,
+              ],
+              "className": "heading",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "border": false,
+                  "className": "close-button",
+                  "fixedWidth": false,
+                  "flip": null,
+                  "icon": Object {
+                    "icon": Array [
+                      352,
+                      512,
+                      Array [],
+                      "f00d",
+                      "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                    ],
+                    "iconName": "times",
+                    "prefix": "fas",
+                  },
+                  "inverse": false,
+                  "listItem": false,
+                  "mask": null,
+                  "onClick": [Function],
+                  "pull": null,
+                  "pulse": false,
+                  "rotation": null,
+                  "size": "2x",
+                  "spin": false,
+                  "symbol": false,
+                  "title": "",
+                  "transform": null,
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "",
+                },
+                "ref": null,
+                "rendered": "",
+                "type": "h1",
+              },
+            ],
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "render": [Function],
+            },
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": undefined,
+              "className": "children",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "render": [Function],
+            },
+          },
+        ],
+        "type": "div",
+      },
+      "type": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "Modal__ModalWrapper-sc-1wyozvj-0",
+          "isStatic": true,
+          "rules": Array [
+            "position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.4);z-index:999;.content{margin:1rem auto;max-width:600px;background-color:#fff;color:#222;border-radius:0.5rem;height:90%;width:100%;overflow:hidden;}.children{overflow:auto;max-height:100%;padding:1rem;}.heading{border-radius:0.5rem 0.5rem 0 0;background-image:linear-gradient(#fff,#ddd);padding:0.5rem;h1{margin:0;margin-left:1rem;display:inline-block;}}.close-button{cursor:pointer;color:red;padding:0 0.5rem;}",
+          ],
+        },
+        "displayName": "Modal__ModalWrapper",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "Modal__ModalWrapper-sc-1wyozvj-0",
+        "target": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "render": [Function],
+        },
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      },
+    },
+    "type": Symbol(react.portal),
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "portal",
+      "props": Object {
+        "children": <ForwardRef
+          aria-hidden={false}
+          aria-modal={true}
+          data-is-background={true}
+          onClick={[Function]}
+          onKeyUp={[Function]}
+          pose="show"
+          show={true}
+          tabIndex="-1"
+        >
+          <div
+            className="content"
+          >
+            <ForwardRef
+              className="heading"
+            >
+              <FontAwesomeIcon
+                border={false}
+                className="close-button"
+                fixedWidth={false}
+                flip={null}
+                icon={
+                  Object {
+                    "icon": Array [
+                      352,
+                      512,
+                      Array [],
+                      "f00d",
+                      "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                    ],
+                    "iconName": "times",
+                    "prefix": "fas",
+                  }
+                }
+                inverse={false}
+                listItem={false}
+                mask={null}
+                onClick={[Function]}
+                pull={null}
+                pulse={false}
+                rotation={null}
+                size="2x"
+                spin={false}
+                symbol={false}
+                title=""
+                transform={null}
+              />
+              <h1>
+                
+              </h1>
+            </ForwardRef>
+            <ForwardRef
+              className="children"
+            />
+          </div>
+        </ForwardRef>,
+        "containerInfo": <div
+          id="modal"
+        />,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "aria-hidden": false,
+          "aria-modal": true,
+          "children": <div
+            className="content"
+          >
+            <ForwardRef
+              className="heading"
+            >
+              <FontAwesomeIcon
+                border={false}
+                className="close-button"
+                fixedWidth={false}
+                flip={null}
+                icon={
+                  Object {
+                    "icon": Array [
+                      352,
+                      512,
+                      Array [],
+                      "f00d",
+                      "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                    ],
+                    "iconName": "times",
+                    "prefix": "fas",
+                  }
+                }
+                inverse={false}
+                listItem={false}
+                mask={null}
+                onClick={[Function]}
+                pull={null}
+                pulse={false}
+                rotation={null}
+                size="2x"
+                spin={false}
+                symbol={false}
+                title=""
+                transform={null}
+              />
+              <h1>
+                
+              </h1>
+            </ForwardRef>
+            <ForwardRef
+              className="children"
+            />
+          </div>,
+          "data-is-background": true,
+          "onClick": [Function],
+          "onKeyUp": [Function],
+          "pose": "show",
+          "show": true,
+          "tabIndex": "-1",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <ForwardRef
+                className="heading"
+              >
+                <FontAwesomeIcon
+                  border={false}
+                  className="close-button"
+                  fixedWidth={false}
+                  flip={null}
+                  icon={
+                    Object {
+                      "icon": Array [
+                        352,
+                        512,
+                        Array [],
+                        "f00d",
+                        "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                      ],
+                      "iconName": "times",
+                      "prefix": "fas",
+                    }
+                  }
+                  inverse={false}
+                  listItem={false}
+                  mask={null}
+                  onClick={[Function]}
+                  pull={null}
+                  pulse={false}
+                  rotation={null}
+                  size="2x"
+                  spin={false}
+                  symbol={false}
+                  title=""
+                  transform={null}
+                />
+                <h1>
+                  
+                </h1>
+              </ForwardRef>,
+              <ForwardRef
+                className="children"
+              />,
+            ],
+            "className": "content",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "children": Array [
+                  <FontAwesomeIcon
+                    border={false}
+                    className="close-button"
+                    fixedWidth={false}
+                    flip={null}
+                    icon={
+                      Object {
+                        "icon": Array [
+                          352,
+                          512,
+                          Array [],
+                          "f00d",
+                          "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                        ],
+                        "iconName": "times",
+                        "prefix": "fas",
+                      }
+                    }
+                    inverse={false}
+                    listItem={false}
+                    mask={null}
+                    onClick={[Function]}
+                    pull={null}
+                    pulse={false}
+                    rotation={null}
+                    size="2x"
+                    spin={false}
+                    symbol={false}
+                    title=""
+                    transform={null}
+                  />,
+                  <h1>
+                    
+                  </h1>,
+                ],
+                "className": "heading",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "border": false,
+                    "className": "close-button",
+                    "fixedWidth": false,
+                    "flip": null,
+                    "icon": Object {
+                      "icon": Array [
+                        352,
+                        512,
+                        Array [],
+                        "f00d",
+                        "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z",
+                      ],
+                      "iconName": "times",
+                      "prefix": "fas",
+                    },
+                    "inverse": false,
+                    "listItem": false,
+                    "mask": null,
+                    "onClick": [Function],
+                    "pull": null,
+                    "pulse": false,
+                    "rotation": null,
+                    "size": "2x",
+                    "spin": false,
+                    "symbol": false,
+                    "title": "",
+                    "transform": null,
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "",
+                  },
+                  "ref": null,
+                  "rendered": "",
+                  "type": "h1",
+                },
+              ],
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "children": undefined,
+                "className": "children",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+            },
+          ],
+          "type": "div",
+        },
+        "type": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "Modal__ModalWrapper-sc-1wyozvj-0",
+            "isStatic": true,
+            "rules": Array [
+              "position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.4);z-index:999;.content{margin:1rem auto;max-width:600px;background-color:#fff;color:#222;border-radius:0.5rem;height:90%;width:100%;overflow:hidden;}.children{overflow:auto;max-height:100%;padding:1rem;}.heading{border-radius:0.5rem 0.5rem 0 0;background-image:linear-gradient(#fff,#ddd);padding:0.5rem;h1{margin:0;margin-left:1rem;display:inline-block;}}.close-button{cursor:pointer;color:red;padding:0 0.5rem;}",
+            ],
+          },
+          "displayName": "Modal__ModalWrapper",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "Modal__ModalWrapper-sc-1wyozvj-0",
+          "target": Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "render": [Function],
+          },
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        },
+      },
+      "type": Symbol(react.portal),
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;

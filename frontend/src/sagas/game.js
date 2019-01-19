@@ -1,6 +1,16 @@
-import { eventChannel } from "redux-saga";
-import { take, race, all, call, put, select } from "redux-saga/effects";
-import _ from "lodash";
+import { eventChannel, buffers } from "redux-saga";
+import {
+  take,
+  race,
+  all,
+  call,
+  put,
+  select,
+  actionChannel
+} from "redux-saga/effects";
+import max from "lodash/max";
+import { getAllWords } from "../reducers/game";
+
 import {
   updateGameState,
   REQUEST_CREATE_GAME,
@@ -9,19 +19,17 @@ import {
   LEAVE_GAME,
   updateWord,
   WORD_COMPLETED,
-  userJoined,
-  sentWord,
   REQUEST_START_GAME,
   startCountdown,
   rejoined,
-  endGame
+  endGame,
+  addWord
 } from "../actions";
 import { putFrom, awaitAuthIfNeeded } from "./index";
 
 function* gameSocketFlow(socket) {
   while (true) {
     try {
-      console.log("restarting gameSocketFlow");
       const action = yield take(JOIN_GAME);
       yield call(awaitAuthIfNeeded);
       socket.emit("join game", { id: action.id });
@@ -36,7 +44,7 @@ function* gameSocketFlow(socket) {
 /**
  * Creates socket.io instance and emits actions based on events
  */
-function gameSocketChannel(socket) {
+export function gameSocketChannel(socket) {
   return eventChannel(emit => {
     socket.on("state", updatedState => {
       let state = { ...updatedState };
@@ -45,12 +53,7 @@ function gameSocketChannel(socket) {
     });
     socket.on("not exists", () => emit(updateGameState({ exists: false })));
     socket.on("word", word => {
-      console.log(word);
       emit(updateWord(word));
-    });
-    socket.on("user join", nickname => {
-      console.log(`${nickname} joined`);
-      emit(userJoined(nickname));
     });
     socket.on("countdown", duration => {
       emit(startCountdown(duration));
@@ -64,9 +67,12 @@ function gameSocketChannel(socket) {
     socket.on("played words", words => {
       emit(
         updateGameState({
-          words,
-          wordId: _.max(words.map(word => word.id)) + 1 || 0,
-          sentWords: words.map(word => word.word)
+          wordIds: words.map(word => word.id),
+          wordsById: words.reduce((acc, word) => {
+            acc[word.id] = word;
+            return acc;
+          }, {}),
+          nextWordId: max(words.map(word => word.id)) + 1 || 0
         })
       );
     });
@@ -76,11 +82,14 @@ function gameSocketChannel(socket) {
   });
 }
 
-function* gameActionListener(socket) {
+export function* gameActionListener(socket) {
+  const channel = yield actionChannel(
+    [WORD_COMPLETED, REQUEST_START_GAME, LEAVE_GAME],
+    buffers.sliding(10)
+  );
   yield call(awaitAuthIfNeeded);
   loop: while (true) {
-    console.log("gameActionListener waiting...");
-    const action = yield take([WORD_COMPLETED, REQUEST_START_GAME, LEAVE_GAME]);
+    const action = yield take(channel);
     const gameId = yield select(state => state.game.id);
     switch (action.type) {
       case WORD_COMPLETED:
@@ -90,25 +99,27 @@ function* gameActionListener(socket) {
         // don't send words less than 3 letters long
         const tooShort = word.length < 3;
         // check if word has already been sent
-        const sentWords = yield select(state => state.game.sentWords);
-        const alreadySent = sentWords.some(sentWord => sentWord === word);
+        const gameState = yield select(state => state.game);
+        const alreadySent = getAllWords(gameState).some(
+          sentWord => sentWord.word === word
+        );
 
         // send the word
         if (!tooShort && !alreadySent) {
-          const words = yield select(state => state.game.words);
-          const wordId = _.find(words, { word }).id;
-          const gameId = yield select(state => state.game.id);
-          socket.emit("word", { word, wordId, gameId, path });
-          yield put(sentWord(word));
+          const { id: gameId, nextWordId: wordId } = yield select(
+            state => state.game
+          );
+          const wordObj = { word, id: wordId, path };
+          yield put(addWord(wordObj));
+          socket.emit("word", wordObj, gameId);
         }
         break;
       case REQUEST_START_GAME:
-        console.log(`starting game: ${gameId}`);
         socket.emit("game start", { id: gameId });
         break;
       case LEAVE_GAME:
         socket.emit("leave game", action.id);
-        break loop;
+        break loop; // restart game saga
       default:
         throw new Error(
           `messageActionListener saga took action but has no handler for: ${
@@ -122,9 +133,8 @@ function* gameActionListener(socket) {
 /**
  * Listens to non-socket related game actions
  */
-function* gameCreateListener() {
+export function* gameCreateListener() {
   while (true) {
-    console.log("starting gameCreateListener");
     const action = yield take(REQUEST_CREATE_GAME);
     switch (action.type) {
       case REQUEST_CREATE_GAME:
@@ -146,7 +156,6 @@ function* gameCreateListener() {
 function* createGame() {
   try {
     const url = `${process.env.REACT_APP_BACKEND_URL}/game/new`;
-    console.log(url);
     const res = yield call(fetch, url);
     const { gameId } = yield call([res, "json"]);
     yield put(gameCreated(gameId));

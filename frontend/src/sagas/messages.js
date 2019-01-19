@@ -1,6 +1,6 @@
-import { eventChannel } from "redux-saga";
-import { take, call, all, select } from "redux-saga/effects";
-import { SEND_MESSAGE, recievedMessage } from "../actions";
+import { eventChannel, buffers } from "redux-saga";
+import { take, call, all, select, actionChannel } from "redux-saga/effects";
+import { SEND_MESSAGE, receivedMessage } from "../actions";
 import { putFrom, awaitAuthIfNeeded } from "./index";
 
 export default function* messagesFlow(socket) {
@@ -15,16 +15,16 @@ export default function* messagesFlow(socket) {
  * actions that need to emit to a socket.
  * @param {*} socket socket.io instance
  */
-function* messageActionListener(socket) {
+export function* messageActionListener(socket) {
+  const channel = yield actionChannel([SEND_MESSAGE], buffers.expanding(5));
   yield call(awaitAuthIfNeeded);
   while (true) {
-    console.log("messageActionListener waiting...");
-    const action = yield take([SEND_MESSAGE]);
+    const action = yield take(channel);
     switch (action.type) {
       case SEND_MESSAGE:
         const gameId = yield select(state => state.game.id);
         if (Number.isInteger(gameId)) {
-          socket.emit("chat message", { message: action.message, gameId });
+          socket.emit("send chat message", { message: action.message, gameId });
         }
         break;
       default:
@@ -41,10 +41,10 @@ function* messageActionListener(socket) {
  * Listens to chat socket and emits actions based on socket events
  * @param {*} socket socket.io socket instance
  */
-function messageListener(socket) {
+export function messageListener(socket) {
   return eventChannel(emit => {
     socket.on("chat message", msg => {
-      return emit(recievedMessage(msg));
+      return emit(receivedMessage(msg));
     });
     return () => {
       console.log("closing socket");

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const BigButton = styled.button`
   font-size: 2rem;

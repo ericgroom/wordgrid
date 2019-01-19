@@ -1,10 +1,11 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { connect } from "react-redux";
 import { setNickname } from "../actions";
 import Spinner from "./styles/Spinner";
+import Form from "./styles/Form";
 
-const Page = styled.div`
+const Wrapper = styled.div`
   text-align: center;
 `;
 
@@ -24,23 +25,25 @@ class SetNickname extends React.Component {
   };
   render() {
     return (
-      <Page>
+      <Wrapper>
         <h1>To join please enter a nickname</h1>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="nickname">
-            Nickname:
-            <input
-              type="text"
-              value={this.state.nickname}
-              onChange={this.handleChange}
-              name="nickname"
-              placeholder="nickname"
-            />
-          </label>
-          <button type="submit">Set</button>
-        </form>
+        <Form onSubmit={this.handleSubmit}>
+          <fieldset disabled={this.props.loading}>
+            <label htmlFor="nickname">
+              Nickname:
+              <input
+                type="text"
+                value={this.state.nickname}
+                onChange={this.handleChange}
+                name="nickname"
+                placeholder="nickname"
+              />
+            </label>
+            <button type="submit">Set</button>
+          </fieldset>
+        </Form>
         {this.props.loading && <Spinner />}
-      </Page>
+      </Wrapper>
     );
   }
 }
