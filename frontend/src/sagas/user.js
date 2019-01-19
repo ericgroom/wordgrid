@@ -1,6 +1,6 @@
 import jwt_decode from "jwt-decode";
-import { eventChannel } from "redux-saga";
-import { call, all, take } from "redux-saga/effects";
+import { eventChannel, buffers } from "redux-saga";
+import { call, all, take, actionChannel } from "redux-saga/effects";
 import { putFrom, awaitAuthIfNeeded } from "./index";
 import {
   SENT_AUTH,
@@ -61,17 +61,18 @@ export function userSocketChannel(socket) {
 }
 
 export function* userActionListener(socket) {
+  const channel = yield actionChannel(
+    [REQUEST_SET_NICKNAME, CONFIRM_AUTH],
+    buffers.sliding(3)
+  );
   yield call(awaitAuthIfNeeded);
   while (true) {
-    console.log("userActionListener waiting...");
-    const action = yield take(REQUEST_SET_NICKNAME, CONFIRM_AUTH);
-    console.log("userActionListener taking action", action.type);
+    const action = yield take(channel);
     switch (action.type) {
       case REQUEST_SET_NICKNAME:
         socket.emit("nickname", action.nickname);
         break;
       case CONFIRM_AUTH:
-        console.log(`confirmed auth. success? ${action.success}`);
         break;
       default:
         throw new Error(

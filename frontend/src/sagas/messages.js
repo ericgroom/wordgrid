@@ -1,5 +1,5 @@
-import { eventChannel } from "redux-saga";
-import { take, call, all, select } from "redux-saga/effects";
+import { eventChannel, buffers } from "redux-saga";
+import { take, call, all, select, actionChannel } from "redux-saga/effects";
 import { SEND_MESSAGE, receivedMessage } from "../actions";
 import { putFrom, awaitAuthIfNeeded } from "./index";
 
@@ -16,10 +16,10 @@ export default function* messagesFlow(socket) {
  * @param {*} socket socket.io instance
  */
 export function* messageActionListener(socket) {
+  const channel = yield actionChannel([SEND_MESSAGE], buffers.expanding(5));
   yield call(awaitAuthIfNeeded);
   while (true) {
-    console.log("messageActionListener waiting...");
-    const action = yield take([SEND_MESSAGE]);
+    const action = yield take(channel);
     switch (action.type) {
       case SEND_MESSAGE:
         const gameId = yield select(state => state.game.id);

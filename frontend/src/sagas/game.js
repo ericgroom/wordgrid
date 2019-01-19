@@ -1,5 +1,13 @@
-import { eventChannel } from "redux-saga";
-import { take, race, all, call, put, select } from "redux-saga/effects";
+import { eventChannel, buffers } from "redux-saga";
+import {
+  take,
+  race,
+  all,
+  call,
+  put,
+  select,
+  actionChannel
+} from "redux-saga/effects";
 import max from "lodash/max";
 import { getAllWords } from "../reducers/game";
 
@@ -22,7 +30,6 @@ import { putFrom, awaitAuthIfNeeded } from "./index";
 function* gameSocketFlow(socket) {
   while (true) {
     try {
-      console.log("restarting gameSocketFlow");
       const action = yield take(JOIN_GAME);
       yield call(awaitAuthIfNeeded);
       socket.emit("join game", { id: action.id });
@@ -76,10 +83,13 @@ export function gameSocketChannel(socket) {
 }
 
 export function* gameActionListener(socket) {
+  const channel = yield actionChannel(
+    [WORD_COMPLETED, REQUEST_START_GAME, LEAVE_GAME],
+    buffers.sliding(10)
+  );
   yield call(awaitAuthIfNeeded);
   loop: while (true) {
-    console.log("gameActionListener waiting...");
-    const action = yield take([WORD_COMPLETED, REQUEST_START_GAME, LEAVE_GAME]);
+    const action = yield take(channel);
     const gameId = yield select(state => state.game.id);
     switch (action.type) {
       case WORD_COMPLETED:
@@ -125,7 +135,6 @@ export function* gameActionListener(socket) {
  */
 export function* gameCreateListener() {
   while (true) {
-    console.log("starting gameCreateListener");
     const action = yield take(REQUEST_CREATE_GAME);
     switch (action.type) {
       case REQUEST_CREATE_GAME:
