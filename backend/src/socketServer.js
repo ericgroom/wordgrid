@@ -2,9 +2,7 @@ const io = require("socket.io");
 const eventHandlers = require("./events");
 
 exports.createServer = function(httpServer) {
-  return io(httpServer, {
-    origins: ["https://wordgrid.app:*"]
-  });
+  return io(httpServer);
 };
 
 exports.attachListeners = function(io, trie) {
