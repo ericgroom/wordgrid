@@ -17,9 +17,6 @@ getTrie()
   .then(trie => {
     console.log("trie read successfully");
     const io = createServer(http);
-    if (process.env.NODE_ENV === "production") {
-      io.origins(FRONTEND_URL);
-    }
     attachListeners(io, trie);
   })
   .catch(err => console.error("unable to create trie", err));
