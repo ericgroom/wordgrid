@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider, connect } from "react-redux";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import posed, { PoseGroup } from "react-pose";
-import Game from "./game";
 import Welcome from "./homepage";
 import SetNickname from "./SetNickname";
 import Nav from "./Nav";
 import { Helmet } from "react-helmet";
 import ErrorBoundary from "./shared/ErrorBoundary";
+import Spinner from "./styles/Spinner";
 
+const Game = React.lazy(() => import("./game/GameController"));
 const theme = {
   darkBlue: "#2756c3"
 };
@@ -81,12 +82,13 @@ const App = props => (
                           return props.needsNickname ? (
                             <SetNickname />
                           ) : (
-                            <Game />
+                            <React.Suspense fallback={<Spinner />}>
+                              <Game />
+                            </React.Suspense>
                           );
                         }}
                         key="game-id"
                       />
-                      <Route path="/game" component={Game} key="game-no-id" />
                     </Switch>
                   </RouteContainer>
                 </PoseGroup>
