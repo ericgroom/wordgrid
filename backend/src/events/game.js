@@ -3,6 +3,7 @@ const emitters = require("../emitters");
 const wordUtils = require("../words");
 const board = require("../board");
 const db = require("../queries/game");
+const { decodeId } = require("../utils");
 
 exports.onGameJoin = async (io, socket, gameId) => {
   try {
@@ -125,10 +126,12 @@ exports.onGameStart = async (io, gameId) => {
 
 exports.registerListeners = (io, socket, trie) => {
   socket.on("join game", async ({ id }) => {
+    id = decodeId(id);
     console.log(`${socket.id} joins game: ${id}`);
     await exports.onGameJoin(io, socket, id);
   });
   socket.on("word", async ({ word, id: wordId, path }, gameId) => {
+    gameId = decodeId(gameId);
     console.log(`${socket.id} plays word: ${word} in game: ${gameId}`);
     await exports.onWordSubmitted(
       socket,
@@ -138,6 +141,7 @@ exports.registerListeners = (io, socket, trie) => {
     );
   });
   socket.on("game start", async ({ id }) => {
+    id = decodeId(id);
     const countdown = await exports.startCountdown(io, id);
     setTimeout(async () => {
       console.log(`${socket.id} starts game: ${id}`);
@@ -146,6 +150,7 @@ exports.registerListeners = (io, socket, trie) => {
   });
 
   socket.on("leave game", gameId => {
+    gameId = decodeId(gameId);
     console.log(`socket ${socket.id} leaves game: ${gameId}`);
     socket.leave(gameId);
   });

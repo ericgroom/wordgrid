@@ -1,3 +1,6 @@
+const HashIds = require("hashids");
+const hashIds = new HashIds("WordGrid", 6);
+
 async function timedLoop(next, callback, callbackPredicate, delay) {
   var loop = async function(prevState = null) {
     try {
@@ -18,6 +21,16 @@ async function timedLoop(next, callback, callbackPredicate, delay) {
   await loop();
 }
 
+function encodeId(id) {
+  return hashIds.encode(id);
+}
+
+function decodeId(id) {
+  return hashIds.decode(id)[0];
+}
+
 module.exports = {
-  timedLoop
+  timedLoop,
+  encodeId,
+  decodeId
 };
