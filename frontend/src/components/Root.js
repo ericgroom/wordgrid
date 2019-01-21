@@ -36,8 +36,8 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const Root = props => (
-  <Provider store={props.store}>
+const Root = ({ store, ...rest }) => (
+  <Provider store={store}>
     <Router>
       <ThemeProvider theme={theme}>
         <>
@@ -50,7 +50,7 @@ const Root = props => (
           </Helmet>
           <Nav />
           <ErrorBoundary>
-            <App />
+            <App {...rest} />
           </ErrorBoundary>
           <GlobalStyle />
         </>
@@ -60,10 +60,7 @@ const Root = props => (
 );
 
 const mapStateToProps = ({ game, user }) => ({
-  gameActive: game.created && game.id,
   loading: game.created && !game.id,
-  gameId: game.id,
-  nickname: user.nickname,
   needsNickname: user.authConfirmed && !user.nickname
 });
 
