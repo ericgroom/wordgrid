@@ -23,7 +23,7 @@ export function* messageActionListener(socket) {
     switch (action.type) {
       case SEND_MESSAGE:
         const gameId = yield select(state => state.game.id);
-        if (Number.isInteger(gameId)) {
+        if (gameId) {
           socket.emit("send chat message", { message: action.message, gameId });
         }
         break;

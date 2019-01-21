@@ -32,3 +32,16 @@ describe("timedLoop", () => {
   //     expect(next.mock.calls.length.toBe(3));
   //   });
 });
+
+describe("encode/decodeId", () => {
+  it("decodes and recodes to the same id", () => {
+    const id = 1234;
+    const encoded = utils.encodeId(id);
+    expect(encoded).not.toBe(id);
+    expect(typeof encoded).toBe("string");
+    const decoded = utils.decodeId(encoded);
+    expect(decoded).toBe(id);
+    expect(typeof decoded).toBe("number");
+    expect(Number.isInteger(decoded)).toBe(true);
+  });
+});

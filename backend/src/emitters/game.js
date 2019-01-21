@@ -1,6 +1,11 @@
+const { encodeId, decodeId } = require("../utils");
+
 exports.notExists = socket => socket.emit("not exists");
 
 exports.stateUpdate = (io, gameId, state) => {
+  if ("id" in state) {
+    state = { ...state, id: encodeId(state.id) };
+  }
   io.of("/game")
     .to(`${gameId}`)
     .emit("state", state);
