@@ -46,12 +46,14 @@ const App = props => (
               key="game-id"
             />
             <Route component={NotFound} />
+
           </Switch>
         </RouteContainer>
       </PoseGroup>
     )}
   />
 );
+
 
 App.propTypes = {
   loading: PropTypes.bool.isRequired,
