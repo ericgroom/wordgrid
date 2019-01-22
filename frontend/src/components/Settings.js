@@ -1,8 +1,17 @@
 import React from "react";
+import styled from "styled-components";
 import Form from "./styles/Form";
 import { connect } from "react-redux";
 import { setNickname } from "../actions";
 import Spinner from "./styles/Spinner";
+
+const Underline = styled.span`
+  text-decoration: ${props => (props.underline ? "underline" : "inherit")};
+`;
+
+/**
+ * Used to display user settings. Currently only used inside of a modal.
+ */
 class Settings extends React.Component {
   state = {
     nickname: "",
@@ -21,8 +30,13 @@ class Settings extends React.Component {
       <div className="settings">
         <Form>
           <fieldset disabled={this.props.loading}>
-            <p>Change your nickname. Must be less than 16 characters</p>
-            <label htmlFor="nickname">
+            <p>
+              Change your nickname.{" "}
+              <Underline underline={this.state.nickname.length >= 16}>
+                Must be less than 16 characters
+              </Underline>
+            </p>
+            <label htmlFor="nickname" className="row">
               Nickname:
               <input
                 type="text"
