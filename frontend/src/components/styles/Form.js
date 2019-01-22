@@ -22,6 +22,18 @@ const Form = styled.form`
   .success {
     color: green;
   }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    input {
+      flex-grow: 2;
+    }
+    button {
+      align-self: stretch;
+    }
+  }
 `;
 
 export default Form;

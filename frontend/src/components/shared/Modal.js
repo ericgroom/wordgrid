@@ -70,14 +70,13 @@ const ModalWrapper = styled(Overlay)`
     padding: 0.5rem;
     h1 {
       margin: 0;
-      margin-left: 1rem;
       display: inline-block;
     }
   }
   .close-button {
     cursor: pointer;
     color: red;
-    padding: 0 0.5rem;
+    margin: 0 0.5rem;
   }
 `;
 
