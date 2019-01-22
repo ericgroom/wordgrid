@@ -21,7 +21,7 @@ exports.onGameJoin = async (io, socket, gameId) => {
     }
     const { id: userId } = user;
     // 2. check if game is ended
-    const { ended, secondsRemaining } = await db.endGameIfNeeded(gameId);
+    const { ended, secondsRemaining } = await db.endGameIfNeeded(gameId, game);
     // 3. join game if not ended
     if (!ended) {
       try {
@@ -52,9 +52,10 @@ exports.onGameJoin = async (io, socket, gameId) => {
   }
 };
 
-exports.onWordSubmitted = async (socket, trie, word, gameId) => {
+exports.onWordSubmitted = async (io, socket, trie, word, gameId) => {
   const game = await db.getGame(gameId, { joinRelation: false });
-  if (game.ended) return;
+  const { ended } = await db.endGameIfNeeded(gameId, game);
+  if (game.ended || ended) return;
   const isValid = wordUtils.validateWordAndPath(
     word.word,
     word.path,
@@ -134,6 +135,7 @@ exports.registerListeners = (io, socket, trie) => {
     gameId = decodeId(gameId);
     console.log(`${socket.id} plays word: ${word} in game: ${gameId}`);
     await exports.onWordSubmitted(
+      io,
       socket,
       trie,
       { word, id: wordId, path },

@@ -131,10 +131,13 @@ exports.joinGame = async (userId, gameId) => {
  * returns the number of seconds remaining.
  *
  * @param {number} gameId database id of game
+ * @param {object=} game pass Game model instance to prevent refetching
  * @returns {{ended: boolean, secondsRemaining: number}} ended status and seconds remaining
  */
-exports.endGameIfNeeded = async gameId => {
-  const game = await Game.query().findById(gameId);
+exports.endGameIfNeeded = async (gameId, game) => {
+  if (!game) {
+    game = await Game.query().findById(gameId);
+  }
   let ended = game.ended;
   const now = new Date();
   if (game.ended_at === null) {
