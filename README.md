@@ -13,7 +13,7 @@ A friend of mine and I often play an iOS game very similar to WordGrid. I wanted
 4. Create a maintainable, accessible, and expandable game.
 
 ## Stack
-![Diagram of software stack](Diagram.png)
+![Diagram of software stack](assets/Diagram.png)
 
 ## Challenges
 While working on this project, I faced a few challenges. 
