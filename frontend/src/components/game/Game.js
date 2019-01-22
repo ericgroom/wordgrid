@@ -31,6 +31,15 @@ const Container = styled.div`
       order: 2;
     }
   }
+  .mobile-warning {
+    display: none;
+  }
+  @media (hover: none) {
+    .mobile-warning {
+      display: block;
+      color: red;
+    }
+  }
 `;
 
 class Game extends React.Component {

@@ -4,6 +4,7 @@ import { Provider, connect } from "react-redux";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { Helmet } from "react-helmet";
 import Nav from "./Nav";
+import Footer from "./Footer";
 import App from "./App";
 import ErrorBoundary from "./shared/ErrorBoundary";
 
@@ -12,27 +13,25 @@ const theme = {
 };
 
 const GlobalStyle = createGlobalStyle`
+  html {
+    box-sizing: border-box;
+    height: 100%;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
   body {
+    position: relative;
+    max-width: 100%;
+    min-height: 100%;
     background-color: #FFF8E7;
     font-family: 'Lato', sans-serif;
     margin: 0;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
-    .mobile-warning {
-      display: none;
-    }
-    @media (hover:none) {
-      .mobile-warning {
-        display: block;
-        color: red;
-      }
-    }
   }
-
-
-  body {
-    width: 100vw;
-    height: 100vh;
-    max-width: 100%;
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 `;
 
@@ -53,6 +52,7 @@ const Root = ({ store, ...rest }) => (
             <App {...rest} />
           </ErrorBoundary>
           <GlobalStyle />
+          <Footer />
         </>
       </ThemeProvider>
     </Router>
