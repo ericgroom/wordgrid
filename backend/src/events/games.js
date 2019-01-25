@@ -2,7 +2,7 @@ const utils = require("./utils");
 const emitters = require("../emitters");
 const wordUtils = require("../words");
 const board = require("../board");
-const db = require("../queries/game");
+const db = require("../queries/games");
 const { decodeId } = require("../utils");
 
 exports.onGameJoin = async (io, socket, gameId) => {

@@ -1,6 +1,6 @@
 const Knex = require("knex");
 const { Model } = require("objection");
-const game = require("./game");
+const games = require("./games");
 const users = require("./users");
 
 function setupDB() {
@@ -8,4 +8,4 @@ function setupDB() {
   Model.knex(knex);
 }
 
-module.exports = { game, users, setupDB };
+module.exports = { games, users, setupDB };

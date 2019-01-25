@@ -1,5 +1,5 @@
 const user = require("./users");
-const game = require("./game");
+const games = require("./games");
 const messages = require("./messages");
 
-module.exports = { user, game, messages };
+module.exports = { user, games, messages };

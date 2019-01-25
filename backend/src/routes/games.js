@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require("../queries/game");
+const db = require("../queries/games");
 const { encodeId } = require("../utils");
 
 const router = express.Router();

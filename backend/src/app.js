@@ -5,7 +5,7 @@ const corsMiddleware = require("./corsMiddleware");
 const { getTrie } = require("./words");
 const db = require("./queries");
 const { createServer, attachListeners } = require("./socketServer");
-const gameRouter = require("./routes/game");
+const gameRouter = require("./routes/games");
 
 const FRONTEND_URL = "https://wordgrid.app";
 app.use(corsMiddleware(process.env.NODE_ENV === "production" && FRONTEND_URL));
