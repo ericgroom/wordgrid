@@ -4,6 +4,7 @@ import Form from "./styles/Form";
 import { connect } from "react-redux";
 import { setNickname } from "../actions";
 import Spinner from "./styles/Spinner";
+import ColorPicker from "./ColorPicker";
 
 const Underline = styled.span`
   text-decoration: ${props => (props.underline ? "underline" : "inherit")};
@@ -54,6 +55,10 @@ class Settings extends React.Component {
                 <p className="success">Nickname Changed!</p>
               )}
             </label>
+          </fieldset>
+          <fieldset>
+            <p>Change the color your name is displayed as in chat.</p>
+            <ColorPicker colors={["blue", "green", "red", "purple", "yellow", "orange", "pink", "gray"]}/>
           </fieldset>
         </Form>
       </div>
