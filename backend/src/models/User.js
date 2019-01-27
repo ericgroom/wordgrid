@@ -8,6 +8,7 @@ class User extends Model {
   static get relationMappings() {
     const Game = require("./Game");
     const Word = require("./Word");
+    const Lobby = require("./Lobby");
     return {
       games: {
         relation: Model.ManyToManyRelation,
@@ -28,6 +29,14 @@ class User extends Model {
         join: {
           from: "users.id",
           to: "words.user_id"
+        }
+      },
+      lobby: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Lobby,
+        join: {
+          from: "users.lobby_id",
+          to: "lobbies.id"
         }
       }
     };
